@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>研究誠信 AI 小助理 - 總入口頁</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f7f9fa;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    p {
+      font-size: 1.2rem;
+    }
+    a {
+      display: inline-block;
+      margin: 1rem;
+      padding: 1rem 2rem;
+      background-color: #2d9cdb;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+    a:hover {
+      background-color: #2384b8;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 研究誠信 AI 小助理</h1>
+  <p>這是一個幫助研究者與學生內化臺灣研究誠信守則的互動型 AI 工具。</p>
+  <p>請選擇下列入口進入使用：</p>
+
+  <a href="https://chatgpt.com/g/g-67f54c625b508191bda9133eed56f098-kai-xi-yan-jiu-cheng-xin-ai-xiao-zhu-li" target="_blank">
+    立即使用 研究誠信 AI bot
+  </a>
+
+  <a href="./RIbot-privacy.html" target="_blank">
+    研究誠信 AI 小助理隱私權政策
+  </a>
+
+  <p style="margin-top:2rem; font-size: 0.9rem; color: #777;">
+    建置者：cathyfaery｜2025<br />
+    如有問題請聯絡：cathyfaery@gmail.com
+  </p>
+</body>
+</html>
