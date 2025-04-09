@@ -1,2 +1,2 @@
-# juju
-juju-test
+# 研究誠信 AI 小助理
+隱私權政策
