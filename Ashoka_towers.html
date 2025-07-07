@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>阿育王舍利地圖</title>
+  <meta name="viewport" content="width=640, initial-scale=1">
+  <style>
+    body {
+      background: #f5f6fa;
+      font-family: "Noto Sans TC", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .intro-card, .card {
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      padding: 32px 24px;
+      max-width: 720px;
+      width: 100%;
+      box-sizing: border-box;
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    .intro-card {
+      text-align: center;
+      font-size: 1.2em;
+      color: #3d4b5a;
+      letter-spacing: 1px;
+      line-height: 1.7;
+    }
+    .card-title {
+      font-size: 2em;
+      margin-bottom: 20px;
+      color: #2d3a4b;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+    .map-container {
+      width: 100%;
+      height: 0;
+      padding-bottom: 75%;
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    }
+    .map-container iframe {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    @media (max-width: 680px) {
+      .intro-card, .card {
+        padding: 12px 6px;
+      }
+      .card-title {
+        font-size: 1.25em;
+      }
+      .map-container {
+        padding-bottom: 66%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="intro-card">
+    《大唐西域記．卷一》釋迦如來滅度之後，阿育王遵佛遺教，取八塔真身舍利，分為八萬四千，遍於天下建塔供養。
+  </div>
+  <div class="card">
+    <div class="card-title">阿育王舍利地圖</div>
+    <div class="map-container">
+      <iframe src="https://www.google.com/maps/d/embed?mid=1wiiaH0G6M1fEy0OftYkKkeey6pB7PHo&ehbc=2E312F" allowfullscreen></iframe>
+    </div>
+  </div>
+</body>
+</html>
