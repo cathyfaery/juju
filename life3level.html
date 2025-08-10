@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>從布施波羅蜜走入龍樹三諦 · 夜讀筆記｜靜觀生活中的中道</title>
+  <style>
+    :root{
+      --bg:#0f1220;           /* 靜夜深藍 */
+      --paper:#161a2b;        /* 書頁藍灰 */
+      --ink:#eef2ff;          /* 柔白字色 */
+      --ink-dim:#c7cbe6;      /* 次要字色 */
+      --accent:#93c5fd;       /* 靛藍重點 */
+      --accent-2:#a7f3d0;     /* 青綠重點 */
+      --gold:#fcd34d;         /* 溫金點綴 */
+    }
+    html,body{height:100%}
+    body{
+      margin:0;
+      background: radial-gradient(1200px 800px at 70% -10%, #1b2040 0%, var(--bg) 60%);
+      color:var(--ink);
+      font: 17px/1.9 "Noto Serif TC", "Songti TC", "PingFang TC", serif;
+      letter-spacing:.02em;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+    .wrap{
+      max-width: 920px; margin: 0 auto; padding: 6rem 1.25rem 5rem;
+    }
+    header{ text-align:center; margin-bottom: 2.5rem; }
+    .eyebrow{ color:var(--accent-2); font-size:.95rem; letter-spacing:.15em; text-transform:uppercase; }
+    h1{ margin:.4rem 0 0; font-size: clamp(1.8rem, 2.8vw, 2.35rem); line-height:1.25; }
+    .subtitle{ color:var(--ink-dim); margin-top:.35rem; font-size:1.05rem; }
+
+    section{ background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,0));
+      border:1px solid rgba(255,255,255,.06); border-radius:20px; padding: 1.3rem 1.25rem; margin: 1.1rem 0 1.3rem;
+      box-shadow: 0 10px 24px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.04);
+    }
+
+    h2{ font-size:1.3rem; margin:0 0 .6rem; }
+    h3{ font-size:1.05rem; margin:1rem 0 .3rem; color:var(--accent); }
+    p{ margin:.6rem 0; }
+
+    .quote{ border-left:3px solid var(--accent); padding-left:.9rem; margin:.8rem 0; color:var(--ink-dim); }
+    .muted{ color:var(--ink-dim); }
+
+    .grid{ display:grid; grid-template-columns: 1.2fr .9fr; gap:1rem; align-items:center; }
+    @media (max-width: 860px){ .grid{ grid-template-columns: 1fr; } }
+
+    figure{ margin: .3rem 0; text-align:center; }
+    figcaption{ font-size:.92rem; color:var(--ink-dim); margin-top:.5rem; }
+
+    .card{ background:var(--paper); border-radius:16px; padding:1rem; border:1px solid rgba(255,255,255,.07); }
+
+    /* 三諦示意：Venn 圖形 SVG 區塊 */
+    .diagram{ display:flex; justify-content:center; align-items:center; padding:1rem 0 0; }
+    .legend{ display:flex; gap:.8rem; justify-content:center; margin-top:.4rem; flex-wrap:wrap; }
+    .legend span{ display:inline-flex; align-items:center; gap:.45rem; font-size:.92rem; color:var(--ink-dim); }
+    .dot{ width:.85rem; height:.85rem; border-radius:999px; display:inline-block; }
+
+    /* 小註腳 */
+    .footer{ color:var(--ink-dim); font-size:.9rem; text-align:center; margin-top:2.2rem; }
+
+    /* 首字下沉效果，增添文學感 */
+    .dropcap:first-letter{
+      float:left; font-size:2.45rem; line-height:1; padding:.2rem .45rem .2rem 0; color:var(--gold);
+      text-shadow: 0 2px 0 rgba(0,0,0,.25);
+    }
+
+    /* 小標籤 */
+    .tag{ display:inline-block; padding:.12rem .5rem; border:1px solid rgba(255,255,255,.16); border-radius:999px; font-size:.82rem; color:var(--ink-dim); margin-right:.4rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">夜讀筆記 · 靜觀生活中的中道</div>
+      <h1>從布施波羅蜜走入龍樹三諦</h1>
+      <p class="subtitle">用一種有文學、帶溫度的方式，輕輕打開佛經裡的緣起、性空、與中道</p>
+    </header>
+
+    <section class="card">
+      <h2>導言</h2>
+      <p class="dropcap">翻開《大智度論》，龍樹不從玄遠處起筆，而是帶我們走到最貼身的地方——「布施」。給出一杯水、一句話，一次靜靜的陪伴，便是行於道上。從這一念願意，逐步照見緣起、性空，終至中道。</p>
+    </section>
+
+    <section>
+      <h2>三諦示意圖</h2>
+      <div class="diagram">
+        <!-- 交疊圓：俗諦 / 真諦 / 中道（重疊區） -->
+        <svg width="480" height="280" viewBox="0 0 480 280" role="img" aria-label="三諦示意：俗諦、真諦交疊為中道">
+          <defs>
+            <radialGradient id="g1" cx="50%" cy="50%" r="70%">
+              <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.25" />
+              <stop offset="100%" stop-color="#60a5fa" stop-opacity="0.06" />
+            </radialGradient>
+            <radialGradient id="g2" cx="50%" cy="50%" r="70%">
+              <stop offset="0%" stop-color="#34d399" stop-opacity="0.25" />
+              <stop offset="100%" stop-color="#34d399" stop-opacity="0.06" />
+            </radialGradient>
+          </defs>
+          <g>
+            <circle cx="190" cy="140" r="105" fill="url(#g1)" stroke="#60a5fa" stroke-opacity=".35" />
+            <circle cx="290" cy="140" r="105" fill="url(#g2)" stroke="#34d399" stroke-opacity=".35" />
+            <text x="160" y="90" fill="#93c5fd" font-size="16">俗諦</text>
+            <text x="330" y="90" fill="#a7f3d0" font-size="16">真諦</text>
+            <text x="226" y="150" fill="#fcd34d" font-size="16">中道</text>
+          </g>
+        </svg>
+      </div>
+      <div class="legend">
+        <span><i class="dot" style="background:#60a5fa"></i>緣起即因果（俗諦）</span>
+        <span><i class="dot" style="background:#34d399"></i>緣起即性空（真諦）</span>
+        <span><i class="dot" style="background:#fcd34d"></i>不離緣起見性空 · 不離性空行緣起（中道）</span>
+      </div>
+      <p class="quote">「眾因緣生法，我說即是空；亦為是假名，亦是中道義。」——《中論》</p>
+    </section>
+
+    <section class="grid">
+      <div>
+        <h2>一、從布施看緣起（俗諦）</h2>
+        <p>布施是因，眾生的需要是緣，兩者相遇，果便顯現。因緣果報，不是玄學，而是你每天都在播種、也必定會收穫的生活實相。</p>
+        <h3>生活應用</h3>
+        <ul>
+          <li><span class="tag">家庭</span>一句感謝，是愛的因緣。</li>
+          <li><span class="tag">職場</span>一次真心幫忙，是信任的因緣。</li>
+          <li><span class="tag">社會</span>一個微笑，是善意的因緣。</li>
+        </ul>
+        <p class="muted">《中論》開篇讚「能說是因緣，善滅諸戲論」：理解因緣，便不再落入妄想詮釋。</p>
+      </div>
+      <figure class="card">
+        <svg width="100%" height="220" viewBox="0 0 520 220" role="img" aria-label="地鐵讓座插圖">
+          <rect x="0" y="0" width="520" height="220" rx="14" fill="#111427" />
+          <g opacity=".9">
+            <circle cx="140" cy="100" r="46" fill="#30415c"/>
+            <circle cx="220" cy="110" r="38" fill="#2b3550"/>
+            <circle cx="320" cy="118" r="44" fill="#2a3a63"/>
+            <rect x="60" y="150" width="400" height="6" rx="3" fill="#2d3756"/>
+          </g>
+          <text x="260" y="200" fill="#93c5fd" font-size="14" text-anchor="middle">在日常裡播種因與緣</text>
+        </svg>
+        <figcaption>地鐵上一個讓座的微笑，往往能改變一天的心情。</figcaption>
+      </figure>
+    </section>
+
+    <section class="grid">
+      <div>
+        <h2>二、從布施看性空（真諦）</h2>
+        <p>若只停在「我給了你」，心仍被功德與回報牽引。三輪體空——不執「我」、不執「你」、不執「物」——讓布施變得清涼而自由。</p>
+        <h3>生活應用</h3>
+        <ul>
+          <li><span class="tag">親子</span>幫助孩子，不為回報，只為他成長。</li>
+          <li><span class="tag">修行</span>付出努力，不焦求成果，安心當下。</li>
+          <li><span class="tag">人際</span>送出禮物，不附加條件，關係更自在。</li>
+        </ul>
+        <p class="muted">「眾因緣生法，我說即是空」——空不是否定，而是看見：一切皆因緣，無自性可執。</p>
+      </div>
+      <figure class="card">
+        <svg width="100%" height="220" viewBox="0 0 520 220" role="img" aria-label="街頭發餐插圖">
+          <rect x="0" y="0" width="520" height="220" rx="14" fill="#111427" />
+          <g>
+            <rect x="40" y="60" width="440" height="80" rx="10" fill="#1a2240"/>
+            <rect x="60" y="80" width="120" height="40" rx="8" fill="#2d3a6b"/>
+            <rect x="200" y="80" width="120" height="40" rx="8" fill="#2a3f5c"/>
+            <rect x="340" y="80" width="120" height="40" rx="8" fill="#274157"/>
+          </g>
+          <text x="260" y="170" fill="#a7f3d0" font-size="14" text-anchor="middle">三輪體空 · 清涼自在</text>
+        </svg>
+        <figcaption>不著名與利，善意更能穿透人心。</figcaption>
+      </figure>
+    </section>
+
+    <section class="grid">
+      <div>
+        <h2>三、從布施看中道（第一義諦）</h2>
+        <p>中道，是緣起與性空的當下圓融：因果不虛，所以盡力而為；當體即空，所以不執著果。行與放下之間，自帶安穩。</p>
+        <h3>生活應用</h3>
+        <ul>
+          <li><span class="tag">衝突</span>不急爭輸贏，先看彼此的因緣背景。</li>
+          <li><span class="tag">抉擇</span>不固著單一立場，為轉圜留下空間。</li>
+          <li><span class="tag">成就</span>不被「我做到了」所縛，也不否定努力。</li>
+        </ul>
+        <p class="muted">「亦為是假名，亦是中道義」——不離緣起見空，不離性空行緣起。</p>
+      </div>
+      <figure class="card">
+        <svg width="100%" height="220" viewBox="0 0 520 220" role="img" aria-label="園丁澆灌插圖">
+          <rect x="0" y="0" width="520" height="220" rx="14" fill="#111427" />
+          <g>
+            <circle cx="110" cy="110" r="42" fill="#28405e"/>
+            <rect x="160" y="88" width="240" height="44" rx="10" fill="#2a3a51"/>
+            <circle cx="430" cy="110" r="28" fill="#2d4a63"/>
+          </g>
+          <text x="260" y="185" fill="#fcd34d" font-size="14" text-anchor="middle">盡力而為 · 輕鬆放下</text>
+        </svg>
+        <figcaption>澆水、除草、耐心等候：行而不執，即是中道的樣子。</figcaption>
+      </figure>
+    </section>
+
+    <section class="card">
+      <h2>結語｜夜讀的回聲</h2>
+      <p>緣起，是你願意行動；性空，是你不被執著束縛；中道，是你在兩者之間輕盈地走。</p>
+      <p>當布施成為你的生活方式，你會發現：善意原來如此安定，心也因此明淨。與世界相處，不必用力，因為每一步都落在道上。</p>
+    </section>
+
+    <p class="footer">以《大智度論》為燈，以《中論》為鏡。願此頁，在你的夜裡，留下一點溫暖的光。</p>
+  </div>
+</body>
+</html>
