@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>佛法真義：自序｜凱西導讀（RWD大字版）</title>
+  <meta name="description" content="以星雲大師《佛法真義‧自序》為本，導讀者一句話帶動＋原文摘句＋生活提問。長者友善、手機/平板/桌機皆適讀。" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    /* ====== 字體與排版基準（長者友善） ====== */
+    :root{
+      /* 使用相對倍率調整整站字級（JS 會改這個值） */
+      --font-scale: 1;
+      /* 內文字體大小：手機略大，桌面不過大；再乘上倍率 */
+      --text-size: calc(var(--font-scale) * clamp(18px, 2.5vw, 21px));
+      /* 行距：預設 1.9，切換時會加寬 */
+      --line-height: 1.9;
+      /* 主要容器寬度，限制字行長度（以字元數為主） */
+      --content-width: 72ch;
+      --radius: 16px;
+      --shadow: 0 6px 18px rgba(0,0,0,.06);
+      --gap: clamp(14px, 2.2vw, 18px);
+
+      /* 色彩（淺色基準） */
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --brand: #0ea5e9; /* 天藍 */
+      --brand-ink: #075985;
+
+      /* 高對比模式覆蓋（.high-contrast 會套用） */
+      --hc-bg: #000000;
+      --hc-card: #111111;
+      --hc-text: #ffffff;
+      --hc-muted: #d1d5db;
+      --hc-brand: #22d3ee;
+      --hc-brand-ink: #a5f3fc;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0b1220;
+        --card: #0f172a;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --brand: #38bdf8;
+        --brand-ink: #a5f3fc;
+        --shadow: 0 8px 24px rgba(0,0,0,.35);
+      }
+    }
+
+    /* 高對比模式（手動切換） */
+    body.high-contrast{
+      --bg: var(--hc-bg);
+      --card: var(--hc-card);
+      --text: var(--hc-text);
+      --muted: var(--hc-muted);
+      --brand: var(--hc-brand);
+      --brand-ink: var(--hc-brand-ink);
+      --shadow: 0 0 0 rgba(0,0,0,0);
+    }
+
+    /* 行距加寬（手動切換） */
+    body.relaxed{
+      --line-height: 2.1;
+    }
+
+    /* 全站排版 */
+    html, body{
+      padding:0; margin:0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    a{ color: var(--brand); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+
+    .skip-link{
+      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+    }
+    .skip-link:focus{
+      position: fixed; left: 12px; top: 12px; width: auto; height: auto;
+      background: var(--brand); color:#000; padding: 10px 14px; border-radius: 10px; z-index: 9999;
+      outline: 3px solid var(--brand-ink);
+    }
+
+    header.site{
+      position: sticky; top:0; z-index: 50;
+      backdrop-filter: saturate(1.1) blur(8px);
+      background: color-mix(in oklab, var(--bg) 90%, transparent);
+      border-bottom: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
+    }
+    .wrap{
+      max-width: min(100% - 24px, var(--content-width));
+      margin-inline: auto;
+      padding: clamp(10px, 1.6vw, 16px);
+    }
+    .brand{
+      display:flex; align-items:center; gap: .75rem; flex-wrap: wrap;
+    }
+    .brand h1{
+      font-size: clamp(22px, 3.6vw, 30px);
+      margin: 0;
+      letter-spacing: .02em;
+    }
+    .brand small{
+      color: var(--muted);
+      font-size: clamp(12px, 2.2vw, 14px);
+    }
+
+    /* 控制列（大按鈕） */
+    .controls{
+      display:flex; flex-wrap:wrap; gap: .5rem; margin-top: .5rem;
+    }
+    .controls button{
+      font: inherit;
+      padding: .6rem .9rem;
+      border-radius: 12px;
+      border: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
+      background: var(--card);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      min-width: 3.2rem;
+      touch-action: manipulation;
+    }
+    .controls button[aria-pressed="true"]{
+      background: var(--brand); color:#001018; border-color: transparent;
+      outline-offset: 2px;
+    }
+
+    main{
+      padding-block: clamp(12px, 2.2vw, 18px) clamp(36px, 4.5vw, 54px);
+    }
+
+    .hero{
+      background: linear-gradient(180deg, color-mix(in oklab, var(--brand) 18%, transparent), transparent);
+      border-radius: var(--radius);
+      padding: clamp(14px, 2.2vw, 18px);
+      box-shadow: var(--shadow);
+    }
+    .hero h2{
+      font-size: clamp(22px, 3.8vw, 30px);
+      margin: 0 0 .2em;
+    }
+    .hero p{ margin: .5em 0 0; color: var(--brand-ink); }
+
+    /* 內容卡片 */
+    .card{
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: clamp(16px, 2.4vw, 22px);
+      margin-block: clamp(14px, 2vw, 18px);
+    }
+    h3{
+      font-size: clamp(20px, 3.2vw, 26px);
+      margin: 0 0 .4em;
+      letter-spacing: .01em;
+    }
+    .lead{
+      font-weight: 700;
+      margin: 0 0 .6em;
+    }
+    .quote{
+      margin: .6em 0;
+      padding: .8em 1em;
+      border-left: 4px solid var(--brand);
+      background: color-mix(in oklab, var(--brand) 8%, transparent);
+      border-radius: 8px;
+    }
+    .quote p{ margin: .2em 0; }
+    .muted{ color: var(--muted); }
+
+    .q{
+      margin-top: .8em;
+      padding: .8em 1em;
+      background: color-mix(in oklab, var(--text) 6%, transparent);
+      border-radius: 10px;
+    }
+
+    ul.kr{ padding-left: 1.2em; margin: .4em 0 0; }
+    ul.kr li{ margin: .2em 0; }
+
+    footer.site{
+      border-top: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
+      color: var(--muted);
+      padding-block: 24px;
+      font-size: .92em;
+    }
+
+    /* 大觸控區 */
+    button, a, summary{
+      min-height: 44px; min-width: 44px;
+    }
+
+    /* 列印優化 */
+    @media print{
+      header.site, .controls{ display:none !important; }
+      .card{ break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主內容</a>
+
+  <header class="site">
+    <div class="wrap">
+      <div class="brand">
+        <h1>佛法真義：自序｜導讀者小抄</h1>
+        <small>長者友善｜手機/平板/桌機自適應</small>
+      </div>
+
+      <div class="controls" role="group" aria-label="閱讀輔助">
+        <button data-size="1" aria-pressed="false" title="字級：標準">小</button>
+        <button data-size="1.15" aria-pressed="true" title="字級：稍大">中</button>
+        <button data-size="1.3" aria-pressed="false" title="字級：大">大</button>
+        <button data-size="1.5" aria-pressed="false" title="字級：特大">特大</button>
+        <button id="btnLine" aria-pressed="false" title="行距加寬">行距加寬</button>
+        <button id="btnHC" aria-pressed="false" title="高對比模式">高對比</button>
+        <span id="live" class="visually-hidden" aria-live="polite"></span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <section class="hero card">
+        <h2>用一句話帶動，帶大家走進佛法的本懷</h2>
+        <p class="muted">口吻取自星雲大師溫和而殷切的提醒：把錯解導回正見，把迷信引向人間，把抽象落在生活。</p>
+      </section>
+
+      <!-- 01 自知程度 -->
+      <article class="card">
+        <h3>1）先自知程度：我是麻雀、鴿子，還是老鷹？</h3>
+        <p class="lead">一句話帶動｜「佛法像大海、像虛空，你先量一量自己的翅膀，才好談飛多遠。」</p>
+        <div class="quote">
+          <p>「三鳥飛空，空無遠近，跡有遠近；三獸渡河，水無深淺，跡有深淺。」</p>
+          <p>「你是大象？是馬？還是兔子呢？…你應該自己要檢討。」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>面對工作或家庭難題時，我現在的「體力與見地」在哪一級？要先補哪一課，才談跨越？</div>
+      </article>
+
+      <!-- 02 苦的正解 -->
+      <article class="card">
+        <h3>2）「苦」是增上力：不是悲觀，而是鍛鍊</h3>
+        <p class="lead">一句話帶動｜「吃得苦中苦，是為了長力量、長智慧，不是為了喊苦。」</p>
+        <div class="quote">
+          <p>「苦能增上、能堅強…就等於讀書人，也要十載寒窗才能金榜題名。」</p>
+          <p>「現在…見到人就喊：『苦啊！不要活了。』失去了…超越苦、解脫苦的意義。」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>最近的一件「苦事」，我能把它改名為哪一種「訓練」？下一步要練什麼？</div>
+      </article>
+
+      <!-- 03 回到本懷：空與無常 -->
+      <article class="card">
+        <h3>3）回到佛法本懷：「空」是建設，「無常」是希望</h3>
+        <p class="lead">一句話帶動｜「把空講對、把無常講活，人生就有空間、有前途。」</p>
+        <div class="quote">
+          <p>「『空』是有建設性的，空了才會有…你腸胃不空，又怎麼能活下去？」</p>
+          <p>「『無常』…可以改變自己，可以再進步…是給予佛教徒學習中道的希望。」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>我家的「空」可以創造什麼？時間的「無常」又能幫我改掉哪個舊習？</div>
+      </article>
+
+      <!-- 4 人間向度 -->
+      <article class="card">
+        <h3>4）佛法向人間：不要用恐嚇，請用嚮往</h3>
+        <p class="lead">一句話帶動｜「別用地獄嚇人，用天堂的美好，喚起向上。」</p>
+        <div class="quote">
+          <p>「天堂地獄，是供給我們…勉勵自己昇華…為什麼不能用天堂的美好來讓人家嚮往呢？」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>在公司、在家裡，我能描述一個「更好的樣子」，讓夥伴願意一起往前嗎？</div>
+      </article>
+
+      <!-- 5 正信正見：六度四攝 -->
+      <article class="card">
+        <h3>5）正信正見：六度要自己做，不是拿來要求別人</h3>
+        <p class="lead">一句話帶動｜「布施兩字，先從『我來給』做起。」</p>
+        <div class="quote">
+          <p>「『布施』…可以給人一句話、一個笑容、一些服務…不是光叫人家來給我們。」</p>
+          <p>「六祖…說『成道非由施錢』。」</p>
+        </div>
+        <ul class="kr">
+          <li>今天我能布施的：一句善語／一個幫忙／一次讓座。</li>
+        </ul>
+        <div class="q"><strong>生活提問｜</strong>我最容易做到的「六度哪一度」是什麼？這週就先做一件。</div>
+      </article>
+
+      <!-- 6 因果與常識 -->
+      <article class="card">
+        <h3>6）因果要正確：不要把善行做成惡果</h3>
+        <p class="lead">一句話帶動｜「求長壽的放生，不該變成捕捉的助力。」</p>
+        <div class="quote">
+          <p>「不當的放生，反而成了殺生的愚行…捉放之間不知死了多少。」</p>
+          <p>「發財有發財的因果，健康有健康的因果…種瓜怎麼要求得豆？」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>我做善事前，能不能多想一步：會不會造成別人的困擾或傷害？</div>
+      </article>
+
+      <!-- 7 還佛於人間 -->
+      <article class="card">
+        <h3>7）還佛於人間：佛是覺者，不是神話</h3>
+        <p class="lead">一句話帶動｜「把迷信的外衣脫掉，讓佛陀回到真實的人間。」</p>
+        <div class="quote">
+          <p>「佛陀是最偉大的…他是人間的覺者…是真真實實的，他是人，不是…神明、神仙。」</p>
+          <p>「可憐的佛陀…披上了多少迷信的外衣、神鬼的面具。」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>當孩子或同事問我佛教時，我能用「歷史可考、行動可做」的語言來介紹嗎？</div>
+      </article>
+
+      <!-- 8 語言文化：八正道 -->
+      <article class="card">
+        <h3>8）把好詞用回正道：八正道不是「胡說八道」</h3>
+        <p class="lead">一句話帶動｜「語言要回正，觀念才不偏。」</p>
+        <div class="quote">
+          <p>「佛教講的『八正道』…我們卻把它變成罵人的話『胡說八道』。」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>我常說的哪句口頭禪，其實在貶抑正向概念？今天開始換句話說。</div>
+      </article>
+
+      <!-- 9 戒律與平等 -->
+      <article class="card">
+        <h3>9）平等與現代價值：三皈民主、五戒自由</h3>
+        <p class="lead">一句話帶動｜「佛法的平等，要和今天的自由民主接上線。」</p>
+        <div class="quote">
+          <p>「佛陀倡導平等…佛教三皈依的精神是『民主』，五戒的意義是『自由』…為什麼不把這樣美好的佛法，與今天…普世價值，合而為一呢？」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>我在家中／職場，有沒有做到尊重與平等？下一次會議，我可以怎樣讓沉默的人也被聽見？</div>
+      </article>
+
+      <!-- 10 大師心願 -->
+      <article class="card">
+        <h3>10）大師的心願：正本清源，再結集</h3>
+        <p class="lead">一句話帶動｜「請大家一起把佛法的價值重新估定，還它本來面目。」</p>
+        <div class="quote">
+          <p>「希望有志者，來為佛教重新做一次結集，正本清源…希望大家對佛法的真義要重新估定價值。」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>我能從哪一個誤解開始，做一次「小小更正」？例如：把『空』說清、把『苦』說活。</div>
+      </article>
+
+      <!-- 附錄：一個正語的小故事 -->
+      <article class="card">
+        <h3>附錄）正語帶來的生意與信任</h3>
+        <p class="lead">一句話帶動｜「與其怕妄語，不如勇敢學『正語』。」</p>
+        <div class="quote">
+          <p>「與其擔心妄語，不如鼓勵可以正語…『五塊錢的會褪色，另外有個八塊錢的不褪色。』…因為誠信，不妄語，讓他生意興隆。」</p>
+        </div>
+        <div class="q"><strong>生活提問｜</strong>今天我能把哪一句「推諉」改成「親口感謝」？把哪一句「模糊」改成「清楚交代」？</div>
+      </article>
+
+      <section class="card">
+        <p class="muted">註：以上原文摘句出自《星雲大師全集：佛法真義‧自序》。本頁僅做讀書會導讀用途。</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <p>© 星雲大師佛法真義讀書會｜依星雲大師原意，回到人間佛教的實踐－凱西導讀。</p>
+    </div>
+  </footer>
+
+  <script>
+    // ====== 易讀控制：字級 / 行距 / 高對比，並記住設定 ======
+    (function(){
+      const root = document.documentElement;
+      const body = document.body;
+      const sizeBtns = document.querySelectorAll('.controls button[data-size]');
+      const btnHC = document.getElementById('btnHC');
+      const btnLine = document.getElementById('btnLine');
+      const live = document.getElementById('live');
+
+      // 讀取已儲存設定
+      const savedScale = localStorage.getItem('fontScale') || '1.15';
+      const savedHC = localStorage.getItem('highContrast') === '1';
+      const savedRelaxed = localStorage.getItem('relaxedLine') === '1';
+
+      root.style.setProperty('--font-scale', savedScale);
+      sizeBtns.forEach(b=>{
+        b.setAttribute('aria-pressed', b.dataset.size === savedScale ? 'true' : 'false');
+      });
+
+      if(savedHC) {
+        body.classList.add('high-contrast');
+        btnHC.setAttribute('aria-pressed','true');
+      }
+      if(savedRelaxed) {
+        body.classList.add('relaxed');
+        btnLine.setAttribute('aria-pressed','true');
+      }
+
+      // 字級切換
+      sizeBtns.forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+          const scale = btn.dataset.size;
+          root.style.setProperty('--font-scale', scale);
+          localStorage.setItem('fontScale', scale);
+          sizeBtns.forEach(b=>b.setAttribute('aria-pressed','false'));
+          btn.setAttribute('aria-pressed','true');
+          announce(`字級已設定為 ${btn.textContent}`);
+        });
+      });
+
+      // 高對比
+      btnHC.addEventListener('click', ()=>{
+        const on = !body.classList.contains('high-contrast');
+        body.classList.toggle('high-contrast', on);
+        btnHC.setAttribute('aria-pressed', on ? 'true':'false');
+        localStorage.setItem('highContrast', on ? '1':'0');
+        announce(on ? '已開啟高對比模式' : '已關閉高對比模式');
+      });
+
+      // 行距
+      btnLine.addEventListener('click', ()=>{
+        const on = !body.classList.contains('relaxed');
+        body.classList.toggle('relaxed', on);
+        btnLine.setAttribute('aria-pressed', on ? 'true':'false');
+        localStorage.setItem('relaxedLine', on ? '1':'0');
+        announce(on ? '已加寬行距' : '已恢復行距');
+      });
+
+      function announce(msg){
+        if(!live) return;
+        live.textContent = '';
+        setTimeout(()=>{ live.textContent = msg; }, 50);
+      }
+    })();
+  </script>
+</body>
+</html>
