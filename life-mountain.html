@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>見山又是山 —— 從執著到自在的三個階段</title>
+  <meta name="description" content="給大眾閱讀的開放頁面：見山是山／見山不是山／見山又是山。以生活語氣、可對照的覺察指引，幫助誠實看見自我防衛與轉心之道。" />
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root {
+      --bg: #0b1015;
+      --elev-1: #111821;
+      --elev-2: #0e141b;
+      --text: #e7edf5;
+      --muted: #a8b3c5;
+      --brand: #59c3c3;
+      --brand-2: #b8e1dd;
+      --accent: #fac863;
+      --ok: #87d37c;
+      --warn: #ffb169;
+      --danger: #ff6b6b;
+      --card: #121922;
+      --border: #223046;
+      --shadow: 0 10px 30px rgba(0,0,0,.25);
+      --radius: 16px;
+      --font-body: "Noto Serif CJK TC","Noto Serif TC",ui-serif,serif;
+      --font-ui: system-ui,-apple-system,Segoe UI,Roboto,"Noto Sans CJK TC","Noto Sans TC","PingFang TC","Microsoft JhengHei",Arial,sans-serif;
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg:#f7f8fb; --elev-1:#ffffff; --elev-2:#f0f4fa;
+        --text:#1a2530; --muted:#617185; --card:#ffffff;
+        --border:#e6ecf5; --shadow:0 10px 30px rgba(10,20,40,.08);
+      }
+    }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-ui);
+      line-height: 1.75;
+    }
+    .wrap { width: min(85vw, 1200px); margin: 0 auto; padding: 0 20px; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      backdrop-filter: saturate(140%) blur(8px);
+      background: color-mix(in oklab, var(--bg) 80%, transparent);
+      border-bottom: 1px solid var(--border);
+    }
+    .topbar { display: flex; gap: 14px; align-items: center; padding: 12px 0; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+    .logo {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: linear-gradient(135deg,var(--brand),var(--brand-2));
+      box-shadow: var(--shadow);
+    }
+    nav { margin-left: auto; display: flex; gap: 14px; flex-wrap: wrap; }
+    nav a { color: var(--muted); text-decoration: none; font-weight: 500; }
+    nav a:hover { color: var(--text); }
+
+    .hero {
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -20% -10% auto -10%;
+      height: 260px;
+      background:
+        radial-gradient(800px 280px at 50% 100%, color-mix(in oklab,var(--brand) 35%, transparent), transparent 70%),
+        radial-gradient(900px 300px at 20% 100%, color-mix(in oklab,var(--accent) 35%, transparent), transparent 70%);
+      opacity: .15; pointer-events: none; filter: blur(8px);
+    }
+    .hero .wrap { padding: 56px 20px; }
+    h1 {
+      font-family: var(--font-body);
+      font-weight: 800;
+      line-height: 1.2;
+      margin: 0 0 12px;
+    }
+    .subtitle { color: var(--muted); max-width: 60ch; }
+    .cta-row { display: flex; gap: 12px; margin-top: 16px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 10px 14px; border-radius: 12px;
+      border: 1px solid var(--border);
+      text-decoration: none; color: var(--text);
+      font-weight: 500; background: var(--elev-1);
+    }
+    .btn.primary {
+      background: linear-gradient(135deg,var(--brand),var(--brand-2));
+      color: #0c1218; border-color: transparent;
+    }
+    .btn:hover { filter: brightness(1.05); }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-top: 16px;
+    }
+    .inner { padding: 22px; }
+    section h2 {
+      font-family: var(--font-body);
+      font-size: 28px;
+      margin: 0 0 4px;
+    }
+    section p.lead { color: var(--muted); margin: 0 0 16px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; padding: 4px 10px; border-radius: 999px;
+      border: 1px solid var(--border); color: var(--muted);
+      background: var(--elev-2);
+    }
+    .badge .dot { width: 8px; height: 8px; border-radius: 50%; }
+    .b1 .dot { background: var(--accent); }
+    .b2 .dot { background: var(--warn); }
+    .b3 .dot { background: var(--ok); }
+    .call {
+      padding: 14px 16px;
+      border-radius: 12px;
+      border: 1px dashed var(--border);
+      background: color-mix(in oklab, var(--brand) 8%, transparent);
+    }
+    blockquote.quote {
+      margin: 20px 0;
+      padding: 14px 18px;
+      border-left: 4px solid var(--accent);
+      background: color-mix(in oklab, var(--accent) 10%, transparent);
+      font-family: var(--font-body);
+      font-style: italic;
+      border-radius: 8px;
+    }
+    footer { margin: 40px 0 80px; color: var(--muted); }
+    footer .wrap { padding-top: 24px; border-top: 1px solid var(--border); }
+    .progress {
+      position: fixed; top: 0; left: 0; height: 3px; width: 0;
+      background: linear-gradient(90deg, var(--brand), var(--accent));
+      z-index: 999;
+    }
+  </style>
+</head>
+
+<body>
+<div class="progress" id="progress"></div>
+
+<header>
+  <div class="wrap topbar">
+    <div class="brand"><div class="logo" aria-hidden="true"></div><span>見山又是山</span></div>
+    <nav>
+      <a href="#one">見山是山</a>
+      <a href="#two">見山不是山</a>
+      <a href="#three">見山又是山</a>
+      <a href="#practice">自我覺察練習</a>
+      <a href="#about">關於此頁</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>人生的三重風景</h1>
+    <p>從「我以為」到「我看見」的三重心路：<br>「把擁有當安全感」，到「看破後的空洞」，再到「自在地面對一切」，幫助在生活裡誠實轉心。<br>這一份溫柔卻誠實的閱讀頁，協助我們撕開自我美化，學會在當下轉心。</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#one">開始自我檢視</a>
+      <a class="btn" href="#map">快速對照表</a>
+    </div>
+  </div>
+</section>
+
+<main class="wrap" id="content">
+  <!-- 第一層 -->
+  <section id="one" class="card">
+    <div class="inner">
+      <span class="badge b1"><span class="dot"></span> 第一層</span>
+      <h2>見山是山：把「擁有」當成安全感</h2>
+        <p class="lead">在這一層，我們多半相信：只要努力到位、成就夠多，就能安心。於是把「擁有」與「被看見」當成自我價值的依靠。</p>
+        <p>這樣的信念給了我們方向，也同時築起牢籠。因為一旦結果不如預期，心就跟著崩塌。</p>
+        <p><strong>人容易自我美化：</strong>「我只是想把事情做好。」「我要求高，是為了讓團隊更好。」<br>然而，如果真是如此，為什麼當別人不照我們的想法走時，會生氣或失落？<br>那份反應，其實是在保護內心那個怕失敗、怕不被肯定的自己。</p>
+             <div class="call mt12"><strong>轉心關鍵：</strong>誠實地承認：我並不是單純「追求好」，我其實在害怕失敗與忽略。<br>承認之後，努力就能從「討好」轉為「發揮」。<br>價值不再綁在結果，而是回到自己能真實表現。</div>
+      <blockquote class="quote">「心若繫於成敗，眼裡只見自己；心若安於當下，萬物都在幫你。」</blockquote>
+    </div>
+  </section>
+
+  <!-- 第二層 -->
+  <section id="two" class="card">
+    <div class="inner">
+      <span class="badge b2"><span class="dot"></span> 第二層</span>
+      <h2>見山不是山：看破之後的空洞</h2>
+      <p class="lead">當努力過後發現，成就並沒有換來持久的快樂，許多人會說：「我看開了。」</p>
+        <p>然而，這句「看開」裡，常常藏著「我不想再受傷」。<br>不在乎，並不是因為真超然，而是因為怕再一次被否定。</p>
+        <p><strong>人容易自我美化：</strong>「我已經不執著了。」「我學會不期待，所以比較平靜。」<br>但若真如此，為什麼被忽略或誤解時，心裡仍悶著不甘？<br>這不是自在，而是防衛。</p>
+      <div class="call mt12"><strong>轉心關鍵：</strong><br>放下不是冷淡，而是恢復呼吸。<br>允許情緒流過，允許自己還會在意，但不再用「否定一切」來保護自己。<br>當心能再次柔軟，才有力量面對世界。</div>
+      <blockquote class="quote">「放下，不是丟棄，而是不再讓得失決定你的心。」</blockquote>
+    </div>
+  </section>
+
+  <!-- 第三層 -->
+  <section id="three" class="card">
+    <div class="inner">
+      <span class="badge b3"><span class="dot"></span> 第三層</span>
+      <h2>見山又是山：自在地面對一切</h2>
+      <p class="lead">走到這一層，山仍在、水仍流，生活沒有變，變的是心的眼睛。</p>
+        <p>我們依然行動、依然努力，但不再被成敗牽著跑。<br>成功時懂得感謝，失敗時也能學習，不再急著定義「我就是誰」。</p>
+        <p><strong>人容易自我美化：</strong>「我已經懂了，所以很自在。」<br>但若一句話仍能點燃怒氣或委屈，就代表自在還不夠真實。</p>
+
+      <div class="call mt12"><strong>轉心關鍵：</strong><br>自在不是沒有波瀾，而是波瀾來時，能看見它，不被帶走。<br>每一次被牽動，都是再一次練習。<br>這樣的心，不在「有」與「無」兩端，而是能在當下學習、在當下安住。</div>
+      <blockquote class="quote">「能動也能靜，能哭也能笑；不為遠方所迷，不為當下所困。」</blockquote>
+    </div>
+  </section>
+
+  <!-- 覺察練習 -->
+  <section id="practice" class="card">
+    <div class="inner">
+      <h2>自我覺察練習（5 分鐘）</h2>
+      <p class="lead">找一件最近讓你掛心的事，按步驟寫下來。整個過程，不解釋、不合理化，單純誠實。</p>
+      <ol>
+        <li><strong>命名事件：</strong>用一句話寫下「什麼事讓我放不下？」</li>
+        <li><strong>看見情緒：</strong>此刻的主要情緒是什麼？（例：焦慮、憤怒、羞愧、失望）</li>
+        <li><strong>拆解需求：</strong>這件事背後，我其實在渴望什麼？（被看見、安全感、掌控感、被認同）</li>
+        <li><strong>點破合理化：</strong>我用了哪些漂亮理由保護自己？把句子寫下來，再在旁邊寫「其實我在怕什麼」。</li>
+        <li><strong>一個小步驟：</strong>今晚或明天，我願意做什麼「很小但真實」的行動？（打個電話、道歉、說清需求、好好睡覺）</li>
+      </ol>
+      <div class="call mt12"><strong>提醒：</strong>練習的目的不是變完美，而是變誠實。誠實會讓人更自由。</div>
+    </div>
+  </section>
+
+  <!-- 關於 -->
+    <section id="about" class="card">
+      <div class="inner">
+        <h2>關於此頁</h2>
+        <p>人都會在這三重之間往返。
+<br>有時陷在「想要」的執著裡，
+有時卡在「放下」的空洞裡。
+
+<br>但真正的自由，不在兩端。
+它在中間——在那顆願意觀照的心裡。
+
+<br>山不曾動，是我們的心在變。
+當我們不再執著於「有」，
+也不逃避於「無」，
+一切都自然。
+
+<br>那時候，
+生命不再只是追尋或放棄，
+一如初衷的仍想把事情做好、讓關心的所在更好。
+<br>唯不再被順意或成敗牽著跑，而是清明而溫柔的前行。</p>
+      </div>
+    </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>© 2025 見山又是山 · 此頁可自由引用，請保留出處。</div>
+  </div>
+</footer>
+
+<script>
+  const prog = document.getElementById('progress');
+  const onScroll = () => {
+    const h = document.documentElement;
+    prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  };
+  document.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>
