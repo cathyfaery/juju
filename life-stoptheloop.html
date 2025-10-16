@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>在放不下裡，看見生命的流動｜分頁版＋極簡模式＋字級切換＋章節選單</title>
+<title>在放不下裡，看見生命的流動｜完整版（含結語動畫）</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#dfe8e1" />
 <style>
@@ -28,14 +28,13 @@
       radial-gradient(800px 520px at 90% -10%, var(--mint), transparent 60%),
       radial-gradient(620px 480px at -10% 20%, var(--sage), transparent 55%),
       var(--bg);
-    line-height:1.78; letter-spacing:.02em;
+    line-height:1.8; letter-spacing:.02em; font-size:17px;
   }
-  /* 字級切換（預設中等） */
-  body.fz-s{font-size:16px}
-  body:not(.fz-s):not(.fz-l){font-size:17px}
-  body.fz-l{font-size:19px}
+  body.fz-s{font-size:16px} body.fz-l{font-size:19px}
 
   .wrap{max-width:min(100%,980px); margin:0 auto;}
+
+  /* NAV + 工具 */
   .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
        background:color-mix(in oklab, var(--bg) 88%, transparent); border-bottom:1px solid var(--line);}
   .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:10px;
@@ -48,21 +47,21 @@
   .fontbox{display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:var(--card)}
   .fontbox button{border:none; padding:6px 10px; background:transparent; cursor:pointer; color:var(--link);}
   .fontbox button:hover{background:var(--mint)}
-  .fontbox button:focus-visible{outline:2px solid var(--link); outline-offset:2px;}
   .fontbox .sep{width:1px; background:var(--line);}
 
+  /* Header */
   header{padding:28px 16px 8px;}
   .hero{max-width:var(--measure); margin:0 auto;}
   .eyebrow{display:inline-flex; gap:8px; align-items:center; padding:5px 10px; background:var(--mint); color:#21584f; border-radius:999px; font-size:.95rem;}
   h1{font-size:clamp(22px,6vw,40px); line-height:1.28; margin:.7em 0 .35em;}
   .subtitle{color:var(--muted); font-size:clamp(15.5px,3.6vw,18px);}
 
+  /* Stage / Stepper */
   main{padding:12px 16px 88px;}
   .stage{max-width:var(--measure); margin:0 auto; background:var(--card); border:1px solid var(--line);
          border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
-  .stage-head{display:flex; align-items:center; gap:10px; padding:10px 12px;
-              background:linear-gradient(180deg, color-mix(in oklab, var(--mint) 18%, var(--card)), var(--card));
-              flex-wrap:wrap}
+  .stage-head{display:flex; align-items:center; gap:10px; padding:10px 12px; flex-wrap:wrap;
+              background:linear-gradient(180deg, color-mix(in oklab, var(--mint) 18%, var(--card)), var(--card));}
   .stage-title{font-weight:700; white-space:nowrap}
   .progress{flex:1; height:8px; min-width:120px; border-radius:999px; background:color-mix(in oklab, var(--sage) 40%, var(--card)); overflow:hidden;}
   .bar{height:100%; width:0%; background:var(--link); transition:width .3s ease;}
@@ -72,30 +71,67 @@
   .jump{margin-left:auto; display:flex; align-items:center; gap:6px;}
   select{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--fg);}
 
-  .page{display:none; padding:14px 16px 16px;}
+  .page{display:none; padding:14px 16px 20px;}
   .page.active{display:block;}
 
-  /* 三塊內容（完整模式） */
-  .k{background:linear-gradient(180deg, var(--sage), transparent 70%); border:1px dashed var(--line); padding:12px 14px; border-radius:12px; color:var(--soft);}
-  .ex{background:linear-gradient(180deg, var(--sand), transparent 60%); border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
-  .do{background:linear-gradient(180deg, var(--mint), transparent 65%); border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
-  .k h2,.ex h3,.do h3{margin:.2em 0 .3em;}
-  .k p,.ex p,.do p{margin:.6em 0;}
-  ul{margin:.4em 0 .2em 1.1em;}
-  li{margin:.25em 0;}
-
-  /* 極簡模式：只顯示 concise */
-  .concise{display:none; border:1px solid var(--line); border-radius:12px; padding:12px; background:linear-gradient(180deg, var(--rose), transparent 60%); }
+  /* 三塊內容（完整模式）與極簡模式 */
+  .k,.ex,.do,.concise{border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
+  .k{background:linear-gradient(180deg, var(--sage), transparent 70%);}
+  .ex{background:linear-gradient(180deg, var(--sand), transparent 60%);}
+  .do{background:linear-gradient(180deg, var(--mint), transparent 65%);}
+  .concise{display:none; background:linear-gradient(180deg, var(--rose), transparent 60%);}
   body.concise .k, body.concise .ex, body.concise .do{display:none}
   body.concise .concise{display:block}
 
+  /* 結語頁：動畫與光暈 */
+  .endpage{position:relative; overflow:hidden; border-radius:12px; padding:0;}
+  .endbg{
+    position:absolute; inset:-20% -10% -30% -10%; pointer-events:none; z-index:0;
+    opacity:.8;
+  }
+  .glow{position:absolute; border-radius:50%; filter:blur(30px); opacity:.55; transform:scale(1); }
+  .g1{width:700px; height:700px; left:-12%; top:-18%;
+      background:radial-gradient(closest-side, color-mix(in oklab, var(--mint) 90%, transparent), transparent 70%);}
+  .g2{width:520px; height:520px; right:-15%; bottom:-10%;
+      background:radial-gradient(closest-side, color-mix(in oklab, var(--sage) 88%, transparent), transparent 70%);}
+  .g3{width:380px; height:380px; left:15%; bottom:-8%;
+      background:radial-gradient(closest-side, color-mix(in oklab, var(--rose) 80%, transparent), transparent 70%);}
+
+  .endinner{position:relative; z-index:1; padding:18px 16px 24px;}
+  .endtext{line-height:1.95; font-size:1.06em;}
+  .endtext p{margin:.95em 0}
+
+  /* 動畫：淡入上移、光暈呼吸 */
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(12px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+  @keyframes breathe {
+    0%   { opacity:.45; transform:scale(0.98); }
+    50%  { opacity:.8;  transform:scale(1.04); }
+    100% { opacity:.45; transform:scale(0.98); }
+  }
+  /* 觸發條件：當第6頁成為 .active 時才播放 */
+  .page[data-title="六、結語"].active .endtext{
+    animation: fadeUp .8s ease-out both;
+  }
+  .page[data-title="六、結語"].active .glow{
+    animation: breathe 9s ease-in-out infinite;
+  }
+  .page[data-title="六、結語"].active .g2{ animation-duration: 11s; }
+  .page[data-title="六、結語"].active .g3{ animation-duration: 13s; }
+
+  /* 減少動效偏好 */
+  @media (prefers-reduced-motion: reduce){
+    *{animation: none !important; transition: none !important;}
+  }
+
+  /* Footer */
   .controls{display:flex; justify-content:space-between; gap:10px; padding:12px 14px; border-top:1px solid var(--line); background:var(--card);}
   .btn{display:inline-flex; align-items:center; gap:8px; border:none; border-radius:12px; padding:12px 14px; cursor:pointer; font-size:16px;}
   .btn.primary{background:var(--link); color:#fff;}
   .btn.secondary{background:var(--card); color:var(--link); border:1px solid var(--line);}
   .btn:disabled{opacity:.45; cursor:not-allowed;}
-  .btn:focus-visible{outline:2px solid var(--link); outline-offset:2px;}
-
   footer{max-width:var(--measure); margin:22px auto 56px; color:var(--muted); padding:0 16px; display:flex; justify-content:space-between; gap:8px; border-top:1px solid var(--line); padding-top:14px;}
   .top{color:var(--link); text-decoration:none; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card);}
   .top:hover{background:var(--mint)}
@@ -104,11 +140,9 @@
 <body class="fz-m">
 <nav class="nav" aria-label="工具列與主選單">
   <div class="nav-inner">
-    <div class="brand">心的流動 · 分頁＋極簡</div>
+    <div class="brand">心的流動 · 含結語動畫</div>
     <div class="tools" role="group" aria-label="閱讀工具">
-      <!-- 極簡切換 -->
       <button id="modeToggle" class="chip" aria-pressed="false" title="切換極簡/完整模式">極簡模式</button>
-      <!-- 字級切換 -->
       <div class="fontbox" aria-label="字級切換">
         <button id="fsSmall"  aria-label="小字級">A-</button>
         <div class="sep" aria-hidden="true"></div>
@@ -122,9 +156,9 @@
 
 <header class="wrap">
   <div class="hero">
-    <span class="eyebrow">清淡 · 靜心 · 溫柔引導</span>
+    <span class="eyebrow">靜心 · 與自心的對話與引導</span>
     <h1>在放不下裡，看見生命的流動</h1>
-    <p class="subtitle">一次看一頁，專注不負擔。可切換「極簡/完整」、調整字級，並用章節選單快速跳頁。</p>
+    <p class="subtitle">六個章節，從牽繫到流動。</p>
   </div>
 </header>
 
@@ -139,6 +173,7 @@
         <span class="dot" data-i="2" aria-label="第 3 頁"></span>
         <span class="dot" data-i="3" aria-label="第 4 頁"></span>
         <span class="dot" data-i="4" aria-label="第 5 頁"></span>
+        <span class="dot" data-i="5" aria-label="第 6 頁（結語）"></span>
       </div>
       <div class="jump">
         <label for="jumpSel" class="visually-hidden">章節跳轉</label>
@@ -148,17 +183,30 @@
           <option value="2">3｜關係像呼吸</option>
           <option value="3">4｜責任的新方向</option>
           <option value="4">5｜生命願意流動</option>
+          <option value="5">6｜結語</option>
         </select>
       </div>
     </div>
 
     <!-- Page 1 -->
     <div class="page active" data-title="一、我們都在關係裡被牽動">
-      <div class="concise"><b>重點：</b>放不下多半是深深的牽連。<br><b>例子：</b>最不捨的，是「還想再教一堂課的自己」。<br><b>行動：</b>寫下此刻我牽繫的是＿＿＿。</div>
-
+     
       <div class="k">
-        <h2>重點句</h2>
-        <p><strong>「放不下」多半不是執著，而是深深的牽連。</strong>來源可能是責任、承諾、照顧、使命，或一個還沒完成的心願。當我們太用力想守住、想補回、想再一次，心就會失去平衡。</p>
+        <h2>人的一生，總與許多生命交錯</h2>
+        <p><strong>「人的一生，總與許多生命交錯。
+父母、孩子、伴侶、朋友、同事……
+他們讓我們笑，也讓我們哭。
+
+有時候，我們以為「放不下」是執著，
+但其實，那是一種深深的牽連。
+那份牽連可能來自責任、承諾、照顧、虧欠，
+也可能是一種「還沒完成」的心願。
+
+這些都很真實。
+只是，我們常常太用力，
+想守住、想改變、想補回、想再一次。
+而就在那個「太用力」裡，
+我們反而與自己失去了平衡。</p>
       </div>
       <div class="ex">
         <h3>生活例子</h3>
@@ -167,28 +215,36 @@
       <div class="do">
         <h3>小練習</h3>
         <ul>
-          <li>寫下一句：此刻我牽繫的是「＿＿＿＿」。</li>
-          <li>問自己：這份用力，讓我更開闊？還是更狹窄？</li>
+          <li>問問自己，此刻我牽繫的是什麼？</li>
+          <li>再問自己：這份用力，讓我更開闊？還是更狹窄？</li>
         </ul>
       </div>
     </div>
 
     <!-- Page 2 -->
     <div class="page" data-title="二、緊密的關係，為何會讓人痛">
-      <div class="concise"><b>重點：</b>痛常來自想控制結果。<br><b>例子：</b>長照越扛越重，因為念頭太緊。<br><b>行動：</b>自問：鬆手 10% 會出現什麼？</div>
-
       <div class="k">
-        <h2>重點句</h2>
-        <p><strong>痛，多半來自想要控制結果。</strong>當我們期待「他要好起來」「事情照我想的走」，心被「應該如此」束住，世界就變窄。</p>
+        <h2>我們的世界，是由心的深處所現。</h2>
+        <p><strong>我們的世界，是由心的深處所現。
+當心裡太執著於「應該怎樣」，
+生命就會在那個「應該」裡轉圈。《楞嚴經》說：
+
+「隨眾生心，應所知量，循業發現。」</strong>意思是：
+一切的世界、一切的關係，
+都隨我們的心而變。</p>
       </div>
       <div class="ex">
         <h3>生活例子</h3>
-        <p>長照者怕一放手就沒人照顧，於是越扛越重；有時累到喘不過氣。不是不愛，是「我得把一切變好」的念頭太緊。</p>
+        <p>一位長期照顧家人的朋友說：
+「我怕我放手以後，他就沒人照顧了。」
+但有時候，她已經累得喘不過氣。
+放不下的，往往不是對方，
+而是那份「想要讓一切更好」的心。</p>
       </div>
       <div class="do">
         <h3>小練習：三個自問</h3>
         <ul>
-          <li>我是在照顧他，還是在用責任懲罰自己？</li>
+          <li>我是在照顧他，還是在責任裡讓自己受苦？</li>
           <li>我在成就使命，或是在害怕失去角色？</li>
           <li>如果鬆手 10%，會出現什麼新可能？</li>
         </ul>
@@ -197,11 +253,17 @@
 
     <!-- Page 3 -->
     <div class="page" data-title="三、關係像呼吸：出與入，才有生命">
-      <div class="concise"><b>重點：</b>放手不是斷開，是讓關係呼吸。<br><b>例子：</b>空的一半，是生命去到他的路上。<br><b>行動：</b>兩句呼吸：擁抱／允許。</div>
-
       <div class="k">
-        <h2>重點句</h2>
-        <p><strong>放手不是斷開，而是讓生命繼續呼吸。</strong>吸進時擁抱，吐出時放開；只吸不吐，心會悶，關係會窒息。</p>
+        <h2>真正的安定</h2>
+        <p><strong>真正的安定，不是隔絕外界，
+而是能在往來之中，心不亂。</strong>《六祖壇經》說：
+
+「外離相為禪，內不亂為定。」有時候，我們的「不離相」，
+正是那份「一直想讓對方好」的心。
+但如果心裡亂了、痛了，
+再多的付出，也會讓兩個人都累。<BR>修行，不是逃開責任，
+而是在盡責之中，仍保有一份清明與柔軟。
+照顧別人，也不忘照顧自己的心。</p>
       </div>
       <div class="ex">
         <h3>生活例子</h3>
@@ -218,33 +280,46 @@
 
     <!-- Page 4 -->
     <div class="page" data-title="四、讓責任與牽掛，有新的方向">
-      <div class="concise"><b>重點：</b>放下是轉化，不是遺忘。<br><b>例子：</b>「我會好好活」—責任變祝福。<br><b>行動：</b>把擔子換成力量。</div>
-
       <div class="k">
-        <h2>重點句</h2>
-        <p><strong>放下不是遺忘，而是轉化。</strong>從「我一個人扛」變成「我允許支援進來」；從「守住現在」變成「把心意交付給未來」。</p>
+        <h2>真正的責任，是能讓彼此都長出力量</h2>
+        <p><strong>很多人說：「我不能放下，因為我有責任。」
+其實，責任不等於束縛。
+真正的責任，是能讓彼此都長出力量。</strong>從「我一個人扛」變成「我允許支援進來」；從「守住現在」變成「把心意交付給未來」。</p>
       </div>
       <div class="ex">
         <h3>生活例子</h3>
-        <p>女兒照顧母親多年，母親走後久久難眠。她對照片說：「我會好好活。」那夜，她久違地睡了一整晚——責任變成了祝福。</p>
+        <p>女兒照顧母親多年，母親走後久久難眠。她對照片說：「我會好好活。」那夜，她久違地睡了一整晚——責任變成了祝福。這是一種轉化。
+她的責任，從「照顧身體」變成了「傳承心意」。
+
+放下的意思，是讓責任從沉重的擔子，變成前行的力量。</p>
       </div>
       <div class="do">
         <h3>小練習：把擔子換成力量</h3>
         <ul>
-          <li><b>從</b>「非我不可」 → <b>到</b>「我們一起完成」</li>
-          <li><b>從</b>「我一定要撐住」 → <b>到</b>「我接受支援」</li>
-          <li><b>從</b>「抓緊現在」 → <b>到</b>「傳承心意給未來」</li>
+          <li>從「非我不可」 → 到「我們一起完成」</li>
+          <li>從「我一定要撐住」 → 到「我接受支援」</li>
+          <li>從「抓緊現在」 → 到「傳承心意給未來」</li>
         </ul>
       </div>
     </div>
 
     <!-- Page 5 -->
     <div class="page" data-title="五、當生命願意流動，輪迴自然止息">
-      <div class="concise"><b>重點：</b>不黏有/沒有，心自在。<br><b>例子：</b>留與失不再絕對，路自然開。<br><b>行動：</b>對自己說：讓牽繫成為流動的光。</div>
-
       <div class="k">
-        <h2>重點句</h2>
-        <p><strong>不黏「有」或「沒有」，心就自在，路就會開。</strong>有人離開、有人靠近；只要心在呼吸並保有覺知與感恩，聯繫就以新的方式存在。</p>
+        <h2>讓生命流動</h2>
+        <p><strong>當我們願意讓生命流動，
+人與人之間的連結就會更柔軟。
+有人會離開，有人會靠近，
+有人會成為過去，也有人會走進未來。</strong><BR>有人離開、有人靠近；有些人走了，但那份善意仍在延續；
+有些責任結束了，但那份力量仍在傳遞。
+只要心在呼吸並保有覺知與感恩，聯繫就以新的方式存在。當生命不再固執於留與失，
+它就開始自由地流動。<BR>《金剛經》說：
+
+「應無所住而生其心。」
+
+這句話的意思是：
+心不要黏在「有」或「沒有」上。
+不要被「該如何」困住，也不要被「失去了」壓垮。</p>
       </div>
       <div class="ex">
         <h3>生活例子</h3>
@@ -253,6 +328,41 @@
       <div class="do">
         <h3>小練習：一句結語</h3>
         <p>輕聲對自己說：「我願意讓牽繫，成為流動的光。」</p>
+      </div>
+    </div>
+
+    <!-- Page 6 — 結語（含動畫與光暈） -->
+    <div class="page" data-title="六、結語">
+      <div class="endpage">
+        <div class="endbg" aria-hidden="true">
+          <div class="glow g1"></div>
+          <div class="glow g2"></div>
+          <div class="glow g3"></div>
+        </div>
+        <div class="endinner">
+          <div class="concise">重點：放不下，是因為你真心。<br>行動：深呼吸一次，讓心有空間。</div>
+          <div class="endtext">
+<p><strong>放不下，是因為你曾經真心。</strong><br>
+而真心，本來就值得被珍惜。</p>
+
+<p>只是，當心太滿，就需要留一點空間，<br>
+讓生命有路可走，讓自己也能呼吸。</p>
+
+<p>那些你牽掛的生命，<br>
+也希望看見你微笑、前行、活得自在。</p>
+
+<p>請記得：<br>
+放下，不是拒絕牽繫，<br>
+而是讓牽繫成為流動的光。</p>
+
+<p>當你願意讓生命自由流動，<br>
+你就不再困在過去，也不害怕未來。<br>
+那一刻，輪迴停止——<br>
+不是因為你逃離了世界，<br>
+而是因為你學會了，<br>
+在世界裡，柔軟而清醒地活著。</p>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -265,44 +375,34 @@
 </main>
 
 <footer class="wrap">
-  <div>© 2025 心的流動 · 分頁版（極簡/完整＋字級＋章節選單）</div>
+  <div>© 2025 心的流動 · 含結語動畫版</div>
   <a href="#" class="top">↑ 回到頂端</a>
 </footer>
 
 <script>
   // 狀態
   const pages = Array.from(document.querySelectorAll('.page'));
-  const dots = Array.from(document.querySelectorAll('.dot'));
+  const dots  = Array.from(document.querySelectorAll('.dot'));
   const prevBtn = document.getElementById('prev');
   const nextBtn = document.getElementById('next');
-  const bar = document.getElementById('bar');
+  const bar   = document.getElementById('bar');
   const title = document.getElementById('stageTitle');
-  const jumpSel = document.getElementById('jumpSel');
-  const modeToggle = document.getElementById('modeToggle');
-  const fsS = document.getElementById('fsSmall');
-  const fsM = document.getElementById('fsMedium');
-  const fsL = document.getElementById('fsLarge');
+  const jump  = document.getElementById('jumpSel');
+  const modeT = document.getElementById('modeToggle');
+  const fsS   = document.getElementById('fsSmall');
+  const fsM   = document.getElementById('fsMedium');
+  const fsL   = document.getElementById('fsLarge');
 
-  const STORE_KEY = 'calm-reading';
   let i = 0;
-
-  // 恢復偏好
-  try{
-    const saved = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
-    if(saved.font){ document.body.classList.remove('fz-s','fz-l'); if(saved.font==='s') document.body.classList.add('fz-s'); if(saved.font==='l') document.body.classList.add('fz-l'); }
-    if(saved.concise){ document.body.classList.toggle('concise', !!saved.concise); modeToggle.setAttribute('aria-pressed', !!saved.concise); modeToggle.textContent = saved.concise ? '完整模式' : '極簡模式'; }
-  }catch(e){}
 
   function render(){
     pages.forEach((p,idx)=>p.classList.toggle('active', idx===i));
     dots.forEach((d,idx)=>d.setAttribute('aria-current', idx===i ? 'page' : 'false'));
-    const pct = ((i+1)/pages.length)*100;
-    bar.style.width = pct + '%';
+    bar.style.width = ((i+1)/pages.length*100)+'%';
     title.textContent = pages[i].dataset.title;
     prevBtn.disabled = (i===0);
     nextBtn.textContent = (i===pages.length-1) ? '完成 ✓' : '下一頁 →';
-    nextBtn.setAttribute('aria-label', (i===pages.length-1)?'完成':'下一頁');
-    jumpSel.value = String(i);
+    jump.value = String(i);
   }
   function go(n){
     i = Math.max(0, Math.min(pages.length-1, n));
@@ -313,7 +413,7 @@
   prevBtn.addEventListener('click', ()=>go(i-1));
   nextBtn.addEventListener('click', ()=>go(i+1));
   dots.forEach(d=>d.addEventListener('click', ()=>go(parseInt(d.dataset.i,10))));
-  jumpSel.addEventListener('change', (e)=>go(parseInt(e.target.value,10)));
+  jump.addEventListener('change', e=>go(parseInt(e.target.value,10)));
 
   // 觸控滑動（手機）
   let sx=0, sy=0, dx=0, dy=0, touching=false;
@@ -338,30 +438,16 @@
   });
 
   // 模式切換（極簡/完整）
-  modeToggle.addEventListener('click', ()=>{
+  modeT.addEventListener('click', ()=>{
     const now = document.body.classList.toggle('concise');
-    modeToggle.setAttribute('aria-pressed', now);
-    modeToggle.textContent = now ? '完整模式' : '極簡模式';
-    savePref();
+    modeT.setAttribute('aria-pressed', now);
+    modeT.textContent = now ? '完整模式' : '極簡模式';
   });
 
   // 字級切換
-  fsS.addEventListener('click', ()=>{ document.body.classList.remove('fz-l'); document.body.classList.add('fz-s'); savePref('s'); });
-  fsM.addEventListener('click', ()=>{ document.body.classList.remove('fz-s','fz-l'); savePref('m'); });
-  fsL.addEventListener('click', ()=>{ document.body.classList.remove('fz-s'); document.body.classList.add('fz-l'); savePref('l'); });
-
-  function savePref(font){
-    try{
-      const saved = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
-      saved.concise = document.body.classList.contains('concise');
-      if(font){ saved.font = font; } else {
-        if(document.body.classList.contains('fz-s')) saved.font='s';
-        else if(document.body.classList.contains('fz-l')) saved.font='l';
-        else saved.font='m';
-      }
-      localStorage.setItem(STORE_KEY, JSON.stringify(saved));
-    }catch(e){}
-  }
+  fsS.addEventListener('click', ()=>{ document.body.classList.remove('fz-l'); document.body.classList.add('fz-s'); });
+  fsM.addEventListener('click', ()=>{ document.body.classList.remove('fz-s','fz-l'); });
+  fsL.addEventListener('click', ()=>{ document.body.classList.remove('fz-s'); document.body.classList.add('fz-l'); });
 
   render();
 </script>
