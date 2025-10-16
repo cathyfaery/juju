@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+<title>在放不下裡，看見生命的流動｜折疊段落 · 行動優先（細緻引文版）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#dfe8e1" />
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#2a2e2b; --soft:#4b514d; --muted:#6a726d;
+    --sage:#dfe8e1; --mint:#d9efe6; --sand:#efe9df; --rose:#f7e8ea;
+    --line:#e7ece8; --card:#ffffff; --link:#2e7f73; --link-h:#25665c;
+    --shadow: 0 8px 24px rgba(18,37,32,.06); --radius:14px; --rsm:10px;
+    --measure: 68ch; /* 行寬控制（手機直式最重要） */
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#101311; --fg:#e6ece8; --soft:#cad3cd; --muted:#a7b1ab;
+      --sage:#1a221e; --mint:#132420; --sand:#1f1b16; --rose:#231b1d;
+      --line:#2a332f; --card:#141815; --link:#81c7b8; --link-h:#a1e0d2;
+      --shadow:0 10px 24px rgba(0,0,0,.35);
+    }
+  }
+
+  /* 基礎排版：行動優先（直式） */
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    font-family:"Noto Serif TC", ui-serif, serif;
+    color:var(--fg);
+    background:
+      radial-gradient(800px 520px at 90% -10%, var(--mint), transparent 60%),
+      radial-gradient(620px 480px at -10% 20%, var(--sage), transparent 55%),
+      var(--bg);
+    line-height:1.78; letter-spacing:.02em;
+    font-size:17px; /* 手機直式字級 */
+  }
+  p{margin:.9em 0;}
+  .wrap{max-width: min(100%, 980px); margin:0 auto;}
+
+  /* 導覽 */
+  .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
+       background:color-mix(in oklab, var(--bg) 88%, transparent);
+       border-bottom:1px solid var(--line);}
+  .nav-inner{max-width:980px; margin:0 auto; padding:10px 16px; display:flex; gap:12px; align-items:center; justify-content:space-between;}
+  .brand{font-weight:700; letter-spacing:.08em;}
+
+  /* 首屏 */
+  header{padding:36px 16px 8px;}
+  .hero{max-width:var(--measure); margin:0 auto;}
+  .eyebrow{display:inline-flex; gap:8px; align-items:center; padding:5px 10px; background:var(--mint); color:#21584f; border-radius:999px; font-size:.94rem;}
+  h1{font-size:clamp(22px,5.8vw,40px); line-height:1.28; margin:.7em 0 .35em; font-weight:700;}
+  .subtitle{color:var(--muted); font-size:clamp(15.5px,3.6vw,18px);}
+
+  .controls{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;}
+  .btn{background:var(--link); color:#fff; border:none; padding:12px 14px; border-radius:10px; box-shadow:var(--shadow); cursor:pointer; font-size:16px;}
+  .btn.soft{background:var(--card); color:var(--link); border:1px solid var(--line);}
+  .btn:focus-visible{outline:2px solid var(--link); outline-offset:2px;}
+
+  main{padding:14px 16px 80px;}
+  .container{max-width:var(--measure); margin:0 auto; display:grid; gap:12px;}
+
+  /* Accordion：details/summary */
+  details{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  summary{
+    list-style:none; cursor:pointer; display:flex; align-items:flex-start; gap:12px;
+    padding:14px 16px; position:relative; font-weight:700;
+    background:linear-gradient(180deg, color-mix(in oklab, var(--mint) 18%, var(--card)), var(--card));
+    line-height:1.45;
+  }
+  summary::-webkit-details-marker{display:none}
+  .chev{flex:0 0 26px; height:26px; border-radius:8px; display:grid; place-items:center;
+        background:color-mix(in oklab, var(--sage) 35%, var(--card)); border:1px solid var(--line);}
+  .chev svg{transition:transform .24s ease}
+  details[open] .chev svg{transform:rotate(90deg)}
+  .sum-title{flex:1; font-size:1.06rem;}
+  .sum-tag{color:var(--muted); font-weight:400; font-size:.95rem;}
+
+  .panel{padding:14px 16px 16px;}
+  .lead{margin:.2em 0 1em; color:var(--soft);}
+  .note{background:linear-gradient(180deg, var(--sage), transparent 70%); border:1px dashed var(--line); padding:10px 12px; border-radius:10px; color:var(--soft);}
+  .card{background:linear-gradient(180deg, var(--sand), transparent 60%); border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
+  .card-min{background:linear-gradient(180deg, var(--mint), transparent 65%); border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin-top:10px; font-size:.98rem;}
+  blockquote{margin:12px 0; padding:12px 14px; border-left:4px solid var(--link);
+             background:linear-gradient(180deg, var(--mint), transparent 70%); border-radius:8px; color:var(--soft);}
+
+  /* 表格 */
+  .table-wrap{overflow:auto; border:1px solid var(--line); border-radius:12px; margin-top:10px;}
+  table{border-collapse:collapse; width:100%; min-width:680px; font-size:.98rem;}
+  th,td{padding:10px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;}
+  th{background:color-mix(in oklab, var(--mint) 40%, var(--card));}
+  tr:hover td{background:color-mix(in oklab, var(--sage) 22%, transparent)}
+
+  /* 桌機/橫式優化 */
+  @media (min-width: 880px){
+    body{font-size:18px;}
+    .container{gap:14px;}
+    summary{padding:16px 18px;}
+    .panel{padding:16px 18px 20px;}
+  }
+
+  footer{max-width:var(--measure); margin:24px auto 56px; color:var(--muted); padding:0 16px; display:flex; justify-content:space-between; gap:8px; border-top:1px solid var(--line); padding-top:14px;}
+  .top{color:var(--link); text-decoration:none; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card);}
+  .top:hover{background:var(--mint)}
+</style>
+</head>
+<body>
+<nav class="nav" aria-label="主選單">
+  <div class="nav-inner">
+    <div class="brand">心的流動 · 折疊版（行動優先）</div>
+    <div aria-hidden="true"></div>
+  </div>
+</nav>
+
+<header class="wrap">
+  <div class="hero">
+    <span class="eyebrow">清淡 · 靜心 · 溫柔引導</span>
+    <h1>在放不下裡，看見生命的流動</h1>
+    <p class="subtitle">將緊密的聯繫（責任、照顧、使命、未竟心願）化為流動。這頁，以更完整的引言陪你看見——不靠說教，而是讓生命再一次呼吸。</p>
+    <div class="controls" role="group" aria-label="展開/收合控制">
+      <button class="btn" id="expandAll">全部展開</button>
+      <button class="btn soft" id="collapseAll">全部收合</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="container" id="acc">
+    <!-- 1 -->
+    <details>
+      <summary>
+        <span class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="sum-title">一、我們都在關係裡被牽動</span>
+        <span class="sum-tag">牽繫可能是責任、承諾、照顧、使命、未竟心願</span>
+      </summary>
+      <div class="panel">
+        <p class="lead"><strong>我們以為「放不下」是執著，其實往往是深深的牽連。</strong>父母、孩子、伴侶、同事、學生……他們讓我們笑，也讓我們哭。放不下的背後，可能是承諾與照顧，或是「還想再做得更好的自己」。這些都不是錯，只是當我們太用力想守住、想補回、想再一次，反而與自己失去平衡。</p>
+        <blockquote>「放不下的不一定是執著，常常是『深深的牽連』；看見牽連，就有了鬆開的起點。」</blockquote>
+        <div class="card"><strong>生活片段 · 未竟心願：</strong>退休老師最不捨的，不是學生離開，而是「還想再教一堂課的自己」。牽繫的是使命感，並非某個人。</div>
+        <div class="card-min"><strong>提示：</strong>當心裡說「我一定要守住」時，先問：這份用力，讓我更開闊了嗎？還是更狹窄？</div>
+      </div>
+    </details>
+
+    <!-- 2 -->
+    <details>
+      <summary>
+        <span class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="sum-title">二、緊密的關係，為何會讓人痛</span>
+        <span class="sum-tag">「應該如此」會把生命關在同一個圈裡</span>
+      </summary>
+      <div class="panel">
+        <p class="lead"><strong>愛會痛、責任會累，常是因為我們想要控制結果。</strong>當我們太希望對方「好起來」、事情「照期待發生」，心就被「應該」牽制。世界會隨心而現；心越緊，世界越窄。</p>
+        <blockquote>「放不下的，往往不是對方，而是『想讓一切更好』的那份心。看見它，就能調柔它。」</blockquote>
+        <div class="card" style="background:linear-gradient(180deg,var(--rose),transparent 70%);">
+          <strong>練習 · 三個自問：</strong>
+          <ol>
+            <li>我是在照顧他，還是在用責任懲罰自己？</li>
+            <li>我是在成就使命，還是在害怕失去角色？</li>
+            <li>若稍微鬆手，會長出什麼新的可能？</li>
+          </ol>
+        </div>
+      </div>
+    </details>
+
+    <!-- 3 -->
+    <details>
+      <summary>
+        <span class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="sum-title">三、關係像呼吸：出與入，才有生命</span>
+        <span class="sum-tag">外離相為禪，內不亂為定——在往來之中，心仍安穩</span>
+      </summary>
+      <div class="panel">
+        <p class="lead"><strong>放手不是斷開，而是讓生命繼續呼吸。</strong>吸進時擁抱，吐出時放開；如果一直吸、不吐，心會悶，關係會窒息。有人說：「孩子離家，我心空了一半。」或許那一半，是你的生命去到他的路上，延續成另一種豐滿。</p>
+        <div class="card"><strong>一句話的轉念：</strong>「我知道你希望我繼續好好地活。」當責任由「扛著照顧」轉為「傳承心意」，人會睡得更安穩。</div>
+        <div class="card-min"><strong>呼吸小練習：</strong>吸氣：我擁抱當下的一切。／吐氣：我允許它按生命的節奏前行。</div>
+      </div>
+    </details>
+
+    <!-- 4 -->
+    <details>
+      <summary>
+        <span class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="sum-title">四、讓責任與牽掛，有新的方向</span>
+        <span class="sum-tag">責任不等於束縛；真正的責任讓彼此長出力量</span>
+      </summary>
+      <div class="panel">
+        <p class="lead"><strong>放下不是遺忘，而是轉化。</strong>從「守住身邊的一切」到「把心意交付給未來」。當責任變成祝福，牽掛就會變成光。你仍在盡心，但不再一個人扛著；你開始允許支援進來，讓彼此都有空氣。</p>
+        <div class="card" style="background:linear-gradient(180deg,var(--mint),transparent 65%);">
+          <strong>把擔子換成力量：</strong>
+          <ul>
+            <li><b>從</b>：我一定要撐住 → <b>到</b>：我允許支援進來</li>
+            <li><b>從</b>：非我不可 → <b>到</b>：我們一起完成</li>
+            <li><b>從</b>：抓緊現在 → <b>到</b>：傳承心意給未來</li>
+          </ul>
+        </div>
+      </div>
+    </details>
+
+    <!-- 5 -->
+    <details>
+      <summary>
+        <span class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="sum-title">五、當生命願意流動，輪迴自然止息</span>
+        <span class="sum-tag">應無所住而生其心——不黏「有／沒有」，心自在，路自開</span>
+      </summary>
+      <div class="panel">
+        <p class="lead"><strong>有人會離開，有人會靠近；有人成為過去，也有人走向未來。</strong>只要心還在呼吸、還能覺知與感恩，聯繫就以新的方式存在。當生命不再固執於「留」與「失」，它就自由地流動。</p>
+        <blockquote>「放下，不是拒絕牽繫；而是讓牽繫成為流動的光。」</blockquote>
+      </div>
+    </details>
+
+    <!-- 總結表 -->
+    <details>
+      <summary>
+        <span class="chev" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="sum-title">🌱 心的開展：從牽繫到流動（總結表）</span>
+        <span class="sum-tag">行動裝置友善的表格視圖</span>
+      </summary>
+      <div class="panel">
+        <div class="table-wrap" role="region" aria-label="心的開展總結表" tabindex="0">
+          <table>
+            <thead><tr><th>狀態</th><th>心的樣子</th><th>轉化方向</th><th>新的生命力</th></tr></thead>
+            <tbody>
+              <tr><td><strong>緊繫</strong></td><td>一直想守住、怕放手</td><td>問：「這份用力讓我更開闊或更狹窄？」</td><td>我在在乎，也讓自己呼吸。</td></tr>
+              <tr><td><strong>糾結</strong></td><td>責任、虧欠、未竟之事</td><td>說：「我已盡心，也允許無常。」</td><td>讓責任轉為祝福，讓虧欠轉為學習。</td></tr>
+              <tr><td><strong>開口</strong></td><td>願意傾訴、願意理解</td><td>練習聆聽，不急著解釋</td><td>聽懂別人的難，也看見自己的界線。</td></tr>
+              <tr><td><strong>流動</strong></td><td>看見每段關係都在完成</td><td>呼吸、感恩、微笑</td><td>當心能流動，生命就不再停滯。</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+</main>
+
+<footer class="wrap">
+  <div>© 2025 心的流動 · 折疊版（行動優先）</div>
+  <a href="#" class="top">↑ 回到頂端</a>
+</footer>
+
+<script>
+  // Expand/Collapse All
+  const expandBtn = document.getElementById('expandAll');
+  const collapseBtn = document.getElementById('collapseAll');
+  const allDetails = () => Array.from(document.querySelectorAll('#acc details'));
+
+  expandBtn.addEventListener('click', () => {
+    allDetails().forEach(d => d.open = true);
+  });
+  collapseBtn.addEventListener('click', () => {
+    allDetails().forEach(d => d.open = false);
+  });
+
+  // Mobile accordion behavior: only one open at a time (<=768px)
+  function enforceSingleOpen(e){
+    if (window.matchMedia('(max-width: 768px)').matches) {
+      const current = e.currentTarget;
+      if (current.open) return;
+      requestAnimationFrame(() => {
+        allDetails().forEach(d => { if (d !== current) d.open = false; });
+      });
+    }
+  }
+  allDetails().forEach(d => d.addEventListener('toggle', enforceSingleOpen));
+
+  // Keyboard support
+  document.querySelectorAll('summary').forEach(s => {
+    s.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
+        s.parentElement.open = !s.parentElement.open;
+      }
+    });
+  });
+</script>
+</body>
+</html>
