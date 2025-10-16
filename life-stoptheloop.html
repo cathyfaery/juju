@@ -36,7 +36,7 @@
 
   /* NAV + 工具 */
   .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
-       background:color-mix(in oklab, var(--bg) 88%, transparent); border-bottom:1px solid var(--line);}
+       background:color-mix(in oklab, var(--bg) 88%, transparent); border-bottom:1px solid var(--line);} 
   .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:10px;
              max-width:980px; margin:0 auto; padding:10px 12px;}
   .brand{font-weight:700; letter-spacing:.08em;}
@@ -45,16 +45,16 @@
         border-radius:999px; background:var(--card); color:var(--link); cursor:pointer; font-size:14px;}
   .chip[aria-pressed="true"]{background:var(--link); color:#fff; border-color:transparent;}
   .fontbox{display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:var(--card)}
-  .fontbox button{border:none; padding:6px 10px; background:transparent; cursor:pointer; color:var(--link);}
+  .fontbox button{border:none; padding:6px 10px; background:transparent; cursor:pointer; color:var(--link);} 
   .fontbox button:hover{background:var(--mint)}
-  .fontbox .sep{width:1px; background:var(--line);}
+  .fontbox .sep{width:1px; background:var(--line);} 
 
   /* Header */
   header{padding:28px 16px 8px;}
   .hero{max-width:var(--measure); margin:0 auto;}
   .eyebrow{display:inline-flex; gap:8px; align-items:center; padding:5px 10px; background:var(--mint); color:#21584f; border-radius:999px; font-size:.95rem;}
   h1{font-size:clamp(22px,6vw,40px); line-height:1.28; margin:.7em 0 .35em;}
-  .subtitle{color:var(--muted); font-size:clamp(15.5px,3.6vw,18px);}
+  .subtitle{color:var(--muted); font-size:clamp(15.5px,3.6vw,18px);} 
 
   /* Stage / Stepper */
   main{padding:12px 16px 88px;}
@@ -66,22 +66,19 @@
   .progress{flex:1; height:8px; min-width:120px; border-radius:999px; background:color-mix(in oklab, var(--sage) 40%, var(--card)); overflow:hidden;}
   .bar{height:100%; width:0%; background:var(--link); transition:width .3s ease;}
   .pages{display:flex; gap:6px;}
-  .dot{width:10px; height:10px; border-radius:50%; background:color-mix(in oklab, var(--sage) 60%, var(--card)); border:1px solid var(--line);}
+  .dot{width:10px; height:10px; border-radius:50%; background:color-mix(in oklab, var(--sage) 60%, var(--card)); border:1px solid var(--line);} 
   .dot[aria-current="page"]{background:var(--link); border-color:transparent;}
   .jump{margin-left:auto; display:flex; align-items:center; gap:6px;}
-  select{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--fg);}
+  select{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--fg);} 
 
   .page{display:none; padding:14px 16px 20px;}
   .page.active{display:block;}
 
-  /* 三塊內容（完整模式）與極簡模式 */
-  .k,.ex,.do,.concise{border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
-  .k{background:linear-gradient(180deg, var(--sage), transparent 70%);}
-  .ex{background:linear-gradient(180deg, var(--sand), transparent 60%);}
-  .do{background:linear-gradient(180deg, var(--mint), transparent 65%);}
-  .concise{display:none; background:linear-gradient(180deg, var(--rose), transparent 60%);}
-  body.concise .k, body.concise .ex, body.concise .do{display:none}
-  body.concise .concise{display:block}
+  /* 三塊內容（完整模式） */
+  .k,.ex,.do{border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
+  .k{background:linear-gradient(180deg, var(--sage), transparent 70%);} 
+  .ex{background:linear-gradient(180deg, var(--sand), transparent 60%);} 
+  .do{background:linear-gradient(180deg, var(--mint), transparent 65%);} 
 
   /* 結語頁：動畫與光暈 */
   .endpage{position:relative; overflow:hidden; border-radius:12px; padding:0;}
@@ -91,11 +88,11 @@
   }
   .glow{position:absolute; border-radius:50%; filter:blur(30px); opacity:.55; transform:scale(1); }
   .g1{width:700px; height:700px; left:-12%; top:-18%;
-      background:radial-gradient(closest-side, color-mix(in oklab, var(--mint) 90%, transparent), transparent 70%);}
+      background:radial-gradient(closest-side, color-mix(in oklab, var(--mint) 90%, transparent), transparent 70%);} 
   .g2{width:520px; height:520px; right:-15%; bottom:-10%;
-      background:radial-gradient(closest-side, color-mix(in oklab, var(--sage) 88%, transparent), transparent 70%);}
+      background:radial-gradient(closest-side, color-mix(in oklab, var(--sage) 88%, transparent), transparent 70%);} 
   .g3{width:380px; height:380px; left:15%; bottom:-8%;
-      background:radial-gradient(closest-side, color-mix(in oklab, var(--rose) 80%, transparent), transparent 70%);}
+      background:radial-gradient(closest-side, color-mix(in oklab, var(--rose) 80%, transparent), transparent 70%);} 
 
   .endinner{position:relative; z-index:1; padding:18px 16px 24px;}
   .endtext{line-height:1.95; font-size:1.06em;}
@@ -127,13 +124,13 @@
   }
 
   /* Footer */
-  .controls{display:flex; justify-content:space-between; gap:10px; padding:12px 14px; border-top:1px solid var(--line); background:var(--card);}
-  .btn{display:inline-flex; align-items:center; gap:8px; border:none; border-radius:12px; padding:12px 14px; cursor:pointer; font-size:16px;}
-  .btn.primary{background:var(--link); color:#fff;}
-  .btn.secondary{background:var(--card); color:var(--link); border:1px solid var(--line);}
-  .btn:disabled{opacity:.45; cursor:not-allowed;}
-  footer{max-width:var(--measure); margin:22px auto 56px; color:var(--muted); padding:0 16px; display:flex; justify-content:space-between; gap:8px; border-top:1px solid var(--line); padding-top:14px;}
-  .top{color:var(--link); text-decoration:none; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card);}
+  .controls{display:flex; justify-content:space-between; gap:10px; padding:12px 14px; border-top:1px solid var(--line); background:var(--card);} 
+  .btn{display:inline-flex; align-items:center; gap:8px; border:none; border-radius:12px; padding:12px 14px; cursor:pointer; font-size:16px;} 
+  .btn.primary{background:var(--link); color:#fff;} 
+  .btn.secondary{background:var(--card); color:var(--link); border:1px solid var(--line);} 
+  .btn:disabled{opacity:.45; cursor:not-allowed;} 
+  footer{max-width:var(--measure); margin:22px auto 56px; color:var(--muted); padding:0 16px; display:flex; justify-content:space-between; gap:8px; border-top:1px solid var(--line); padding-top:14px;} 
+  .top{color:var(--link); text-decoration:none; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card);} 
   .top:hover{background:var(--mint)}
 </style>
 </head>
@@ -141,16 +138,6 @@
 <nav class="nav" aria-label="工具列與主選單">
   <div class="nav-inner">
     <div class="brand">心的流動 · 含結語動畫</div>
-    <div class="tools" role="group" aria-label="閱讀工具">
-      <button id="modeToggle" class="chip" aria-pressed="false" title="切換極簡/完整模式">極簡模式</button>
-      <div class="fontbox" aria-label="字級切換">
-        <button id="fsSmall"  aria-label="小字級">A-</button>
-        <div class="sep" aria-hidden="true"></div>
-        <button id="fsMedium" aria-label="中字級">A</button>
-        <div class="sep" aria-hidden="true"></div>
-        <button id="fsLarge"  aria-label="大字級">A+</button>
-      </div>
-    </div>
   </div>
 </nav>
 
@@ -340,7 +327,6 @@
           <div class="glow g3"></div>
         </div>
         <div class="endinner">
-          <div class="concise">重點：放不下，是因為你真心。<br>行動：深呼吸一次，讓心有空間。</div>
           <div class="endtext">
 <p><strong>放不下，是因為你曾經真心。</strong><br>
 而真心，本來就值得被珍惜。</p>
@@ -388,7 +374,6 @@
   const bar   = document.getElementById('bar');
   const title = document.getElementById('stageTitle');
   const jump  = document.getElementById('jumpSel');
-  const modeT = document.getElementById('modeToggle');
   const fsS   = document.getElementById('fsSmall');
   const fsM   = document.getElementById('fsMedium');
   const fsL   = document.getElementById('fsLarge');
@@ -415,39 +400,11 @@
   dots.forEach(d=>d.addEventListener('click', ()=>go(parseInt(d.dataset.i,10))));
   jump.addEventListener('change', e=>go(parseInt(e.target.value,10)));
 
-  // 觸控滑動（手機）
-  let sx=0, sy=0, dx=0, dy=0, touching=false;
-  const stage = document.querySelector('.stage');
-  stage.addEventListener('touchstart', (e)=>{
-    if(!e.touches.length) return;
-    touching=true; sx=e.touches[0].clientX; sy=e.touches[0].clientY; dx=dy=0;
-  }, {passive:true});
-  stage.addEventListener('touchmove', (e)=>{
-    if(!touching) return;
-    dx = e.touches[0].clientX - sx; dy = e.touches[0].clientY - sy;
-  }, {passive:true});
-  stage.addEventListener('touchend', ()=>{
-    if(!touching) return; touching=false;
-    if(Math.abs(dx) > 60 && Math.abs(dy) < 40){ if(dx < 0) go(i+1); else go(i-1); }
-  });
-
   // 鍵盤快捷
   window.addEventListener('keydown',(e)=>{
     if(e.key === 'ArrowRight') go(i+1);
     if(e.key === 'ArrowLeft')  go(i-1);
   });
-
-  // 模式切換（極簡/完整）
-  modeT.addEventListener('click', ()=>{
-    const now = document.body.classList.toggle('concise');
-    modeT.setAttribute('aria-pressed', now);
-    modeT.textContent = now ? '完整模式' : '極簡模式';
-  });
-
-  // 字級切換
-  fsS.addEventListener('click', ()=>{ document.body.classList.remove('fz-l'); document.body.classList.add('fz-s'); });
-  fsM.addEventListener('click', ()=>{ document.body.classList.remove('fz-s','fz-l'); });
-  fsL.addEventListener('click', ()=>{ document.body.classList.remove('fz-s'); document.body.classList.add('fz-l'); });
 
   render();
 </script>
