@@ -3,281 +3,367 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-<title>在放不下裡，看見生命的流動｜折疊段落 · 行動優先</title>
+<title>在放不下裡，看見生命的流動｜分頁版＋極簡模式＋字級切換＋章節選單</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
 <meta name="theme-color" content="#dfe8e1" />
 <style>
   :root{
-    --bg:#fbfbfa; --fg:#2a2e2b; --soft:#4b514d; --muted:#737a75;
+    --bg:#fbfbfa; --fg:#1f2320; --muted:#66706a; --soft:#49514c;
     --sage:#dfe8e1; --mint:#d9efe6; --sand:#efe9df; --rose:#f7e8ea;
     --line:#e7ece8; --card:#ffffff; --link:#2e7f73; --link-h:#25665c;
-    --shadow: 0 8px 24px rgba(18,37,32,.06); --radius:14px; --rsm:10px;
+    --shadow:0 10px 28px rgba(18,37,32,.08); --radius:16px; --measure:68ch;
   }
   @media (prefers-color-scheme:dark){
     :root{
-      --bg:#101311; --fg:#e6ece8; --soft:#cad3cd; --muted:#a7b1ab;
-      --sage:#1a221e; --mint:#132420; --sand:#1f1b16; --rose:#231b1d;
-      --line:#2a332f; --card:#141815; --link:#81c7b8; --link-h:#a1e0d2;
-      --shadow:0 10px 24px rgba(0,0,0,.35);
+      --bg:#0f1210; --fg:#e8eee9; --muted:#a7b1ab; --soft:#c9d1cb;
+      --sage:#17211d; --mint:#142621; --sand:#201b16; --rose:#241b1e;
+      --line:#2a332f; --card:#141815; --link:#92d7c7; --link-h:#b9efe2;
+      --shadow:0 12px 28px rgba(0,0,0,.35);
     }
   }
   html{scroll-behavior:smooth;}
   body{
-    margin:0; font-family:"Noto Serif TC", ui-serif, serif; line-height:1.72; letter-spacing:.02em;
-    color:var(--fg);
+    margin:0; font-family:"Noto Serif TC", ui-serif, serif; color:var(--fg);
     background:
-      radial-gradient(900px 600px at 90% -10%, var(--mint), transparent 60%),
-      radial-gradient(700px 560px at -10% 20%, var(--sage), transparent 55%),
+      radial-gradient(800px 520px at 90% -10%, var(--mint), transparent 60%),
+      radial-gradient(620px 480px at -10% 20%, var(--sage), transparent 55%),
       var(--bg);
+    line-height:1.78; letter-spacing:.02em;
   }
+  /* 字級切換（預設中等） */
+  body.fz-s{font-size:16px}
+  body:not(.fz-s):not(.fz-l){font-size:17px}
+  body.fz-l{font-size:19px}
+
+  .wrap{max-width:min(100%,980px); margin:0 auto;}
   .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(180%) blur(8px);
-       background:color-mix(in oklab, var(--bg) 85%, transparent);
-       border-bottom:1px solid var(--line);}
-  .nav-inner{max-width:960px; margin:0 auto; padding:10px 16px; display:flex; gap:12px; align-items:center; justify-content:space-between;}
+       background:color-mix(in oklab, var(--bg) 88%, transparent); border-bottom:1px solid var(--line);}
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; gap:10px;
+             max-width:980px; margin:0 auto; padding:10px 12px;}
   .brand{font-weight:700; letter-spacing:.08em;}
-  .nav-links a{color:var(--fg); text-decoration:none; padding:8px; border-radius:8px;}
-  .nav-links a:hover{color:var(--link);}
-  header{padding:40px 16px 8px;}
-  .hero{max-width:960px; margin:0 auto;}
-  .eyebrow{display:inline-flex; gap:8px; align-items:center; padding:4px 10px; background:var(--mint); color:#21584f; border-radius:999px; font-size:.92rem;}
-  h1{font-size:clamp(22px,6vw,40px); line-height:1.25; margin:.6em 0 .3em; font-weight:700;}
-  .subtitle{color:var(--muted); font-size:clamp(15px,3.8vw,18px); max-width:65ch;}
-  .controls{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
-  .btn{background:var(--link); color:#fff; border:none; padding:10px 14px; border-radius:10px; box-shadow:var(--shadow); cursor:pointer;}
-  .btn.soft{background:var(--card); color:var(--link); border:1px solid var(--line);}
-  .btn:focus-visible{outline:2px solid var(--link);}
-  main{padding:16px;}
-  .container{max-width:960px; margin:0 auto; display:grid; gap:14px;}
-  /* details/summary as accordion */
-  details{
-    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:var(--shadow); overflow:hidden;
-  }
-  summary{
-    list-style:none; cursor:pointer; display:flex; align-items:flex-start; gap:10px;
-    padding:14px 16px; position:relative; font-weight:700;
-    background:linear-gradient(180deg, color-mix(in oklab, var(--mint) 20%, var(--card)), var(--card));
-  }
-  summary::-webkit-details-marker{display:none}
-  .chev{flex:0 0 22px; height:22px; border-radius:6px; display:grid; place-items:center;
-        background:color-mix(in oklab, var(--sage) 35%, var(--card)); border:1px solid var(--line);}
-  .chev svg{transition:transform .25s ease}
-  details[open] .chev svg{transform:rotate(90deg)}
-  .sum-title{flex:1; font-size:1.05rem;}
-  .sum-tag{color:var(--muted); font-weight:400; font-size:.92rem;}
-  .panel{padding:12px 16px 16px;}
-  .note{background:linear-gradient(180deg, var(--sage), transparent 70%); border:1px dashed var(--line); padding:10px 12px; border-radius:10px; color:var(--soft);}
-  .card{background:linear-gradient(180deg, var(--sand), transparent 60%); border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
-  blockquote{margin:12px 0; padding:10px 12px; border-left:4px solid var(--link);
-             background:linear-gradient(180deg, var(--mint), transparent 70%); border-radius:8px; color:var(--soft);}
-  /* 表格 */
-  .table-wrap{overflow:auto; border:1px solid var(--line); border-radius:12px; margin-top:8px;}
-  table{border-collapse:collapse; width:100%; min-width:680px;}
-  th,td{padding:10px 12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top;}
-  th{background:color-mix(in oklab, var(--mint) 40%, var(--card));}
-  tr:hover td{background:color-mix(in oklab, var(--sage) 22%, transparent)}
-  /* mobile tuning */
-  @media (max-width: 768px){
-    .subtitle{font-size:1rem}
-    .panel p{margin:.6em 0}
-    /* 預設全部收合視覺密度更低 */
-    details{border-radius:12px}
-  }
-  footer{max-width:960px; margin:22px auto 56px; color:var(--muted); padding:0 16px; display:flex; justify-content:space-between; gap:8px; border-top:1px solid var(--line); padding-top:14px;}
-  .top{color:var(--link); text-decoration:none; padding:6px 10px; border:1px solid var(--line); border-radius:999px; background:var(--card);}
+  .tools{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+  .chip{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border:1px solid var(--line);
+        border-radius:999px; background:var(--card); color:var(--link); cursor:pointer; font-size:14px;}
+  .chip[aria-pressed="true"]{background:var(--link); color:#fff; border-color:transparent;}
+  .fontbox{display:inline-flex; border:1px solid var(--line); border-radius:999px; overflow:hidden; background:var(--card)}
+  .fontbox button{border:none; padding:6px 10px; background:transparent; cursor:pointer; color:var(--link);}
+  .fontbox button:hover{background:var(--mint)}
+  .fontbox button:focus-visible{outline:2px solid var(--link); outline-offset:2px;}
+  .fontbox .sep{width:1px; background:var(--line);}
+
+  header{padding:28px 16px 8px;}
+  .hero{max-width:var(--measure); margin:0 auto;}
+  .eyebrow{display:inline-flex; gap:8px; align-items:center; padding:5px 10px; background:var(--mint); color:#21584f; border-radius:999px; font-size:.95rem;}
+  h1{font-size:clamp(22px,6vw,40px); line-height:1.28; margin:.7em 0 .35em;}
+  .subtitle{color:var(--muted); font-size:clamp(15.5px,3.6vw,18px);}
+
+  main{padding:12px 16px 88px;}
+  .stage{max-width:var(--measure); margin:0 auto; background:var(--card); border:1px solid var(--line);
+         border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden;}
+  .stage-head{display:flex; align-items:center; gap:10px; padding:10px 12px;
+              background:linear-gradient(180deg, color-mix(in oklab, var(--mint) 18%, var(--card)), var(--card));
+              flex-wrap:wrap}
+  .stage-title{font-weight:700; white-space:nowrap}
+  .progress{flex:1; height:8px; min-width:120px; border-radius:999px; background:color-mix(in oklab, var(--sage) 40%, var(--card)); overflow:hidden;}
+  .bar{height:100%; width:0%; background:var(--link); transition:width .3s ease;}
+  .pages{display:flex; gap:6px;}
+  .dot{width:10px; height:10px; border-radius:50%; background:color-mix(in oklab, var(--sage) 60%, var(--card)); border:1px solid var(--line);}
+  .dot[aria-current="page"]{background:var(--link); border-color:transparent;}
+  .jump{margin-left:auto; display:flex; align-items:center; gap:6px;}
+  select{border:1px solid var(--line); border-radius:8px; padding:6px 8px; background:var(--card); color:var(--fg);}
+
+  .page{display:none; padding:14px 16px 16px;}
+  .page.active{display:block;}
+
+  /* 三塊內容（完整模式） */
+  .k{background:linear-gradient(180deg, var(--sage), transparent 70%); border:1px dashed var(--line); padding:12px 14px; border-radius:12px; color:var(--soft);}
+  .ex{background:linear-gradient(180deg, var(--sand), transparent 60%); border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
+  .do{background:linear-gradient(180deg, var(--mint), transparent 65%); border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:10px;}
+  .k h2,.ex h3,.do h3{margin:.2em 0 .3em;}
+  .k p,.ex p,.do p{margin:.6em 0;}
+  ul{margin:.4em 0 .2em 1.1em;}
+  li{margin:.25em 0;}
+
+  /* 極簡模式：只顯示 concise */
+  .concise{display:none; border:1px solid var(--line); border-radius:12px; padding:12px; background:linear-gradient(180deg, var(--rose), transparent 60%); }
+  body.concise .k, body.concise .ex, body.concise .do{display:none}
+  body.concise .concise{display:block}
+
+  .controls{display:flex; justify-content:space-between; gap:10px; padding:12px 14px; border-top:1px solid var(--line); background:var(--card);}
+  .btn{display:inline-flex; align-items:center; gap:8px; border:none; border-radius:12px; padding:12px 14px; cursor:pointer; font-size:16px;}
+  .btn.primary{background:var(--link); color:#fff;}
+  .btn.secondary{background:var(--card); color:var(--link); border:1px solid var(--line);}
+  .btn:disabled{opacity:.45; cursor:not-allowed;}
+  .btn:focus-visible{outline:2px solid var(--link); outline-offset:2px;}
+
+  footer{max-width:var(--measure); margin:22px auto 56px; color:var(--muted); padding:0 16px; display:flex; justify-content:space-between; gap:8px; border-top:1px solid var(--line); padding-top:14px;}
+  .top{color:var(--link); text-decoration:none; padding:8px 12px; border:1px solid var(--line); border-radius:999px; background:var(--card);}
   .top:hover{background:var(--mint)}
 </style>
 </head>
-<body>
-<nav class="nav" aria-label="主選單">
+<body class="fz-m">
+<nav class="nav" aria-label="工具列與主選單">
   <div class="nav-inner">
-    <div class="brand">心的流動 · 折疊版</div>
-    <div class="nav-links" aria-hidden="true">
-      <!-- 簡化導覽，行動裝置不放錨點連結，避免過度複雜 -->
+    <div class="brand">心的流動 · 分頁＋極簡</div>
+    <div class="tools" role="group" aria-label="閱讀工具">
+      <!-- 極簡切換 -->
+      <button id="modeToggle" class="chip" aria-pressed="false" title="切換極簡/完整模式">極簡模式</button>
+      <!-- 字級切換 -->
+      <div class="fontbox" aria-label="字級切換">
+        <button id="fsSmall"  aria-label="小字級">A-</button>
+        <div class="sep" aria-hidden="true"></div>
+        <button id="fsMedium" aria-label="中字級">A</button>
+        <div class="sep" aria-hidden="true"></div>
+        <button id="fsLarge"  aria-label="大字級">A+</button>
+      </div>
     </div>
   </div>
 </nav>
 
-<header>
+<header class="wrap">
   <div class="hero">
     <span class="eyebrow">清淡 · 靜心 · 溫柔引導</span>
     <h1>在放不下裡，看見生命的流動</h1>
-    <p class="subtitle">一頁式、可折疊段落，行動優先。將緊密的聯繫（責任、照顧、使命、未竟心願）化為流動，讓心有出口、讓生命再呼吸。</p>
-    <div class="controls" role="group" aria-label="展開/收合控制">
-      <button class="btn" id="expandAll">全部展開</button>
-      <button class="btn soft" id="collapseAll">全部收合</button>
-    </div>
+    <p class="subtitle">一次看一頁，專注不負擔。可切換「極簡/完整」、調整字級，並用章節選單快速跳頁。</p>
   </div>
 </header>
 
-<main>
-  <div class="container" id="acc">
-    <!-- 1 -->
-    <details>
-      <summary>
-        <span class="chev" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span class="sum-title">一、我們都在關係裡被牽動</span>
-        <span class="sum-tag">牽繫 ≠ 只有情愛；也可能是責任、承諾、照顧、使命、未竟心願</span>
-      </summary>
-      <div class="panel">
-        <p>人的一生與許多生命交錯。這些連結真實而深刻，讓我們想守住、想補回、想再一次。只是，當我們太用力，容易與自己失去平衡。</p>
-        <blockquote>放不下的不一定是執著，常常是「深深的牽連」；看見牽連，就有鬆開的起點。</blockquote>
-        <div class="card"><strong>生活片段 · 未竟心願：</strong>退休老師最不捨的，不是學生離開，而是「還想再教一堂課的自己」。牽繫的是使命感，並非某個人。</div>
-        <div class="card"><strong>生活片段 · 照顧者：</strong>長照家屬怕一放手就沒人照顧；有時累得喘不過氣。放下不是不照顧，而是讓照顧「能被接住」。</div>
-        <p class="note">小提醒：當內心說「我一定要守住」時，先問——這份用力，讓我更開闊了嗎？還是更狹窄？</p>
+<main class="wrap">
+  <section class="stage" aria-label="分頁閱讀">
+    <div class="stage-head">
+      <div class="stage-title" id="stageTitle">一、我們都在關係裡被牽動</div>
+      <div class="progress" aria-hidden="true"><div class="bar" id="bar"></div></div>
+      <div class="pages" role="tablist" aria-label="頁面指示器">
+        <span class="dot" data-i="0" aria-label="第 1 頁" aria-current="page"></span>
+        <span class="dot" data-i="1" aria-label="第 2 頁"></span>
+        <span class="dot" data-i="2" aria-label="第 3 頁"></span>
+        <span class="dot" data-i="3" aria-label="第 4 頁"></span>
+        <span class="dot" data-i="4" aria-label="第 5 頁"></span>
       </div>
-    </details>
+      <div class="jump">
+        <label for="jumpSel" class="visually-hidden">章節跳轉</label>
+        <select id="jumpSel" aria-label="章節跳轉">
+          <option value="0">1｜我們都在關係裡被牽動</option>
+          <option value="1">2｜為何會痛</option>
+          <option value="2">3｜關係像呼吸</option>
+          <option value="3">4｜責任的新方向</option>
+          <option value="4">5｜生命願意流動</option>
+        </select>
+      </div>
+    </div>
 
-    <!-- 2 -->
-    <details>
-      <summary>
-        <span class="chev" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span class="sum-title">二、緊密的關係，為何會讓人痛</span>
-        <span class="sum-tag">「應該如此」的心，會讓生命在同一個圈裡打轉</span>
-      </summary>
-      <div class="panel">
-        <p>當我們盯著「事情必須照我的期待走」，心就被「應該」牽制。<br>《楞嚴經》：隨眾生心，應所知量，循業發現——世界依心而現；心越緊，世界越窄。</p>
-        <blockquote>放不下的，往往不是對方，而是「想讓一切更好」的那份心。看見它，就能調柔它。</blockquote>
-        <div class="card" style="background:linear-gradient(180deg,var(--rose),transparent 70%);">
-          <strong>練習 · 三個自問：</strong>
-          <ol>
-            <li>我是在照顧他，還是在用責任懲罰自己？</li>
-            <li>我是在成就使命，還是在害怕失去角色？</li>
-            <li>若稍微鬆手，會長出什麼新的可能？</li>
-          </ol>
-        </div>
-      </div>
-    </details>
+    <!-- Page 1 -->
+    <div class="page active" data-title="一、我們都在關係裡被牽動">
+      <div class="concise"><b>重點：</b>放不下多半是深深的牽連。<br><b>例子：</b>最不捨的，是「還想再教一堂課的自己」。<br><b>行動：</b>寫下此刻我牽繫的是＿＿＿。</div>
 
-    <!-- 3 -->
-    <details>
-      <summary>
-        <span class="chev" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span class="sum-title">三、關係像呼吸：出與入，才有生命</span>
-        <span class="sum-tag">外離相為禪，內不亂為定——在往來之中，心仍安穩</span>
-      </summary>
-      <div class="panel">
-        <p>放手不是斷開，而是讓生命繼續呼吸。吸進時擁抱，吐出時放開；若只吸不吐，心會悶，關係會窒息。</p>
-        <div class="note">「他離家，我心空了一半」——或許那一半，是你的生命去到他的路上，延續成另一種豐滿。</div>
-        <div class="card"><strong>一句話的轉念：</strong>「我知道你希望我繼續好好地活。」當責任由「扛著照顧」轉為「傳承心意」，人會睡得更安穩。</div>
-        <div class="card"><strong>呼吸小練習：</strong><br>吸氣：我擁抱當下的一切。<br>吐氣：我允許它按生命的節奏前行。</div>
+      <div class="k">
+        <h2>重點句</h2>
+        <p><strong>「放不下」多半不是執著，而是深深的牽連。</strong>來源可能是責任、承諾、照顧、使命，或一個還沒完成的心願。當我們太用力想守住、想補回、想再一次，心就會失去平衡。</p>
       </div>
-    </details>
+      <div class="ex">
+        <h3>生活例子</h3>
+        <p>退休老師最不捨的，不是學生離開，而是「還想再教一堂課的自己」。牽繫的是使命感，而不只是某個人。</p>
+      </div>
+      <div class="do">
+        <h3>小練習</h3>
+        <ul>
+          <li>寫下一句：此刻我牽繫的是「＿＿＿＿」。</li>
+          <li>問自己：這份用力，讓我更開闊？還是更狹窄？</li>
+        </ul>
+      </div>
+    </div>
 
-    <!-- 4 -->
-    <details>
-      <summary>
-        <span class="chev" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span class="sum-title">四、讓責任與牽掛，有新的方向</span>
-        <span class="sum-tag">責任不等於束縛；真正的責任讓彼此長出力量</span>
-      </summary>
-      <div class="panel">
-        <p>放下不是遺忘，而是轉化：從「守住身邊的一切」到「把心意交付給未來」。當責任變成祝福，牽掛就會變成光。</p>
-        <div class="card" style="background:linear-gradient(180deg,var(--mint),transparent 65%);">
-          <strong>把擔子換成力量：</strong>
-          <ul>
-            <li><b>從</b>：我一定要撐住 → <b>到</b>：我允許支援進來</li>
-            <li><b>從</b>：非我不可 → <b>到</b>：我們一起完成</li>
-            <li><b>從</b>：抓緊現在 → <b>到</b>：傳承心意給未來</li>
-          </ul>
-        </div>
-      </div>
-    </details>
+    <!-- Page 2 -->
+    <div class="page" data-title="二、緊密的關係，為何會讓人痛">
+      <div class="concise"><b>重點：</b>痛常來自想控制結果。<br><b>例子：</b>長照越扛越重，因為念頭太緊。<br><b>行動：</b>自問：鬆手 10% 會出現什麼？</div>
 
-    <!-- 5 -->
-    <details>
-      <summary>
-        <span class="chev" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span class="sum-title">五、當生命願意流動，輪迴自然止息</span>
-        <span class="sum-tag">應無所住而生其心——不黏「有／沒有」，心自在，路自開</span>
-      </summary>
-      <div class="panel">
-        <p>有人會離開，有人會靠近；有人成為過去，也有人走向未來。只要心在呼吸並保有覺知與感恩，聯繫就以新的方式存在。生命不再固執於留與失，它就自由流動。</p>
-        <blockquote>放下，不是拒絕牽繫；而是讓牽繫成為流動的光。</blockquote>
+      <div class="k">
+        <h2>重點句</h2>
+        <p><strong>痛，多半來自想要控制結果。</strong>當我們期待「他要好起來」「事情照我想的走」，心被「應該如此」束住，世界就變窄。</p>
       </div>
-    </details>
+      <div class="ex">
+        <h3>生活例子</h3>
+        <p>長照者怕一放手就沒人照顧，於是越扛越重；有時累到喘不過氣。不是不愛，是「我得把一切變好」的念頭太緊。</p>
+      </div>
+      <div class="do">
+        <h3>小練習：三個自問</h3>
+        <ul>
+          <li>我是在照顧他，還是在用責任懲罰自己？</li>
+          <li>我在成就使命，或是在害怕失去角色？</li>
+          <li>如果鬆手 10%，會出現什麼新可能？</li>
+        </ul>
+      </div>
+    </div>
 
-    <!-- 總結表 -->
-    <details>
-      <summary>
-        <span class="chev" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M8 5l8 7-8 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <span class="sum-title">🌱 心的開展：從牽繫到流動（總結表）</span>
-        <span class="sum-tag">給行動裝置友善的表格視圖</span>
-      </summary>
-      <div class="panel">
-        <div class="table-wrap" role="region" aria-label="心的開展總結表" tabindex="0">
-          <table>
-            <thead><tr><th>狀態</th><th>心的樣子</th><th>轉化方向</th><th>新的生命力</th></tr></thead>
-            <tbody>
-              <tr><td><strong>緊繫</strong></td><td>一直想守住、怕放手</td><td>問：「這份牽繫讓我更開闊或更狹窄？」</td><td>意識到：我在在乎，也要讓自己呼吸。</td></tr>
-              <tr><td><strong>糾結</strong></td><td>責任、虧欠、未竟之事</td><td>說：「我已盡心，也允許無常。」</td><td>讓責任轉為祝福，讓虧欠轉為學習。</td></tr>
-              <tr><td><strong>開口</strong></td><td>願意傾訴、願意理解</td><td>練習聆聽，不急著解釋</td><td>聽懂別人的難，也看見自己的界線。</td></tr>
-              <tr><td><strong>流動</strong></td><td>看見每段關係都在完成</td><td>呼吸、感恩、微笑</td><td>當心能流動，生命就不再停滯。</td></tr>
-            </tbody>
-          </table>
-        </div>
+    <!-- Page 3 -->
+    <div class="page" data-title="三、關係像呼吸：出與入，才有生命">
+      <div class="concise"><b>重點：</b>放手不是斷開，是讓關係呼吸。<br><b>例子：</b>空的一半，是生命去到他的路上。<br><b>行動：</b>兩句呼吸：擁抱／允許。</div>
+
+      <div class="k">
+        <h2>重點句</h2>
+        <p><strong>放手不是斷開，而是讓生命繼續呼吸。</strong>吸進時擁抱，吐出時放開；只吸不吐，心會悶，關係會窒息。</p>
       </div>
-    </details>
-  </div>
+      <div class="ex">
+        <h3>生活例子</h3>
+        <p>孩子離家，你覺得心空了一半。換個角度：那一半其實是你的生命，去到他的路上，延續成另一種豐滿。</p>
+      </div>
+      <div class="do">
+        <h3>小練習：兩句呼吸</h3>
+        <ul>
+          <li>吸氣：我擁抱當下的一切。</li>
+          <li>吐氣：我允許它按生命的節奏前行。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Page 4 -->
+    <div class="page" data-title="四、讓責任與牽掛，有新的方向">
+      <div class="concise"><b>重點：</b>放下是轉化，不是遺忘。<br><b>例子：</b>「我會好好活」—責任變祝福。<br><b>行動：</b>把擔子換成力量。</div>
+
+      <div class="k">
+        <h2>重點句</h2>
+        <p><strong>放下不是遺忘，而是轉化。</strong>從「我一個人扛」變成「我允許支援進來」；從「守住現在」變成「把心意交付給未來」。</p>
+      </div>
+      <div class="ex">
+        <h3>生活例子</h3>
+        <p>女兒照顧母親多年，母親走後久久難眠。她對照片說：「我會好好活。」那夜，她久違地睡了一整晚——責任變成了祝福。</p>
+      </div>
+      <div class="do">
+        <h3>小練習：把擔子換成力量</h3>
+        <ul>
+          <li><b>從</b>「非我不可」 → <b>到</b>「我們一起完成」</li>
+          <li><b>從</b>「我一定要撐住」 → <b>到</b>「我接受支援」</li>
+          <li><b>從</b>「抓緊現在」 → <b>到</b>「傳承心意給未來」</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Page 5 -->
+    <div class="page" data-title="五、當生命願意流動，輪迴自然止息">
+      <div class="concise"><b>重點：</b>不黏有/沒有，心自在。<br><b>例子：</b>留與失不再絕對，路自然開。<br><b>行動：</b>對自己說：讓牽繫成為流動的光。</div>
+
+      <div class="k">
+        <h2>重點句</h2>
+        <p><strong>不黏「有」或「沒有」，心就自在，路就會開。</strong>有人離開、有人靠近；只要心在呼吸並保有覺知與感恩，聯繫就以新的方式存在。</p>
+      </div>
+      <div class="ex">
+        <h3>生活例子</h3>
+        <p>你以為失去了一段關係，其實換得彼此的成長與新路。留與失，不再是絕對；生命開始自由流動。</p>
+      </div>
+      <div class="do">
+        <h3>小練習：一句結語</h3>
+        <p>輕聲對自己說：「我願意讓牽繫，成為流動的光。」</p>
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="controls" role="group" aria-label="分頁控制">
+      <button class="btn secondary" id="prev" aria-label="上一頁">← 上一頁</button>
+      <button class="btn primary" id="next" aria-label="下一頁">下一頁 →</button>
+    </div>
+  </section>
 </main>
 
-<footer>
-  <div>© 2025 心的流動 · 折疊版 • 行動優先</div>
+<footer class="wrap">
+  <div>© 2025 心的流動 · 分頁版（極簡/完整＋字級＋章節選單）</div>
   <a href="#" class="top">↑ 回到頂端</a>
 </footer>
 
 <script>
-  // Expand/Collapse All
-  const expandBtn = document.getElementById('expandAll');
-  const collapseBtn = document.getElementById('collapseAll');
-  const allDetails = () => Array.from(document.querySelectorAll('#acc details'));
+  // 狀態
+  const pages = Array.from(document.querySelectorAll('.page'));
+  const dots = Array.from(document.querySelectorAll('.dot'));
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const bar = document.getElementById('bar');
+  const title = document.getElementById('stageTitle');
+  const jumpSel = document.getElementById('jumpSel');
+  const modeToggle = document.getElementById('modeToggle');
+  const fsS = document.getElementById('fsSmall');
+  const fsM = document.getElementById('fsMedium');
+  const fsL = document.getElementById('fsLarge');
 
-  expandBtn.addEventListener('click', () => {
-    allDetails().forEach(d => d.open = true);
-  });
-  collapseBtn.addEventListener('click', () => {
-    allDetails().forEach(d => d.open = false);
-  });
+  const STORE_KEY = 'calm-reading';
+  let i = 0;
 
-  // Mobile accordion behavior: only one open at a time (<=768px)
-  function enforceSingleOpen(e){
-    if (window.matchMedia('(max-width: 768px)').matches) {
-      const current = e.currentTarget;
-      if (current.open) {
-        // already open; ignore
-        return;
-      }
-      // Delay to after toggle
-      requestAnimationFrame(() => {
-        allDetails().forEach(d => { if (d !== current) d.open = false; });
-      });
-    }
+  // 恢復偏好
+  try{
+    const saved = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+    if(saved.font){ document.body.classList.remove('fz-s','fz-l'); if(saved.font==='s') document.body.classList.add('fz-s'); if(saved.font==='l') document.body.classList.add('fz-l'); }
+    if(saved.concise){ document.body.classList.toggle('concise', !!saved.concise); modeToggle.setAttribute('aria-pressed', !!saved.concise); modeToggle.textContent = saved.concise ? '完整模式' : '極簡模式'; }
+  }catch(e){}
+
+  function render(){
+    pages.forEach((p,idx)=>p.classList.toggle('active', idx===i));
+    dots.forEach((d,idx)=>d.setAttribute('aria-current', idx===i ? 'page' : 'false'));
+    const pct = ((i+1)/pages.length)*100;
+    bar.style.width = pct + '%';
+    title.textContent = pages[i].dataset.title;
+    prevBtn.disabled = (i===0);
+    nextBtn.textContent = (i===pages.length-1) ? '完成 ✓' : '下一頁 →';
+    nextBtn.setAttribute('aria-label', (i===pages.length-1)?'完成':'下一頁');
+    jumpSel.value = String(i);
   }
-  allDetails().forEach(d => {
-    d.addEventListener('toggle', enforceSingleOpen);
+  function go(n){
+    i = Math.max(0, Math.min(pages.length-1, n));
+    render();
+  }
+
+  // 事件
+  prevBtn.addEventListener('click', ()=>go(i-1));
+  nextBtn.addEventListener('click', ()=>go(i+1));
+  dots.forEach(d=>d.addEventListener('click', ()=>go(parseInt(d.dataset.i,10))));
+  jumpSel.addEventListener('change', (e)=>go(parseInt(e.target.value,10)));
+
+  // 觸控滑動（手機）
+  let sx=0, sy=0, dx=0, dy=0, touching=false;
+  const stage = document.querySelector('.stage');
+  stage.addEventListener('touchstart', (e)=>{
+    if(!e.touches.length) return;
+    touching=true; sx=e.touches[0].clientX; sy=e.touches[0].clientY; dx=dy=0;
+  }, {passive:true});
+  stage.addEventListener('touchmove', (e)=>{
+    if(!touching) return;
+    dx = e.touches[0].clientX - sx; dy = e.touches[0].clientY - sy;
+  }, {passive:true});
+  stage.addEventListener('touchend', ()=>{
+    if(!touching) return; touching=false;
+    if(Math.abs(dx) > 60 && Math.abs(dy) < 40){ if(dx < 0) go(i+1); else go(i-1); }
   });
 
-  // Enable keyboard focus ring on summary
-  document.querySelectorAll('summary').forEach(s => {
-    s.addEventListener('keydown', (e) => {
-      if ((e.key === 'Enter' || e.key === ' ') && !e.ctrlKey && !e.metaKey) {
-        e.preventDefault();
-        s.parentElement.open = !s.parentElement.open;
-      }
-    });
+  // 鍵盤快捷
+  window.addEventListener('keydown',(e)=>{
+    if(e.key === 'ArrowRight') go(i+1);
+    if(e.key === 'ArrowLeft')  go(i-1);
   });
+
+  // 模式切換（極簡/完整）
+  modeToggle.addEventListener('click', ()=>{
+    const now = document.body.classList.toggle('concise');
+    modeToggle.setAttribute('aria-pressed', now);
+    modeToggle.textContent = now ? '完整模式' : '極簡模式';
+    savePref();
+  });
+
+  // 字級切換
+  fsS.addEventListener('click', ()=>{ document.body.classList.remove('fz-l'); document.body.classList.add('fz-s'); savePref('s'); });
+  fsM.addEventListener('click', ()=>{ document.body.classList.remove('fz-s','fz-l'); savePref('m'); });
+  fsL.addEventListener('click', ()=>{ document.body.classList.remove('fz-s'); document.body.classList.add('fz-l'); savePref('l'); });
+
+  function savePref(font){
+    try{
+      const saved = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
+      saved.concise = document.body.classList.contains('concise');
+      if(font){ saved.font = font; } else {
+        if(document.body.classList.contains('fz-s')) saved.font='s';
+        else if(document.body.classList.contains('fz-l')) saved.font='l';
+        else saved.font='m';
+      }
+      localStorage.setItem(STORE_KEY, JSON.stringify(saved));
+    }catch(e){}
+  }
+
+  render();
 </script>
 </body>
 </html>
