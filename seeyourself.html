@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>你眼中的世界，是你心的樣子｜卡片式閱讀</title>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    :root{
+      --bg1:#fff7ed;   /* amber-50 */
+      --bg2:#ffedd5;   /* orange-100 */
+      --fg:#333;
+      --muted:#6b7280; /* gray-500 */
+      --brand:#d97706; /* amber-600 */
+      --brand-dark:#b45309; /* amber-700 */
+      --card:#ffffff;
+      --border:#fde68a; /* amber-200 */
+      --shadow:0 10px 25px rgba(0,0,0,.07);
+    }
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg1:#0b0b0c;
+        --bg2:#111114;
+        --fg:#e5e7eb;
+        --muted:#9ca3af;
+        --brand:#f59e0b;
+        --brand-dark:#d97706;
+        --card:#171717;
+        --border:#3f3f46;
+        --shadow:0 10px 25px rgba(0,0,0,.35);
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", Arial, sans-serif;
+      color:var(--fg);
+      background:linear-gradient(180deg,var(--bg1),var(--bg2));
+      display:flex;align-items:center;justify-content:center;
+      padding:clamp(12px,3vw,32px);
+    }
+    .wrap{
+      width:min(900px,100%);
+      display:flex;flex-direction:column;align-items:center;gap:20px;
+    }
+    .card{
+      width:100%;
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:18px;
+      box-shadow:var(--shadow);
+      padding:clamp(18px,3.5vw,36px);
+      min-height:40vh;
+      display:flex;flex-direction:column;justify-content:center;align-items:center;
+      text-align:center;
+      opacity:0; transform:translateY(12px);
+      animation:fadeIn .45s ease forwards;
+    }
+    @keyframes fadeIn{
+      to{opacity:1; transform:none;}
+    }
+    .title{
+      font-size:clamp(20px,2.4vw,26px);
+      font-weight:700;
+      margin:0 0 12px;
+      color:var(--brand-dark);
+    }
+    .content{
+      font-size:clamp(16px,1.9vw,18px);
+      line-height:1.9;
+      white-space:pre-line; /* 讓 \n 變成換行 */
+    }
+    .nav{
+      display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap;
+      width:100%;
+    }
+    button{
+      cursor:pointer;border:0;border-radius:999px;
+      padding:.75rem 1.25rem;
+      background:var(--brand); color:white; font-weight:700;
+      box-shadow:var(--shadow);
+      transition:transform .12s ease, filter .12s ease, background .12s ease;
+      touch-action:manipulation;
+    }
+    button:active{transform:translateY(1px); filter:brightness(.95)}
+    button[disabled]{opacity:.5; cursor:not-allowed}
+    .idx{
+      color:var(--muted); font-size:14px;
+    }
+    /* 小螢幕排版微調 */
+    @media (max-width:520px){
+      .content{ text-align:left }
+    }
+    /* 無動畫偏好 */
+    @media (prefers-reduced-motion: reduce){
+      .card{animation:none; opacity:1; transform:none}
+      button{transition:none}
+    }
+    .sr{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <div id="card" class="card" aria-live="polite">
+      <h2 id="title" class="title"></h2>
+      <div id="content" class="content"></div>
+      <div class="sr" id="a11y-hint">使用鍵盤左右鍵或按鈕切換段落</div>
+    </div>
+
+    <nav class="nav" aria-label="頁面導覽">
+      <button id="prevBtn" type="button" aria-label="上一頁">← 上一頁</button>
+      <span id="index" class="idx"></span>
+      <button id="nextBtn" type="button" aria-label="下一頁">下一頁 →</button>
+    </nav>
+  </main>
+
+  <script>
+    // --- 內容（八段＋結語，與你前文一致/含年份與雙語） ---
+    const sections = [
+      {
+        title:"🌿 你眼中的世界，是你心的樣子",
+        content:
+`有時候，我們最難放下的，不是陌生人，而是那個「在乎」的人。
+總以自己為中心，個性堅固，合理化自己…
+你一次又一次地試圖靠近或溝通，卻感覺愈走愈遠。
+那是一種「用盡力氣卻再也靠不近」的無力。`
+      },
+      {
+        title:"一、為什麼某些人，會那麼讓你放不下？",
+        content:
+`西格蒙‧佛洛伊德（Sigmund Freud, 1856–1939）說：
+“Unexpressed emotions will never die. They are buried alive and will come forth later in uglier ways.”（1915,〈Repression〉）
+「未表達的情緒不會消失，它們被活埋在心裡，終會以更醜陋的方式浮現。」
+
+當我們長期壓抑感受、不敢表達真實的情緒，
+那股被壓下去的能量，會以「不相干的生氣、焦慮、冷漠」浮現。
+我們以為在氣別人，其實是在氣那個總得忍耐的自己。`
+      },
+      {
+        title:"二、榮格：你拒絕看見的自己，會以他人的樣貌出現",
+        content:
+`卡爾‧榮格（Carl G. Jung, 1875–1961）說：
+“Everything that irritates us about others can lead us to an understanding of ourselves.”（1945, Psychological Reflections）
+「每一件令我們厭煩的事，都可能引導我們理解自己。」
+
+——你討厭他的自私、情緒化或炫耀，
+其實在提醒你：那也是你心中尚未被接納的自己。`
+      },
+      {
+        title:"三、覺察，不是責怪，而是理解",
+        content:
+`佛洛伊德說：
+“Being entirely honest with oneself is a good exercise.”（1949, An Outline of Psychoanalysis）
+「誠實地面對自己，是最好的修煉。」
+
+卡爾‧羅傑斯（Carl Rogers, 1902–1987）說：
+“The curious paradox is that when I accept myself just as I am, then I can change.”（1961, On Becoming a Person）
+「奇妙的矛盾是：當我如實接納自己時，我才真正開始改變。」`
+      },
+      {
+        title:"四、佛法與心理學，在此交會",
+        content:
+`《華嚴經》：「應觀法界性，一切唯心造。」
+榮格說：
+“Your vision will become clear only when you can look into your own heart.”（1945, Letters Vol.1）
+「唯有當你能注視自己的心，視野才會清明。」
+
+——世界是心的延伸；心柔軟，世界就溫和。`
+      },
+      {
+        title:"五、從反應到觀照：止觀的練習",
+        content:
+`心理學的「情緒覺察」與佛法的「止觀」殊途同歸——
+先停，觀心，再行動。
+
+當你被刺時，不急著反應，
+先問：「這句話讓我哪裡痛？我在守護什麼？」  
+當你這麼做，情緒就開始透明。`
+      },
+      {
+        title:"六、放下的成熟：仍關心，但不被綁",
+        content:
+`哈羅德‧庫欣（Harold Kushner, 1935–2023）說：
+“Maturity is learning to care deeply and yet remain detached.”（1996, When All You've Ever Wanted Isn't Enough）
+「成熟，是學會深深關心，卻不被糾纏。」
+
+佛法亦說：「外離相為禪，內不亂為定。」
+——放下，不是冷淡，而是自由。`
+      },
+      {
+        title:"七、面對陰影，才能擁抱光",
+        content:
+`榮格說：
+“One does not become enlightened by imagining figures of light, but by making the darkness conscious.”（1945, The Philosophical Tree）
+「人不會因幻想光明而覺醒，而是讓黑暗變得可見時，才真正成長。」
+
+佛法亦云：「若見諸相非相，即見如來。」
+——當你願意直視自己的影，你就已在走向光。`
+      },
+      {
+        title:"八、結語：當心明，世界也明",
+        content:
+`那個讓你痛的人，也許依舊如昔；但你已不同。
+修行不是讓世界變完美，而是讓心變明。
+
+佛洛伊德教我們誠實，榮格教我們整合陰影，
+羅傑斯教我們接納自己，佛法引我們回到心的本淨。
+——當你願意真實地看見自己時，世界也開始變得柔軟。`
+      }
+    ];
+
+    // --- 簡單渲染/導覽 ---
+    const titleEl = document.getElementById('title');
+    const contentEl = document.getElementById('content');
+    const indexEl = document.getElementById('index');
+    const cardEl = document.getElementById('card');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    let i = 0;
+    function render(idx){
+      const s = sections[idx];
+      // 重新觸發淡入動畫
+      cardEl.style.animation = 'none';
+      // 強制重排以重啟動畫
+      void cardEl.offsetWidth;
+      cardEl.style.animation = '';
+
+      titleEl.textContent = s.title;
+      contentEl.textContent = s.content;   // 保留 \n
+      indexEl.textContent = `${idx+1} / ${sections.length}`;
+      prevBtn.disabled = (idx === 0);
+      nextBtn.disabled = (idx === sections.length-1);
+    }
+    function next(){ if(i < sections.length-1){ i++; render(i);} }
+    function prev(){ if(i > 0){ i--; render(i);} }
+
+    prevBtn.addEventListener('click', prev);
+    nextBtn.addEventListener('click', next);
+
+    // 鍵盤導覽
+    window.addEventListener('keydown', (e)=>{
+      if (e.key === 'ArrowRight') next();
+      if (e.key === 'ArrowLeft') prev();
+    }, {passive:true});
+
+    // 觸控滑動
+    let touchStartX = null;
+    cardEl.addEventListener('touchstart', (e)=>{ touchStartX = e.changedTouches[0].clientX; }, {passive:true});
+    cardEl.addEventListener('touchend',   (e)=>{
+      if(touchStartX === null) return;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if(Math.abs(dx) > 50){ dx < 0 ? next() : prev(); }
+      touchStartX = null;
+    }, {passive:true});
+
+    // 初次渲染
+    render(i);
+  </script>
+</body>
+</html>
