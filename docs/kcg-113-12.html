@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>凱西設計的高雄市村里級熱圖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            width: 80%;
+            margin: 0 auto;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .text-area {
+            flex: 1;
+            min-width: 300px;
+            padding: 10px;
+            background-color: #AEE0D6; /* 淡色 TIFFANY GREEN */
+            border-radius: 8px;
+        }
+
+        .frame-area {
+            flex: 2;
+            min-width: 300px;
+            height: 400px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-area">
+            <h1>高雄市 113-12 村里級熱圖</h1>
+            <p>
+                凱西設計的高雄市村里級熱圖，透過點擊縣市中的鄉鎮再顯示村里細節。資料以村里為主。
+            </p>
+        </div>
+        <div class="frame-area">
+            <iframe src="https://plotdb.io/v/chart/37203" allowfullscreen="true"></iframe>
+        </div>
+    </div>
+</body>
+</html>

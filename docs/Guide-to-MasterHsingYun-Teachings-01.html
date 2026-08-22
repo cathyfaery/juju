@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>佛法真義：自序｜凱西導讀（RWD大字版）</title>
+  <meta name="description" content="以星雲大師《佛法真義‧自序》為本，凱西為大眾導讀。全齡友善、手機/平板/桌機皆適讀。" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    /* ====== 字體與排版基準（長者友善） ====== */
+    :root{
+      /* 使用相對倍率調整整站字級（JS 會改這個值） */
+      --font-scale: 1;
+      /* 內文字體大小：手機略大，桌面不過大；再乘上倍率 */
+      --text-size: calc(var(--font-scale) * clamp(18px, 2.5vw, 21px));
+      /* 行距：預設 1.9，切換時會加寬 */
+      --line-height: 1.9;
+      /* 主要容器寬度，限制字行長度（以字元數為主） */
+      --content-width: 72ch;
+      --radius: 16px;
+      --shadow: 0 6px 18px rgba(0,0,0,.06);
+      --gap: clamp(14px, 2.2vw, 18px);
+
+      /* 色彩（淺色基準） */
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --brand: #0ea5e9; /* 天藍 */
+      --brand-ink: #075985;
+
+      /* 高對比模式覆蓋（.high-contrast 會套用） */
+      --hc-bg: #000000;
+      --hc-card: #111111;
+      --hc-text: #ffffff;
+      --hc-muted: #d1d5db;
+      --hc-brand: #22d3ee;
+      --hc-brand-ink: #a5f3fc;
+    }
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg: #0b1220;
+        --card: #0f172a;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --brand: #38bdf8;
+        --brand-ink: #a5f3fc;
+        --shadow: 0 8px 24px rgba(0,0,0,.35);
+      }
+    }
+
+    /* 高對比模式（手動切換） */
+    body.high-contrast{
+      --bg: var(--hc-bg);
+      --card: var(--hc-card);
+      --text: var(--hc-text);
+      --muted: var(--hc-muted);
+      --brand: var(--hc-brand);
+      --brand-ink: var(--hc-brand-ink);
+      --shadow: 0 0 0 rgba(0,0,0,0);
+    }
+
+    /* 行距加寬（手動切換） */
+    body.relaxed{
+      --line-height: 2.1;
+    }
+
+    /* 全站排版 */
+    html, body{
+      padding:0; margin:0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: var(--text-size);
+      line-height: var(--line-height);
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    a{ color: var(--brand); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
