@@ -11,6 +11,7 @@
 | 研究誠信 | [隱私權政策](research-integrity/privacy.html) | 說明資料處理、使用目的、第三方平台與使用者權益。 |
 | 佛學導讀 | [《佛法真義》自序導讀](buddhism/master-hsing-yun-guide.html) | 梳理星雲大師回歸佛法本懷、回應當代生活的寫作關懷。 |
 | 佛學導讀 | [阿育王舍利地圖](buddhism/ashoka-relic-map.html) | 以地圖呈現建塔、佛舍利流布及相關地點。 |
+| 佛學導讀 | [如是我聞－佛陀說法地點與經藏圖典](buddhism/buddha-ru-shi.html) | 天台五時與解深密三轉法輪的佛陀說法地點地圖、經典出處及立教用意完整查證。 |
 | 佛學導讀 | [布施波羅蜜與龍樹三諦](buddhism/three-truths-and-giving.html) | 由布施行理解緣起、空性與中道實踐。 |
 | 生命觀照 | [人生的三重風景](life-reflection/mountain-three-stages.html) | 呈現從執著、鬆動到自在的三階段生命轉折。 |
 | 生命觀照 | [在放不下裡，看見生命的流動](life-reflection/letting-go/) | 從關係與執取看見內心反應，逐步回到安定。 |
