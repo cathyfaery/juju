@@ -166,7 +166,7 @@
       <aside class="lg:col-span-4 bg-white rounded-2xl border border-[#e9ecef] p-4 shadow-xs lg:sticky lg:top-[160px]">
         <div class="flex items-center justify-between pb-3 border-b border-[#e9ecef] mb-3">
           <h2 class="text-base sm:text-lg font-bold text-[#212529] flex items-center font-serif">
-            <span class="text-[#a67c1e] mr-1.5 text-lg">🗺️</span> 古印度聖境位置
+            <span class="text-[#a67c1e] mr-1.5 text-lg">🗺️</span> 佛陀在印度說法地點
           </h2>
           <button id="toggle-map-btn" class="lg:hidden text-xs px-2.5 py-1 rounded border border-[#dee2e6] bg-[#f8f9fa] text-[#495057]">
             收合地圖
@@ -175,7 +175,7 @@
         
         <div id="map-container" class="transition-all duration-300">
           <p class="text-xs sm:text-sm text-[#6c757d] leading-relaxed mb-3">
-            中央為恆河流域，點擊地圖上的聖境圖標亦可同步切換上方頁籤。
+            中央為恆河流域，點擊地圖上的說法地圖標亦可同步切換上方頁籤。
           </p>
 
           <!-- 水墨古雅地圖容器 -->
@@ -252,7 +252,7 @@
               <path class="map-river-flow" d="M 188,102 C 198,128 208,148 230,162 C 262,184 308,182 345,200 C 382,220 402,252 392,298" fill="none" stroke="url(#ganges-gradient)" stroke-width="4.5" stroke-linecap="round"/>
               <text x="245" y="153" fill="#2d5766" font-size="13" font-weight="700" letter-spacing="1.5">恆 河 (Ganges)</text>
 
-              <!-- 聖境標記 1：舍衛國 祇樹給孤獨園 -->
+              <!-- 說法處所 1：舍衛國 祇樹給孤獨園 -->
               <g id="marker-sravasti" class="map-marker-group" onclick="selectLocation('sravasti')">
                 <circle cx="210" cy="140" r="14" fill="rgba(166,124,30,0.06)" stroke="transparent" class="marker-halo"/>
                 <!-- 典雅精舍標誌 -->
@@ -260,55 +260,55 @@
                 <text x="194" y="136" text-anchor="end" fill="#1f1d1b" font-size="13.5" font-weight="700">1. 舍衛國 祇園</text>
               </g>
 
-              <!-- 聖境標記 2：拘尸那城 娑羅雙樹間 -->
+              <!-- 說法處所 2：拘尸那城 娑羅雙樹間 -->
               <g id="marker-kushinagar" class="map-marker-group" onclick="selectLocation('kushinagar')">
                 <circle cx="332" cy="160" r="14" fill="rgba(140,45,25,0.06)" stroke="transparent" class="marker-halo"/>
                 <circle cx="332" cy="160" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
                 <text x="348" y="156" fill="#1f1d1b" font-size="13.5" font-weight="700">2. 拘尸那城</text>
               </g>
 
-              <!-- 聖境標記 3：毘舍離國（廣嚴城） -->
+              <!-- 說法處所 3：毘舍離國（廣嚴城） -->
               <g id="marker-vaishali" class="map-marker-group" onclick="selectLocation('vaishali')">
                 <circle cx="310" cy="178" r="14" fill="rgba(140,45,25,0.06)" stroke="transparent" class="marker-halo"/>
                 <circle cx="310" cy="178" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
                 <text x="326" y="196" fill="#1f1d1b" font-size="13.5" font-weight="700">3. 毘舍離國</text>
               </g>
 
-              <!-- 聖境標記 4：波羅奈 鹿野苑 -->
+              <!-- 說法處所 4：波羅奈 鹿野苑 -->
               <g id="marker-sarnath" class="map-marker-group" onclick="selectLocation('sarnath')">
                 <circle cx="265" cy="204" r="14" fill="rgba(60,110,127,0.08)" stroke="transparent" class="marker-halo"/>
                 <circle cx="265" cy="204" r="6" fill="#3c6e7f" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
                 <text x="249" y="222" text-anchor="end" fill="#1f1d1b" font-size="13.5" font-weight="700">4. 波羅奈 鹿野苑</text>
               </g>
 
-              <!-- 聖境標記 5：菩提伽耶 金剛座 -->
+              <!-- 說法處所 5：菩提伽耶 金剛座 -->
               <g id="marker-bodhgaya" class="map-marker-group" onclick="selectLocation('bodhgaya')">
                 <circle cx="320" cy="232" r="15" fill="rgba(166,124,30,0.12)" stroke="transparent" class="marker-halo"/>
                 <circle cx="320" cy="232" r="6.5" fill="#a67c1e" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
                 <text x="336" y="232" fill="#1f1d1b" font-size="13.5" font-weight="700">5. 菩提伽耶</text>
               </g>
 
-              <!-- 聖境標記 6：王舍城 靈鷲山 -->
+              <!-- 說法處所 6：王舍城 靈鷲山 -->
               <g id="marker-rajgir_peak" class="map-marker-group" onclick="selectLocation('rajgir_peak')">
                 <circle cx="355" cy="248" r="14" fill="rgba(140,45,25,0.06)" stroke="transparent" class="marker-halo"/>
                 <circle cx="355" cy="248" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
                 <text x="372" y="258" fill="#1f1d1b" font-size="13.5" font-weight="700">6. 王舍城 靈鷲山</text>
               </g>
 
-              <!-- 聖境標記 7：竹林精舍 -->
+              <!-- 說法處所 7：竹林精舍 -->
               <g id="marker-rajgir_bamboo" class="map-marker-group" onclick="selectLocation('rajgir_bamboo')">
                 <circle cx="342" cy="266" r="13" fill="rgba(60,110,127,0.08)" stroke="transparent" class="marker-halo"/>
                 <circle cx="342" cy="266" r="5.5" fill="#3c6e7f" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
                 <text x="328" y="286" text-anchor="end" fill="#1f1d1b" font-size="13" font-weight="700">7. 竹林精舍</text>
               </g>
 
-              <!-- 聖境標記 8：南海 楞伽山（斯里蘭卡島體結合自然水墨山形，杜絕海中山峰漂浮） -->
+              <!-- 說法處所 8：南海 楞伽山（斯里蘭卡島體結合自然水墨山形，杜絕海中山峰漂浮） -->
               <g id="marker-lanka" class="map-marker-group" onclick="selectLocation('lanka')">
                 <!-- 斯里蘭卡島嶼外廓：自然水墨島型 -->
                 <path d="M 270,564 C 290,552 308,570 302,598 C 294,620 272,615 264,592 Z" fill="#fdfbf7" stroke="#cfc5b4" stroke-width="2" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
                 <!-- 島內水墨微型山脊 -->
                 <path d="M 276,585 Q 284,575 292,586" fill="none" stroke="#8a7e6b" stroke-width="1.8" stroke-linecap="round"/>
-                <!-- 聖境標記點 -->
+                <!-- 說法處所 -->
                 <circle cx="284" cy="587" r="14" fill="rgba(140,45,25,0.06)" stroke="transparent" class="marker-halo"/>
                 <circle cx="284" cy="587" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
                 <text x="312" y="588" fill="#1f1d1b" font-size="13.5" font-weight="700">8. 南海 楞伽山</text>
