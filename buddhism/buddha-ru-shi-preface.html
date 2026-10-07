@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>如是我聞－佛陀說法地點與經藏圖典</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: 專為大字、典籍閱讀挑選之思源宋體與黑體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Noto Serif TC"', '"Songti TC"', '"STSong"', 'serif'],
+            sans: ['"Noto Sans TC"', 'sans-serif'],
+          },
+          colors: {
+            buddha: {
+              gold: '#a67c1e',
+              goldHover: '#c29b38',
+              goldBg: '#fcfaf4',
+              ink: '#1f1d1b',
+              inkMuted: '#4a4641',
+              vermilion: '#8c2d19',
+              vermilionSoft: '#fbf4f2',
+              river: '#407384',
+              sand: '#efe9dc',
+              paper: '#ffffff',
+              cardBg: '#faf9f6',
+              border: '#e6ded1'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 佛經典籍沉浸式排版設定 */
+    body {
+      font-family: 'Noto Serif TC', "Songti TC", "STSong", serif;
+      background-color: #ffffff;
+      color: #1f1d1b;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: 0.02em;
+    }
+    
+    /* 佛經原文引用段落專用字感：字寬微調、字重端正 */
+    .sutra-quote-font {
+      font-feature-settings: "palt" 1;
+      text-rendering: optimizeLegibility;
+      letter-spacing: 0.04em;
+    }
+
+    .custom-scroll::-webkit-scrollbar {
+      width: 8px;
+    }
+    .custom-scroll::-webkit-scrollbar-track {
+      background: #f1f3f5;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb {
+      background: #ced4da;
+      border-radius: 4px;
+    }
+    .custom-scroll::-webkit-scrollbar-thumb:hover {
+      background: #adb5bd;
+    }
+
+    /* 水墨自然地圖樣式：去除生硬向量感，強調山水溫潤筆觸 */
+    .map-river-flow {
+      stroke-dasharray: 400;
+      stroke-dashoffset: 0;
+      animation: waterShimmer 12s ease-in-out infinite alternate;
+    }
+    @keyframes waterShimmer {
+      0% { opacity: 0.85; }
+      100% { opacity: 1; filter: drop-shadow(0 0 2px rgba(64, 115, 132, 0.4)); }
+    }
+
+    .map-marker-group {
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    .map-marker-group:hover .marker-icon {
+      filter: drop-shadow(0 0 6px rgba(166, 124, 30, 0.9));
+    }
+    .map-marker-group:hover text {
+      fill: #8c2d19;
+      font-weight: 900;
+    }
+
+    /* 選取標記時的莊嚴金色佛光照耀 */
+    .map-marker-active .marker-icon {
+      filter: drop-shadow(0 0 8px rgba(230, 160, 20, 0.95)) drop-shadow(0 0 3px #8c2d19);
+    }
+    .map-marker-active .marker-halo {
+      stroke: #a67c1e !important;
+      stroke-width: 2px !important;
+      stroke-opacity: 0.8 !important;
+      fill: rgba(245, 158, 11, 0.15) !important;
+    }
+    .map-marker-active text {
+      fill: #8c2d19 !important;
+      font-weight: 900 !important;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-white text-[#1f1d1b]">
+  <!-- 頂部導覽列與大字字級控制 -->
+  <header class="bg-white border-b border-[#e9ecef] sticky top-0 z-40 shadow-2xs">
+    <div class="max-w-7xl mx-auto px-4 py-3 sm:py-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('intro')">
+        <span class="text-2xl sm:text-3xl text-[#a67c1e]" aria-hidden="true">☸</span>
+        <div>
+          <h1 class="text-xl sm:text-2xl lg:text-3xl font-black font-serif tracking-wide text-[#1f1d1b]">
+            如是我聞 · 佛陀說法處所與經藏圖典
+          </h1>
+          <p class="text-xs sm:text-sm text-[#4a4641] mt-0.5 font-serif">
+            天台五時時序 · 解深密經三轉法輪 · 說法處所「如是我聞」證信序原典考據
+          </p>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-2 sm:space-x-3">
+        <!-- 模式切換鈕：大眾故事入門 ⇋ 專業圖典考證 -->
+        <div class="inline-flex rounded-xl p-1 bg-[#f1f3f5] border border-[#dee2e6] text-xs sm:text-sm font-bold">
+          <button id="nav-btn-intro" onclick="switchView('intro')" class="px-3 py-1.5 rounded-lg transition-all duration-200 bg-white text-[#8c2d19] shadow-2xs">
+            📖 故事入門
+          </button>
+          <button id="nav-btn-app" onclick="switchView('app')" class="px-3 py-1.5 rounded-lg transition-all duration-200 text-[#495057] hover:text-[#212529]">
+            🗺️ 經藏圖典
+          </button>
+        </div>
+
+        <!-- 長輩與法師專用：字級放大縮小控制項 -->
+        <div class="flex items-center space-x-1 bg-[#f8f9fa] p-1 rounded-xl border border-[#dee2e6]">
+          <button id="font-decrease" title="縮小字級" class="w-8 h-8 rounded-lg border border-[#ced4da] bg-white text-[#212529] font-bold text-sm hover:bg-[#f1f3f5] transition-colors flex items-center justify-center shadow-2xs">
+            A-
+          </button>
+          <button id="font-reset" title="恢復標準字級" class="px-2 h-8 rounded-lg border border-[#ced4da] bg-white text-[#212529] text-xs font-semibold hover:bg-[#f1f3f5] transition-colors flex items-center justify-center shadow-2xs">
+            標準
+          </button>
+          <button id="font-increase" title="放大字級 (長輩友善)" class="px-2.5 h-8 rounded-lg border border-[#ced4da] bg-white text-[#212529] font-bold text-sm hover:bg-[#f1f3f5] transition-colors flex items-center justify-center gap-1 shadow-2xs">
+            <span>A+</span> <span class="text-xs font-normal hidden md:inline">大字</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================== 【視圖一：大眾普及化故事入門首頁】 ======================== -->
+  <section id="view-intro" class="w-full max-w-6xl mx-auto px-4 py-8 sm:py-12 transition-opacity duration-300">
+    
+    <!-- 主標題橫幅：沉浸式歷史對白 -->
+    <div class="text-center max-w-3xl mx-auto space-y-4 mb-10 sm:mb-14">
+      <span class="inline-block px-4 py-1.5 rounded-full text-xs sm:text-sm font-bold bg-[#fcfaf4] text-[#a67c1e] border border-[#e8dfcf] tracking-widest">
+        二千五百年前的承諾與真理印記
+      </span>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black font-serif text-[#1f1d1b] leading-tight">
+        為什麼每一部佛經的開頭，<br class="hidden sm:inline">都是「如是我聞」？
+      </h2>
+      <p class="text-base sm:text-lg text-[#4a4641] leading-relaxed font-serif pt-2">
+        這不是神話，也不是後人的憑空杜撰。<br>
+        那是弟子阿難向全人類許下的鄭重證詞：<br>
+        <span class="font-bold text-[#8c2d19]">「那一天，我就坐在台下，親耳聽見佛陀這樣說。」</span>
+      </p>
+      
+      <div class="pt-4 flex flex-wrap items-center justify-center gap-3">
+        <button onclick="switchView('app')" class="px-6 py-3 rounded-xl bg-[#8c2d19] text-white text-base font-bold shadow-md hover:bg-[#722312] transition-colors cursor-pointer flex items-center gap-2">
+          <span>直接開啟完整地圖與經藏考證</span>
+          <span>➔</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 三大入門核心視角：白話解構 -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+      <div class="bg-[#faf9f6] border border-[#e8dfcf] p-6 sm:p-7 rounded-2xl space-y-3 shadow-2xs">
+        <div class="w-10 h-10 rounded-full bg-[#8c2d19]/10 text-[#8c2d19] flex items-center justify-center text-xl font-bold font-serif">
+          壹
+        </div>
+        <h3 class="text-xl font-bold font-serif text-[#1f1d1b]">阿難的眼淚與最後承諾</h3>
+        <p class="text-sm sm:text-base text-[#4a4641] leading-relaxed font-serif">
+          佛陀在娑羅雙樹間即將涅槃，二十五年形影不離的侍者阿難泣不成聲。阿那律尊者提醒他：「莫哭，當問世尊：佛滅度後，結集經藏，經首當安何字以令後人信服？」佛陀平靜交代：「當冠以『如是我聞』。」以此四字，平息疑謗、令法常住。
+        </p>
+      </div>
+
+      <div class="bg-[#faf9f6] border border-[#e8dfcf] p-6 sm:p-7 rounded-2xl space-y-3 shadow-2xs">
+        <div class="w-10 h-10 rounded-full bg-[#a67c1e]/10 text-[#a67c1e] flex items-center justify-center text-xl font-bold font-serif">
+          貳
+        </div>
+        <h3 class="text-xl font-bold font-serif text-[#1f1d1b]">最古老的防偽防妄簽章</h3>
+        <p class="text-sm sm:text-base text-[#4a4641] leading-relaxed font-serif">
+          梵語 <span class="font-sans italic font-medium">Evaṃ mayā śrutam</span>。「如是」指法之如實，「我聞」明非自造，而是親耳從佛受持。在沒有紙筆印刷的古代，五百位阿羅漢逐句複誦印證，確保二千五百年後我們讀到的每一字，都直源於鹿野苑與靈鷲山的清淨梵音。
+        </p>
+      </div>
+
+      <div class="bg-[#faf9f6] border border-[#e8dfcf] p-6 sm:p-7 rounded-2xl space-y-3 shadow-2xs">
+        <div class="w-10 h-10 rounded-full bg-[#3c6e7f]/10 text-[#3c6e7f] flex items-center justify-center text-xl font-bold font-serif">
+          參
+        </div>
+        <h3 class="text-xl font-bold font-serif text-[#1f1d1b]">四十九年的行腳 GPS</h3>
+        <p class="text-sm sm:text-base text-[#4a4641] leading-relaxed font-serif">
+          佛陀行遍古印度十六大國。在祇園看須達長者黃金布地，在病房安慰摩登伽女，在王舍城開示火宅三車。每一部經文開頭的「一時，佛在某地」，就是佛陀一生慈悲足跡的真實歷史地理座標。
+        </p>
+      </div>
+    </div>
+
+    <!-- 故事引導入口：三個最具代表性的時空現場（點選直接穿梭至該處圖典） -->
+    <div class="border-t border-[#e9ecef] pt-8 sm:pt-10">
+      <div class="text-center mb-6">
+        <h3 class="text-2xl font-bold font-serif text-[#1f1d1b]">
+          點選三個關鍵現場，即刻開啟古地圖
+        </h3>
+        <p class="text-sm text-[#6c757d] mt-1 font-serif">
+          從佛陀駐錫最久的講堂，到最後示寂的雙樹間，循著證信序重回二千五百年前
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div onclick="goToAppAndSelect('sravasti')" class="cursor-pointer bg-white border border-[#e6ded1] hover:border-[#a67c1e] hover:shadow-md transition-all p-5 rounded-2xl group">
+          <div class="flex items-center justify-between text-xs text-[#a67c1e] font-bold mb-2">
+            <span>日常僧團生活 ＆ 大乘精粹</span>
+            <span>點擊探索 ➔</span>
+          </div>
+          <h4 class="text-lg font-bold font-serif text-[#1f1d1b] group-hover:text-[#8c2d19] transition-colors">
+            1. 舍衛國 祇樹給孤獨園
+          </h4>
+          <p class="text-xs sm:text-sm text-[#4a4641] mt-2 leading-relaxed">
+            長者黃金布地供佛，佛陀於此住錫二十餘雨安居。《金剛經》著衣持鉢、《阿彌陀經》出廣長舌相與《楞嚴經》破妄顯真均在此宣說。
+          </p>
+        </div>
+
+        <div onclick="goToAppAndSelect('rajgir_peak')" class="cursor-pointer bg-white border border-[#e6ded1] hover:border-[#a67c1e] hover:shadow-md transition-all p-5 rounded-2xl group">
+          <div class="flex items-center justify-between text-xs text-[#a67c1e] font-bold mb-2">
+            <span>開權顯實 ＆ 諸經之王</span>
+            <span>點擊探索 ➔</span>
+          </div>
+          <h4 class="text-lg font-bold font-serif text-[#1f1d1b] group-hover:text-[#8c2d19] transition-colors">
+            6. 王舍城 靈鷲山（鷲峰山）
+          </h4>
+          <p class="text-xs sm:text-sm text-[#4a4641] mt-2 leading-relaxed">
+            王舍五峰之秀，鷲鳥盤旋。佛在此演繹「十方佛土中，唯有一乘法」之《法華經》、大品《般若經》及救度眾生之淨土《無量壽經》。
+          </p>
+        </div>
+
+        <div onclick="goToAppAndSelect('kushinagar')" class="cursor-pointer bg-white border border-[#e6ded1] hover:border-[#a67c1e] hover:shadow-md transition-all p-5 rounded-2xl group">
+          <div class="flex items-center justify-between text-xs text-[#8c2d19] font-bold mb-2">
+            <span>最後遺教 ＆ 「如是我聞」起源</span>
+            <span>點擊探索 ➔</span>
+          </div>
+          <h4 class="text-lg font-bold font-serif text-[#1f1d1b] group-hover:text-[#8c2d19] transition-colors">
+            2. 拘尸那城 娑羅雙樹間
+          </h4>
+          <p class="text-xs sm:text-sm text-[#4a4641] mt-2 leading-relaxed">
+            世尊應化八十載圓滿，於二月十五日中夜示寂之處。度最後弟子須跋陀羅，開顯法身常樂我淨，阿難請示「如是我聞」的最初發生地。
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ======================== 【視圖二：專業經藏圖典考證系統（完整保留無刪改）】 ======================== -->
+  <main id="view-app" class="flex-grow max-w-7xl mx-auto px-4 py-4 w-full hidden">
+    <!-- 地區切換分頁籤 (Sticky吸頂導覽) -->
+    <section id="region-nav-section" class="sticky z-30 bg-white/95 backdrop-blur-md pt-2 pb-3 border-b border-[#e9ecef] mb-6">
+      <div class="flex items-center justify-between text-xs sm:text-sm text-[#6c757d] mb-2 font-semibold">
+        <span class="flex items-center gap-1.5">
+          <svg class="w-4 h-4 text-[#a67c1e]" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"></path>
+          </svg>
+          說法地區頁籤 (點擊切換地區卡片)
+        </span>
+        <button onclick="switchView('intro')" class="text-xs text-[#8c2d19] font-serif hover:underline">
+          ← 回到大眾故事入門
+        </button>
+      </div>
+
+      <!-- 頁籤滾動容器 -->
+      <nav id="region-tabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar scroll-smooth py-1" aria-label="地區切換頁籤">
+        <!-- 由 JavaScript 動態生成頁籤項目 -->
+      </nav>
+    </section>
+
+    <!-- 雙欄架構：左側古地圖，右側為目前頁籤所屬地區之經典卡片庫 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- 左側：地圖參考卡片 -->
+      <aside class="lg:col-span-4 bg-white rounded-2xl border border-[#e9ecef] p-4 shadow-xs lg:sticky lg:top-[160px]">
+        <div class="flex items-center justify-between pb-3 border-b border-[#e9ecef] mb-3">
+          <h2 class="text-base sm:text-lg font-bold text-[#212529] flex items-center font-serif">
+            <span class="text-[#a67c1e] mr-1.5 text-lg">🗺️</span> 佛陀說法處所位置
+          </h2>
+          <button id="toggle-map-btn" class="lg:hidden text-xs px-2.5 py-1 rounded border border-[#dee2e6] bg-[#f8f9fa] text-[#495057]">
+            收合地圖
+          </button>
+        </div>
+        
+        <div id="map-container" class="transition-all duration-300">
+          <p class="text-xs sm:text-sm text-[#6c757d] leading-relaxed mb-3">
+            中央為恆河流域，點擊地圖上的說法地點圖標可同步切換上方頁籤。
+          </p>
+
+          <!-- 水墨古雅地圖容器 -->
+          <div class="relative w-full aspect-[4/5] bg-[#faf8f4] rounded-2xl border border-[#e8dfcf] overflow-hidden flex items-center justify-center shadow-xs">
+            <svg id="india-map" viewBox="0 0 540 680" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <filter id="soft-blur" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="2"/>
+                </filter>
+                <filter id="gold-glow" x="-50%" y="-50%" width="200%" height="200%">
+                  <feGaussianBlur in="SourceGraphic" stdDeviation="3.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+                <linearGradient id="ganges-gradient" x1="0%" y1="0%" x2="100%" y2="80%">
+                  <stop offset="0%" stop-color="#55899b" stop-opacity="0.8"/>
+                  <stop offset="60%" stop-color="#3c6e7f" stop-opacity="0.95"/>
+                  <stop offset="100%" stop-color="#2d5766" stop-opacity="0.9"/>
+                </linearGradient>
+                <radialGradient id="ocean-glow-left" cx="0%" cy="60%" r="60%">
+                  <stop offset="0%" stop-color="#ebf1f3" stop-opacity="0.7"/>
+                  <stop offset="100%" stop-color="#faf8f4" stop-opacity="0"/>
+                </radialGradient>
+                <radialGradient id="ocean-glow-right" cx="100%" cy="60%" r="60%">
+                  <stop offset="0%" stop-color="#ebf1f3" stop-opacity="0.7"/>
+                  <stop offset="100%" stop-color="#faf8f4" stop-opacity="0"/>
+                </radialGradient>
+              </defs>
+
+              <rect width="540" height="680" fill="#faf8f4"/>
+              
+              <rect x="0" y="280" width="180" height="400" fill="url(#ocean-glow-left)"/>
+              <rect x="360" y="280" width="180" height="400" fill="url(#ocean-glow-right)"/>
+              <text x="35" y="460" fill="#a4b8bd" font-size="13" font-family="'Noto Serif TC', serif" letter-spacing="3" font-style="italic">阿 拉 伯 海</text>
+              <text x="400" y="460" fill="#a4b8bd" font-size="13" font-family="'Noto Serif TC', serif" letter-spacing="3" font-style="italic">孟 加 拉 灣</text>
+              <text x="210" y="665" fill="#a4b8bd" font-size="12" font-family="'Noto Serif TC', serif" letter-spacing="4">印 度 洋</text>
+
+              <!-- 喜馬拉雅山脈 -->
+              <g class="himalaya-mountains" opacity="0.85">
+                <path d="M 80,72 Q 130,42 180,68 Q 230,35 280,60 Q 330,32 380,58 Q 430,40 480,75 L 480,95 L 80,95 Z" fill="#e8edf0" opacity="0.6"/>
+                <path d="M 90,82 C 120,55 145,68 170,50 C 200,68 225,48 255,42 C 285,58 315,45 345,55 C 375,42 410,65 440,58 C 460,65 475,78 485,82" fill="none" stroke="#9bb1b8" stroke-width="2.2" stroke-linecap="round"/>
+                <path d="M 120,78 Q 140,60 160,78 Q 185,58 210,76 Q 240,50 270,75 Q 300,56 330,76 Q 365,58 400,80" fill="none" stroke="#718b93" stroke-width="1.6" stroke-linecap="round"/>
+                <text x="215" y="32" fill="#586e75" font-size="13" font-weight="700" letter-spacing="4">喜 馬 拉 雅 山 脈</text>
+              </g>
+
+              <!-- 古印度大陸本體 -->
+              <path d="M 78,122 C 110,132 135,116 160,105 C 205,86 250,86 295,90 C 345,95 400,90 435,118 C 470,145 460,195 445,235 C 425,285 385,315 375,365 C 358,435 320,515 272,568 C 248,515 208,445 170,375 C 142,322 102,282 86,222 C 75,182 68,146 78,122 Z" fill="#ffffff" stroke="#e0d6c5" stroke-width="3" filter="drop-shadow(0 2px 8px rgba(0,0,0,0.04))"/>
+              
+              <path d="M 98,112 Q 132,170 120,225" fill="none" stroke="#d5ccbd" stroke-width="1.2" stroke-dasharray="3 3"/>
+              <text x="56" y="152" fill="#9c9383" font-size="11" font-family="'Noto Serif TC', serif">巴基斯坦</text>
+
+              <path d="M 235,92 C 270,112 310,112 345,92" fill="none" stroke="#d5ccbd" stroke-width="1.2" stroke-dasharray="3 3"/>
+              <text x="278" y="112" fill="#9c9383" font-size="11" font-family="'Noto Serif TC', serif">尼泊爾</text>
+
+              <path d="M 375,228 C 390,258 370,282 398,292" fill="none" stroke="#d5ccbd" stroke-width="1.2" stroke-dasharray="3 3"/>
+              <text x="395" y="278" fill="#9c9383" font-size="11" font-family="'Noto Serif TC', serif">孟加拉</text>
+
+              <!-- 恆河 -->
+              <path d="M 188,102 C 198,128 208,148 230,162 C 262,184 308,182 345,200 C 382,220 402,252 392,298" fill="none" stroke="#9ec3cf" stroke-width="8" stroke-linecap="round" opacity="0.35" filter="url(#soft-blur)"/>
+              <path class="map-river-flow" d="M 188,102 C 198,128 208,148 230,162 C 262,184 308,182 345,200 C 382,220 402,252 392,298" fill="none" stroke="url(#ganges-gradient)" stroke-width="4.5" stroke-linecap="round"/>
+              <text x="245" y="153" fill="#2d5766" font-size="13" font-weight="700" letter-spacing="1.5">恆 河 (Ganges)</text>
+
+              <!-- 說法處所 1 -->
+              <g id="marker-sravasti" class="map-marker-group" onclick="selectLocation('sravasti')">
+                <circle cx="210" cy="140" r="14" fill="rgba(166,124,30,0.06)" stroke="transparent" class="marker-halo"/>
+                <circle cx="210" cy="140" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
+                <text x="194" y="136" text-anchor="end" fill="#1f1d1b" font-size="13.5" font-weight="700">1. 舍衛國 祇園</text>
+              </g>
+
+              <!-- 說法處所 2 -->
+              <g id="marker-kushinagar" class="map-marker-group" onclick="selectLocation('kushinagar')">
+                <circle cx="332" cy="160" r="14" fill="rgba(140,45,25,0.06)" stroke="transparent" class="marker-halo"/>
+                <circle cx="332" cy="160" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
+                <text x="348" y="156" fill="#1f1d1b" font-size="13.5" font-weight="700">2. 拘尸那城</text>
+              </g>
+
+              <!-- 說法處所 3 -->
+              <g id="marker-vaishali" class="map-marker-group" onclick="selectLocation('vaishali')">
+                <circle cx="310" cy="178" r="14" fill="rgba(140,45,25,0.06)" stroke="transparent" class="marker-halo"/>
+                <circle cx="310" cy="178" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
+                <text x="326" y="196" fill="#1f1d1b" font-size="13.5" font-weight="700">3. 毘舍離國</text>
+              </g>
+
+              <!-- 說法處所 4 -->
+              <g id="marker-sarnath" class="map-marker-group" onclick="selectLocation('sarnath')">
+                <circle cx="265" cy="204" r="14" fill="rgba(60,110,127,0.08)" stroke="transparent" class="marker-halo"/>
+                <circle cx="265" cy="204" r="6" fill="#3c6e7f" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
+                <text x="249" y="222" text-anchor="end" fill="#1f1d1b" font-size="13.5" font-weight="700">4. 波羅奈 鹿野苑</text>
+              </g>
+
+              <!-- 說法處所 5 -->
+              <g id="marker-bodhgaya" class="map-marker-group" onclick="selectLocation('bodhgaya')">
+                <circle cx="320" cy="232" r="15" fill="rgba(166,124,30,0.12)" stroke="transparent" class="marker-halo"/>
+                <circle cx="320" cy="232" r="6.5" fill="#a67c1e" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
+                <text x="336" y="232" fill="#1f1d1b" font-size="13.5" font-weight="700">5. 菩提伽耶</text>
+              </g>
+
+              <!-- 說法處所 6 -->
+              <g id="marker-rajgir_peak" class="map-marker-group" onclick="selectLocation('rajgir_peak')">
+                <circle cx="355" cy="248" r="14" fill="rgba(140,45,25,0.06)" stroke="transparent" class="marker-halo"/>
+                <circle cx="355" cy="248" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
+                <text x="372" y="258" fill="#1f1d1b" font-size="13.5" font-weight="700">6. 王舍城 靈鷲山</text>
+              </g>
+
+              <!-- 說法處所 7 -->
+              <g id="marker-rajgir_bamboo" class="map-marker-group" onclick="selectLocation('rajgir_bamboo')">
+                <circle cx="342" cy="266" r="13" fill="rgba(60,110,127,0.08)" stroke="transparent" class="marker-halo"/>
+                <circle cx="342" cy="266" r="5.5" fill="#3c6e7f" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
+                <text x="328" y="286" text-anchor="end" fill="#1f1d1b" font-size="13.5" font-weight="700">7. 竹林精舍</text>
+              </g>
+
+              <!-- 說法處所 8 -->
+              <g id="marker-lanka" class="map-marker-group" onclick="selectLocation('lanka')">
+                <path d="M 270,564 C 290,552 308,570 302,598 C 294,620 272,615 264,592 Z" fill="#fdfbf7" stroke="#cfc5b4" stroke-width="2" filter="drop-shadow(0 2px 4px rgba(0,0,0,0.05))"/>
+                <path d="M 276,585 Q 284,575 292,586" fill="none" stroke="#8a7e6b" stroke-width="1.8" stroke-linecap="round"/>
+                <circle cx="284" cy="587" r="14" fill="rgba(140,45,25,0.06)" stroke="transparent" class="marker-halo"/>
+                <circle cx="284" cy="587" r="6" fill="#8c2d19" stroke="#ffffff" stroke-width="2.2" class="marker-icon"/>
+                <text x="312" y="588" fill="#1f1d1b" font-size="13.5" font-weight="700">8. 南海 楞伽山</text>
+                <text x="312" y="604" fill="#8c8273" font-size="11" font-family="'Noto Serif TC', serif">(斯里蘭卡)</text>
+              </g>
+            </svg>
+          </div>
+        </div>
+      </aside>
+
+      <!-- 右側：當前頁籤地區的詳細資訊與經典卡片清單 (完整考證) -->
+      <section class="lg:col-span-8 flex flex-col space-y-4">
+        
+        <!-- 當前地區資訊總覽卡片 -->
+        <div class="bg-white rounded-2xl border border-[#e9ecef] p-5 sm:p-7 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span id="place-tag" class="px-3 py-1 rounded-md text-xs sm:text-sm font-bold tracking-wide bg-[#fef9f3] text-[#8c2d19] border border-[#f5d9d2]">
+              說法處所
+            </span>
+            <span id="place-coords" class="text-xs sm:text-sm text-[#6c757d]">
+              古印度十六大國 · 地理考證
+            </span>
+          </div>
+          <h2 id="place-title" class="text-2xl sm:text-3xl font-bold font-serif text-[#212529] tracking-wide mt-1">
+            請選擇說法處所
+          </h2>
+          <p id="place-desc" class="text-base sm:text-lg text-[#495057] mt-3 leading-relaxed border-t border-[#f1f3f5] pt-3">
+            點選上方分頁籤或左側地圖，此處將以「天台五時」順序展示佛陀於該地宣說之經典，並標註「解深密經三轉法輪」判攝。
+          </p>
+
+          <!-- 篩選統計與法輪指示條 -->
+          <div class="mt-4 pt-3 border-t border-[#f1f3f5] flex flex-wrap items-center justify-between gap-3 text-sm text-[#495057]">
+            <div class="flex items-center space-x-2">
+              <span class="font-bold text-[#212529]">此頁籤收錄經典：</span>
+              <span id="sutra-count" class="font-black text-[#8c2d19] text-xl">0</span> 部
+            </div>
+            <div class="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-[#6c757d]">
+              <span class="inline-flex items-center px-2 py-0.5 rounded bg-[#3c6e7f]/10 text-[#3c6e7f] font-semibold"><span class="w-2 h-2 rounded-full bg-[#3c6e7f] mr-1.5"></span>初轉(四諦)</span>
+              <span class="inline-flex items-center px-2 py-0.5 rounded bg-[#a67c1e]/10 text-[#a67c1e] font-semibold"><span class="w-2 h-2 rounded-full bg-[#a67c1e] mr-1.5"></span>二轉(顯空)</span>
+              <span class="inline-flex items-center px-2 py-0.5 rounded bg-[#8c2d19]/10 text-[#8c2d19] font-semibold"><span class="w-2 h-2 rounded-full bg-[#8c2d19] mr-1.5"></span>三轉(中道)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 經典卡片列表區容器 -->
+        <div id="sutra-container" class="space-y-5">
+          <!-- JS 動態生成經典卡片 -->
+        </div>
+
+      </section>
+
+    </div>
+
+  </main>
+  <!-- 頁尾 -->
+  <footer class="bg-white border-t border-[#e9ecef] py-6 text-center text-sm text-[#6c757d] mt-10">
+    <div class="max-w-7xl mx-auto px-4 space-y-1">
+      <p class="font-serif">
+        經本引據：《大正新脩大藏經》（Taishō Tripiṭaka）· CBETA 中華電子佛典協會
+      </p>
+      <p class="text-xs text-[#868e96]">
+        判教參照：天台智者大師五時說法 ＆ 唐玄奘譯《解深密經·無自性相品》三轉法輪
+        網頁設計：Cathy
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // 依天台五時＋三轉法輪排列之經藏數據庫
+    const SACRED_PLACES = {
+      "sravasti": {
+        id: "sravasti",
+        tabLabel: "1. 舍衛國祇園",
+        name: "1. 舍衛國 祇樹給孤獨園",
+        alias: "室羅筏城祇桓精舍 · 誓多林",
+        region: "憍薩羅國 (Kosala) · 今印度北方邦塞特馬赫特 (Sahet-Mahet)",
+        desc: "佛陀成道後駐錫說法長達二十餘雨安居之聖地。須達長者黃金布地，與祇陀太子共構僧苑供佛。此處兼具聲聞根本教化與深密大乘化導，為大乘般若七會宣講處，《金剛經》、《彌陀經》、《楞嚴經》之說法發源所。",
+        sutras: [
+          {
+            name: "長阿含經",
+            periodTianti: "一、前期：鹿苑時（阿含期，約12年）",
+            wheel: "初轉：四諦法輪（顯有／破我執）",
+            wheelColor: "bg-[#3c6e7f]",
+            chapter: "22 卷（卷 1〈初分大本經第一〉）",
+            translator: "後秦 · 佛陀耶舍、竺佛念 共譯",
+            taisho: "Vol. 01, No. 001",
+            locationText: "舍衛國祇樹給孤獨園",
+            summary: "收錄篇幅較長之根本經典，詳述過去七佛出世本末、佛陀遊行教化、四姓平等、破除外道苦行梵志，乃至輪王治世與天地世間成壞之法。",
+            purpose: "【立教用意】：摧伏當世吠陀外道祭祀邪見，確立以緣起因果為核心的正見體系；以歷代佛法一脈相承化導聲聞弟子斷盡煩惱，確立如來世尊於人間無上人天導師之正統地位。",
+            quote: "如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘眾千二百五十人俱。爾時諸比丘於食後聚會講堂……"
+          },
+          {
+            name: "雜阿含經",
+            periodTianti: "一、前期：鹿苑時（阿含期，約12年）",
+            wheel: "初轉：四諦法輪（顯有／破我執）",
+            wheelColor: "bg-[#3c6e7f]",
+            chapter: "50 卷（卷 1 第一經）",
+            translator: "劉宋 · 求那跋陀羅 譯",
+            taisho: "Vol. 02, No. 099",
+            locationText: "舍衛國祇樹給孤獨園",
+            summary: "佛陀隨機應化之根本修持結集，以五陰、十二入處、十八界、十二因緣、四念處及三十七道品為核心，直指一切諸法「無常、苦、空、無我」。",
+            purpose: "【立教用意】：破除凡夫於身心假合中執取「常一主宰之我見」；引導行者由觀五蘊無常發起深切厭離，不起染著，證得無生阿羅漢果，為解脫道最根本骨幹。",
+            quote: "如是我聞：一時，佛在舍衛國祇樹給孤獨園。爾時世尊告諸比丘：「當觀色無常。如是觀者，則為正觀；正觀者，則生厭離……」"
+          },
+          {
+            name: "大佛頂首楞嚴經",
+            periodTianti: "二、中期：方等時（彈偏斥小，約8年）",
+            wheel: "三轉：中道了義法輪（心性圓明）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "10 卷（卷 1）",
+            translator: "唐 · 般剌密帝 譯",
+            taisho: "Vol. 19, No. 945",
+            locationText: "室羅筏城祇桓精舍",
+            summary: "阿難示墮摩登伽女難，佛放頂光開示「七處徵心、八還辨見」，顯發如來藏妙明真心，次開二十五聖圓通法門，終辨五十種陰魔妄境。",
+            purpose: "【立教用意】：破斥修行者錯認妄想攀緣心為本體，開示「見性不生不滅」如來密因；建立「攝心為戒、因戒生定、因定發慧」之道場軌範，護持正法末世不墮邪魔外道知見。",
+            quote: "如是我聞：一時，佛在室羅筏城祇桓精舍，與大比丘眾千二百五十人俱，皆是無漏大阿羅漢，佛子住持，善超諸有……"
+          },
+          {
+            name: "佛說阿彌陀經",
+            periodTianti: "二、中期：方等時（彈偏斥小，淨土法門）",
+            wheel: "三轉：中道了義法輪（信願念佛往生）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "1 卷（全一卷）",
+            translator: "後秦 · 鳩摩羅什 譯",
+            taisho: "Vol. 12, No. 366",
+            locationText: "舍衛國祇樹給孤獨園",
+            summary: "佛陀不問自說，詳陳西方極樂世界依正莊嚴無有眾苦，勸導娑婆眾生聞說阿彌陀佛，執持名號至一心不亂，並引六方諸佛出廣長舌相舒誠讚歎。",
+            purpose: "【立教用意】：為末法凡夫開闢「易行道」特別法門；藉果地威德作凡夫增上緣，不假斷惑，但憑深信切願執持名號，橫超三界、疾趣不退成佛之捷徑。",
+            quote: "如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘僧千二百五十人俱，皆是大阿羅漢，眾所知識……"
+          },
+          {
+            name: "金剛般若波羅蜜經（大般若第九會）",
+            periodTianti: "二、中期：般若時（蕩相淘汰，約22年）",
+            wheel: "二轉：無相法輪（破相顯空）",
+            wheelColor: "bg-[#a67c1e]",
+            chapter: "1 卷（全一卷）",
+            translator: "後秦 · 鳩摩羅什 譯",
+            taisho: "Vol. 08, No. 235",
+            locationText: "舍衛國祇樹給孤獨園",
+            summary: "須菩提啟請發阿耨多羅三藐三菩提心應云何住、云何降伏其心。佛以「無相、無住、無得」為宗，開示離我相、人相、眾生相、壽者相之第一義空智慧。",
+            purpose: "【立教用意】：徹底蕩滌菩薩於布施、度生、成道中微細法執。藉「所謂佛法者，即非佛法，是名佛法」之般若三截句，令行者不住生死、不住涅槃，契入無住生心之實相境界。",
+            quote: "如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘眾千二百五十人俱。爾時世尊食時，著衣持鉢，入舍衛大城乞食……"
+          },
+          {
+            name: "大般若波羅蜜多經（給孤獨園七會）",
+            periodTianti: "二、中期：般若時（第7, 8, 9, 11~14會）",
+            wheel: "二轉：無相法輪（大乘真空實相）",
+            wheelColor: "bg-[#a67c1e]",
+            chapter: "共 12 卷（卷 574～577, 579～590）",
+            translator: "唐 · 玄奘 譯",
+            taisho: "Vol. 07, No. 220",
+            locationText: "室羅筏城誓多林給孤獨園",
+            summary: "涵蓋曼殊室利分、那伽室利分、能斷金剛分及布施、淨戒、安忍、精進波羅蜜多分，層層論述萬法自性清淨、體本性空。",
+            purpose: "【立教用意】：將菩薩六度萬行納入「般若空慧」所導引之境地，令行者行於布施持戒等行門時，無能施者、無受施者、無所施之法，圓滿大乘無所得智慧。",
+            quote: "如是我聞：一時，薄伽梵在室羅筏住誓多林給孤獨園，與大苾芻眾千二百五十人俱，菩薩摩訶薩無量無數……"
+          }
+        ]
+      },
+      "kushinagar": {
+        id: "kushinagar",
+        tabLabel: "2. 拘尸那城",
+        name: "2. 拘尸那城 娑羅雙樹間",
+        alias: "阿利羅跋提河邊 · 拘尸那迦",
+        region: "末羅國 (Malla) · 今印度北方邦拘尸那迦 (Kushinagar)",
+        desc: "世尊應化世間八十載，圓滿弘道後最後化度須跋陀羅、垂示遺教之聖地。於二月十五日中夜入雙樹間示現大般涅槃，扶律談常，闡明法身常住、眾生悉有佛性。",
+        sutras: [
+          {
+            name: "大般涅槃經",
+            periodTianti: "三、後期：法華涅槃時（最後一日一夜入滅教敕）",
+            wheel: "三轉：中道了義法輪（扶律談常，一切眾生悉有佛性）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "40 卷（卷 1〈壽命品第一〉）",
+            translator: "北涼 · 曇無讖 譯",
+            taisho: "Vol. 12, No. 374",
+            locationText: "拘尸那城阿利羅跋提河邊娑羅雙樹間",
+            summary: "佛於雙樹間將入涅槃前，最後破斥二乘行者執著之灰身滅智「無常斷滅論」，正式宣示如來法身具足「常、樂、我、淨」四波羅蜜，並開顯「一闡提人皆有佛性」之究竟圓滿說。",
+            purpose: "【立教用意】：收拾化導圓滿之餘緒；於佛臨滅度際，堅定戒律律儀（波羅提木叉為大師），粉碎斷常二見，確立大乘佛性實相常住不變，為一代時教作究竟之歸宗結穴。",
+            quote: "如是我聞：一時，佛在拘尸那城阿利羅跋提河邊娑羅雙樹間。爾時世尊於二月十五日臨涅槃時，以佛神力出大音聲……"
+          }
+        ]
+      },
+      "vaishali": {
+        id: "vaishali",
+        tabLabel: "3. 毘舍離國",
+        name: "3. 毘舍離國（廣嚴城／毘耶離）",
+        alias: "菴羅樹園 · 樂音樹下 · 大林精舍重閣講堂",
+        region: "跋耆國 (Vajji) · 今印度比哈爾邦瓦伊沙利 (Vaishali)",
+        desc: "【地理考證·同城異所辨析】：宏觀而言，「毘舍離」（Vesālī）即玄奘法師所譯之「廣嚴城」（鳩摩羅什音譯為「毘耶離」），為古印度跋耆共和邦國之首都。但於同一城邦內，經典所載之具體苑林各有所屬：《維摩詰經》在城外名媛菴摩羅女所施之「菴羅樹園」；《藥師經》在城中「樂音樹下」（風吹枝葉出美妙天樂）；《觀普賢菩薩行法經》則在城北郊外之「大林精舍重閣講堂」。同城而異地，不可相混。",
+        sutras: [
+          {
+            name: "維摩詰所說經",
+            periodTianti: "二、中期：方等時（彈偏斥小，借座雨華）",
+            wheel: "二轉：無相法輪（不二法門，引小向大）",
+            wheelColor: "bg-[#a67c1e]",
+            chapter: "3 卷（卷 1〈佛國品第一〉）",
+            translator: "後秦 · 鳩摩羅什 譯",
+            taisho: "Vol. 14, No. 475",
+            locationText: "毘耶離 菴羅樹園（城外菴摩羅女施林，後入城至丈室問疾）",
+            summary: "維摩詰居士示現染疾，佛遣十大聲聞弟子與諸大菩薩前往問疾，眾皆因曾受其大乘詰訶不敢承命。後文殊率眾問疾，居士以「一默如雷」開顯入不二法門，論證「心淨則佛土淨」。",
+            purpose: "【立教用意】：嚴厲痛訶小乘沈空滯寂、自滿於化城之阿羅漢果；彰顯白衣大士隨類化身、涉俗利生之道，打破僧俗名相隔閡，引小乘迴心向於無住解脫之大乘實相行。",
+            quote: "如是我聞：一時，佛在毘耶離菴羅樹園，與大比丘眾八千人俱，菩薩三萬二千，眾所知識。大智本行皆悉成就……"
+          },
+          {
+            name: "藥師琉璃光如來本願功德經",
+            periodTianti: "二、中期：方等時（東方琉璃淨土法門）",
+            wheel: "三轉：中道了義法輪（如來本願拔苦與樂）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "1 卷（全一卷）",
+            translator: "唐 · 玄奘 譯",
+            taisho: "Vol. 14, No. 450",
+            locationText: "廣嚴城 樂音樹下（城中因風鳴奏微妙法樂之樹林）",
+            summary: "曼殊室利菩薩請示如來名號本願。佛應機宣說東方淨琉璃世界藥師如來十二上願，兼拔現世一切病苦疾疫、貧窮飢餓、牢獄刀杖，並令修行者不受非時橫死、常得正見資糧。",
+            purpose: "【立教用意】：調和一般人偏廢現世安樂之沉空弊病；立足於大乘悲智雙運，開顯「現世福樂與後世菩提不二」法門，以拔苦與樂之佛德，兼濟世間與出世間，圓滿利他自利。",
+            quote: "如是我聞：一時，薄伽梵遊化諸國，至廣嚴城，住樂音樹下，與大苾芻眾八千人俱，菩薩摩訶薩三萬六千……"
+          },
+          {
+            name: "佛說觀普賢菩薩行法經",
+            periodTianti: "三、後期：法華涅槃時（法華三部經之結經）",
+            wheel: "三轉：中道了義法輪（清淨懺悔，法華圓觀）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "1 卷（全一卷）",
+            translator: "劉宋 · 曇無蜜多 譯",
+            taisho: "Vol. 09, No. 277",
+            locationText: "毘舍離國 大林精舍重閣講堂（城北僧團高閣道場）",
+            summary: "佛於重閣講堂宣示三月後將般涅槃，阿難等請示世尊滅後如何得見普賢菩薩行法。佛告行者端坐繫念，如法端身正坐觀六根懺悔，開顯「一切業障海，皆從妄想生，若欲懺悔者，端坐念實相」之圓頓法。",
+            purpose: "【立教用意】：作為《法華經》之實修修持指引（結經）；令末世鈍根行者以大乘第一義心性觀照六根妄想，不假外求，得見普賢身與十方諸佛，圓滿法華一乘圓悟與密意懺儀。",
+            quote: "如是我聞：一時，佛在毘舍離國大林精舍重閣講堂，告諸比丘：「却後三月，我當般涅槃。」尊者阿難即從座起，整衣服……"
+          }
+        ]
+      },
+      "sarnath": {
+        id: "sarnath",
+        tabLabel: "4. 波羅奈鹿野苑",
+        name: "4. 波羅奈國 鹿野苑",
+        alias: "仙人墮處 · 鹿野林",
+        region: "迦尸國 (Kāsi) · 今印度北方邦瓦拉納西近郊薩爾納特 (Sarnath)",
+        desc: "佛陀成道後，初次為憍陳如等五比丘開示苦、集、滅、道「四聖諦」之根本聖地。示現「三轉十二行相」（示相轉、勸修轉、作證轉），自此世間「佛、法、僧」三寶具足。",
+        sutras: [
+          {
+            name: "轉法輪經（中阿含·受法經同出）",
+            periodTianti: "一、前期：鹿苑時（根本初轉法輪）",
+            wheel: "初轉：四諦法輪（三轉十二行相）",
+            wheelColor: "bg-[#3c6e7f]",
+            chapter: "1 卷",
+            translator: "後漢 · 安世高 譯",
+            taisho: "Vol. 02, No. 109",
+            locationText: "波羅奈國鹿野苑仙人住處",
+            summary: "開宗明義告誡行者捨離「縱欲享樂」與「自我折磨之苦行」二邊，行持八正道中道；繼而開演四聖諦：知苦、斷集、慕滅、修道，憍陳如尊者當座漏盡證得法眼淨。",
+            purpose: "【立教用意】：破除古印度六師外道邪修苦行與順世貪欲二大極端；確立佛教依正道實踐即可於現生驗證解脫之科學性，奠立佛法二千五百餘年正法流傳之第一基石。",
+            quote: "聞如是：一時，佛在波羅奈鹿野苑仙人住處。爾時世尊告五比丘：「行者不應習兩邊：一者著欲樂，二者事苦行……」"
+          },
+          {
+            name: "佛說四十二章經",
+            periodTianti: "一、前期：鹿苑時（最初弘傳中土之經）",
+            wheel: "初轉：四諦法輪（示解脫要旨）",
+            wheelColor: "bg-[#3c6e7f]",
+            chapter: "1 卷（經序起首）",
+            translator: "後漢 · 迦葉摩騰、竺法蘭 譯",
+            taisho: "Vol. 17, No. 784",
+            locationText: "波羅奈國鹿野苑中",
+            summary: "全經採語錄體，編錄四十二段法要，詳述出家離欲修道、慎勿信汝意、二十難、忍辱滅嗔、觀諸行無常與身命如呼吸之至簡宗要。",
+            purpose: "【立教用意】：後漢明帝夜夢金人，騰、蘭二尊者白馬馱經入洛陽；以此經摘要初化東土，用切近精悍之警句，破除初機執著名色愛染，為漢傳佛法開顯出離解脫之總要。",
+            quote: "世尊成道已，作是思惟……如是我聞：一時，佛在波羅奈國鹿野苑中，轉四諦法輪，度憍陳如等五人而證道果……"
+          }
+        ]
+      },
+      "bodhgaya": {
+        id: "bodhgaya",
+        tabLabel: "5. 菩提伽耶",
+        name: "5. 摩竭提國 菩提伽耶",
+        alias: "阿蘭若法菩提場 · 金剛座",
+        region: "摩竭陀國 (Magadha) · 今印度比哈爾邦菩提伽耶 (Bodh Gaya)",
+        desc: "悉達多太子於菩提樹下金剛寶座上，夜睹明星、廓然大悟之成正覺道場。佛陀於此入「海印三昧」，普現法界受用身，宣說事理無礙、事事無礙之無上根本大乘《華嚴經》。",
+        sutras: [
+          {
+            name: "大方廣佛華嚴經（八十華嚴）",
+            periodTianti: "一、前期：華嚴時（成道最初三七日，圓融無礙）",
+            wheel: "三轉：中道了義法輪（根本圓教，統攝事理）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "80 卷（卷 1〈世主妙嚴品第一之一〉）",
+            translator: "唐 · 實叉難陀 譯",
+            taisho: "Vol. 10, No. 279",
+            locationText: "摩竭提國阿蘭若法菩提場中",
+            summary: "以毘盧遮那如來果地萬德莊嚴為主軸，演說十玄門、六相圓融與四法界（事法界、理法界、理事無礙、事事無礙法界）；終以善財童子五十三參歷劫修證、普賢菩薩十大願王導歸極樂收束。",
+            purpose: "【立教用意】：如日出先照高山，直接彰顯如來自證實相境地，全顯佛果法界大機；雖二乘聲聞在座如聾如啞無法契入，然此實為一期教化之源頭活水與究竟指歸。",
+            quote: "如是我聞：一時，佛在摩竭提國阿蘭若法菩提場中，始成正覺。其地堅固，金剛所成，最勝妙寶以為莊嚴……"
+          }
+        ]
+      },
+      "rajgir_peak": {
+        id: "rajgir_peak",
+        tabLabel: "6. 靈鷲山",
+        name: "6. 王舍城 耆闍崛山（靈鷲山）",
+        alias: "鷲峰山 · 靈山會上",
+        region: "摩竭陀國 (Magadha) · 今印度比哈爾邦拉傑吉爾 (Rajgir)",
+        desc: "王舍城外五山之秀。峰巒形似鷲鳥，且幽寂深遠，為佛陀演繹大乘純圓一佛乘與廣大性空智慧之法會聖壇。千百年來佛教徒朝禮「靈山會儼然未散」之源地。",
+        sutras: [
+          {
+            name: "妙法蓮華經",
+            periodTianti: "三、後期：法華涅槃時（開權顯實，純圓獨妙）",
+            wheel: "三轉：中道了義法輪（三乘歸一，會權入實）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "7 卷（卷 1〈序品第一〉）",
+            translator: "後秦 · 鳩摩羅什 譯",
+            taisho: "Vol. 09, No. 262",
+            locationText: "王舍城耆闍崛山中",
+            summary: "佛放眉間白毫相光照東方萬八千世界。以火宅喻、窮子喻、化城喻、衣珠喻等，力宣「十方佛土中，唯有一乘法，無二亦無三」；開跡顯本，授記舍利弗乃至惡人提婆達多、龍女皆得作佛。",
+            purpose: "【立教用意】：徹底破除昔日以聲聞、緣覺二乘為終點之權巧方便；將三乘歸入一佛乘，直截授記一切行者皆當成佛；開顯如來壽命實不可量之久遠實成，為諸經之王。",
+            quote: "如是我聞：一時，佛住王舍城耆闍崛山中，與大比丘眾萬二千人俱……菩薩摩訶薩八萬人，皆於阿耨多羅三藐三菩提不退轉……"
+          },
+          {
+            name: "佛說無量壽經",
+            periodTianti: "二、中期：方等時（淨土根本大經）",
+            wheel: "三轉：中道了義法輪（四十八願救度）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "2 卷（卷上）",
+            translator: "曹魏 · 康僧鎧 譯",
+            taisho: "Vol. 12, No. 360",
+            locationText: "王舍城耆闍崛山中",
+            summary: "阿難見佛光色端嚴，啟請佛陀放光因緣。佛陳法藏比丘因地發四十八大願建立極樂世界，宣揚十方眾生乃至十念持名即得往生、永階不退。",
+            purpose: "【立教用意】：開示三根普被、利鈍全收之圓頓他力救度法門；令造業凡夫與出世大士同仗阿彌陀佛大誓願力，橫出五濁惡世，於極樂報土直趣無上菩提。",
+            quote: "我聞如是：一時，佛住王舍城耆闍崛山中，與大比丘眾萬二千人俱，一切大聖，神通已達……"
+          },
+          {
+            name: "佛說觀無量壽佛經",
+            periodTianti: "二、中期：方等時（十六妙觀法門）",
+            wheel: "三轉：中道了義法輪（定善散善觀想）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "1 卷（全一卷）",
+            translator: "劉宋 · 畺良耶舍 譯",
+            taisho: "Vol. 12, No. 365",
+            locationText: "王舍城耆闍崛山中（後神力轉入韋提希夫人王宮幽室）",
+            summary: "阿闍世王篡位弒父幽母，韋提希夫人厭離娑婆。佛於鷲峰現神足至王宮，為說淨業三福與日想、水想乃至九品往生等十六妙觀，彰明「是心是佛，是心作佛」。",
+            purpose: "【立教用意】：以逆境大難為發起因緣，示現娑婆世間至極濁惡；為心意散亂之凡愚安立觀想念佛之定善與三福回向之散善，保證九品行者咸登淨土蓮邦。",
+            quote: "如是我聞：一時，佛在王舍城耆闍崛山中，與大比丘眾千二百五十人俱，菩薩三萬二千，文殊師利法王子而為上首……"
+          },
+          {
+            name: "大寶積經",
+            periodTianti: "二、中期：方等時（廣納諸部，約8年）",
+            wheel: "三轉：中道了義法輪（開顯菩薩行）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "120 卷（卷 1〈三律儀會第一〉）",
+            translator: "唐 · 菩提流志等 奉詔譯",
+            taisho: "Vol. 11, No. 310",
+            locationText: "王舍城耆闍崛山中",
+            summary: "全書結集四十九會，包羅法界大乘各門。首會〈三律儀〉論述菩薩守護身口意、三聚淨戒；繼而博談深密真空妙有、轉女身為男身、無畏施捨等萬行法門。",
+            purpose: "【立教用意】：如採珍寶積聚成海；為發大心菩薩提供戒學、定學、慧學最宏闊完備之修行法庫，教導如何於聲聞眾前圓滿彰顯菩薩清淨無染之菩薩行戒行。",
+            quote: "如是我聞：一時，佛在王舍城耆闍崛山中，與大比丘眾萬二千人俱，大菩薩摩訶薩無量無邊……"
+          },
+          {
+            name: "大般若波羅蜜多經（鷲峰山七會）",
+            periodTianti: "二、中期：般若時（第1~5會、第6會、第15會）",
+            wheel: "二轉：無相法輪（空慧無住）",
+            wheelColor: "bg-[#a67c1e]",
+            chapter: "共 499 卷（卷 1～573, 591～592）",
+            translator: "唐 · 玄奘 譯",
+            taisho: "Vol. 05~07, No. 220",
+            locationText: "王舍城耆闍崛山中",
+            summary: "般若大部之最大重心所在（初分乃至第五分、最勝天王分及靜慮波羅蜜多分）。佛與須菩提、舍利子反覆研討色心諸法自性不可得、無取無著、菩提薩埵行無所行。",
+            purpose: "【立教用意】：蕩滌小乘取證偏真之執，亦滌除初發心菩薩取相修行之網；以廣大如虛空之法性空性，破諸戲論，使行者得自性解脫，具足圓滿一切種智。",
+            quote: "如是我聞：一時，薄伽梵住王舍城耆闍崛山中，與大苾芻眾千二百五十人俱，皆是大阿羅漢，諸漏已盡……"
+          }
+        ]
+      },
+      "rajgir_bamboo": {
+        id: "rajgir_bamboo",
+        tabLabel: "7. 竹林精舍",
+        name: "7. 王舍城 迦蘭陀竹園白鷺池側",
+        alias: "竹林精舍 (Veḷuvana) · 迦蘭陀竹林",
+        region: "摩竭陀國 (Magadha) · 今印度比哈爾邦拉傑吉爾 (Rajgir)",
+        desc: "由迦蘭陀長者施竹林、頻婆娑羅王建屋舍供養之佛教第一所正式伽藍僧苑。幽竹環繞，為世尊前期說法安居之基石，亦為六百卷《大般若經》最後一會圓滿結穴所。",
+        sutras: [
+          {
+            name: "大般若波羅蜜多經（第十六會）",
+            periodTianti: "二、中期：般若時（四處十六會之最後一會）",
+            wheel: "二轉：無相法輪（般若波羅蜜多分）",
+            wheelColor: "bg-[#a67c1e]",
+            chapter: "8 卷（卷 593～600）",
+            translator: "唐 · 玄奘 譯",
+            taisho: "Vol. 07, No. 220(16)",
+            locationText: "王舍城迦蘭陀竹園白鷺池側",
+            summary: "此為全套六百卷《大般若經》之最後收官一會，名為〈第六般若波羅蜜多分〉。詳明菩薩於清淨般若波羅蜜多中，無有分別、不生不滅，統攝布施乃至般若諸度。",
+            purpose: "【立教用意】：總攝全經綱領；佛陀於早期立足之竹林園白鷺池側，示現首尾相應，交代六度行相皆融攝於一無相慧中，使菩薩安住於清淨不動之甚深本際。",
+            quote: "如是我聞：一時，薄伽梵住王舍城迦蘭陀竹園白鷺池側，與大苾芻眾千二百五十人俱，菩薩摩訶薩無量無數……"
+          }
+        ]
+      },
+      "lanka": {
+        id: "lanka",
+        tabLabel: "8. 南海楞伽山",
+        name: "8. 南海濱 楞伽山頂",
+        alias: "摩羅耶山 · 楞伽島海濱",
+        region: "印度次大陸南端海濱 · 今日斯里蘭卡島 (Sri Lanka)",
+        desc: "南海濱四面孤懸之海島仙峰，非凡力所能登。佛陀在此受夜叉王羅婆那之請，為諸大菩薩宣說「五法、三自性、八識、二無我」及如來藏藏識之大宗，為禪宗西來印心之寶典。",
+        sutras: [
+          {
+            name: "楞伽阿跋多羅寶經",
+            periodTianti: "二、中期：方等時（禪宗初祖達摩印心之經）",
+            wheel: "三轉：中道了義法輪（萬法唯心，如來藏藏識）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "4 卷（卷 1〈一切佛語心品第一〉）",
+            translator: "劉宋 · 求那跋陀羅 譯",
+            taisho: "Vol. 16, No. 670",
+            locationText: "南海濱楞伽山頂（斯里蘭卡海島聖山）",
+            summary: "大慧菩薩一百零八問。佛宣說自覺聖智三昧，剖析萬法皆自心分別所現（外境無實），融通「如來藏」與「阿賴耶識」，闡發自性清淨心與斷肉持戒、無生法忍之實踐。",
+            purpose: "【立教用意】：對治學者沈迷文字語言名相之病；直斥一切經教「名相為客，真實為主」，以法印心，為達摩祖師傳與二祖慧可「以此四卷楞伽印心」之根本禪宗聖典。",
+            quote: "如是我聞：一時，佛住南海濱楞伽山頂，種種寶華以為莊嚴，與大比丘僧及大菩薩眾俱，從彼種種異佛剎來……"
+          }
+        ]
+      },
+      "heaven_realm": {
+        id: "heaven_realm",
+        tabLabel: "☸ 出世間天宮報土",
+        name: "出世間法界 · 天宮與密嚴報土",
+        alias: "他化自在天摩尼寶藏殿 · 最勝光曜七寶莊嚴殿 · 密嚴國 · 忉利天 · 金剛法界宮",
+        region: "超越三界之世間法界 · 佛陀報身自受用土（非地球物質地理）",
+        desc: "佛陀於此非以凡夫肉眼所見之化身，而是以盧舍那如來、大日如來之法報身，於深密法界殿堂宣講密教、深密唯識、般若理趣分與冥陽救度之不可思議法乘。",
+        sutras: [
+          {
+            name: "解深密經",
+            periodTianti: "二、中期：方等時（唯識宗立宗根本聖典）",
+            wheel: "三轉：中道了義法輪（立三性三無性，極談真理）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "5 卷（卷 1〈序品第一〉）",
+            translator: "唐 · 玄奘 譯",
+            taisho: "Vol. 16, No. 676",
+            locationText: "最勝光曜七寶莊嚴殿（超過三界所行之處）",
+            summary: "勝義生菩薩、勝鬘等請示教法。佛宣說心意識相、阿陀那識、一切法三相（遍計所執相、依他起相、圓成實相）與三無自性相，並親自確立「初轉四諦、二轉無相、三轉中道了義」之體系。",
+            purpose: "【立教用意】：救拔因第二轉般若而誤墮「惡取空（頑空）」之病者；於空中顯「依他緣起與自性真如」，開顯唯識中道不空不有實義，立唯識法相之萬世基石。",
+            quote: "如是我聞：一時，薄伽梵住最勝光曜七寶莊嚴，放大光明普照一切無邊世界，無量方所妙飾間列，周圓無際，其量難測，超過三界所行之處……大寶花王眾所建立大宮殿中……"
+          },
+          {
+            name: "大乘密嚴經",
+            periodTianti: "二、中期：方等時（融通如來藏與阿賴耶識）",
+            wheel: "三轉：中道了義法輪（超絕言相，唯佛自覺）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "3 卷（卷上〈密嚴會品第一〉）",
+            translator: "唐 · 地婆訶羅 譯",
+            taisho: "Vol. 16, No. 681",
+            locationText: "出過欲色無色無想之密嚴國",
+            summary: "佛住超過三界、非二乘外道所行之「密嚴淨土」，向金剛藏菩薩等開顯阿賴耶識本體即如來藏。此淨土非質礙色身所居，乃最上真如心體自證法界。",
+            purpose: "【立教用意】：會通「唯識法相」與「如來藏法性」之分歧；直示一切妄染阿賴耶識，本源即如來常住清淨法身，令修行者超絕妄想，直接悟入不生滅佛境密嚴法界。",
+            quote: "如是我聞：一時，佛住出過欲、色、無色、無想，於一切法自在無礙神足力通密嚴之國，非諸外道二乘行處。與諸隣極修觀行者、十地菩薩摩訶薩俱……"
+          },
+          {
+            name: "大毘盧遮那成佛神變加持經（大日經）",
+            periodTianti: "二、中期：方等時（純密胎藏界根本經）",
+            wheel: "三轉：中道了義法輪（即身成佛，如實知自心）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "7 卷（卷 1〈入真言門住心品第一〉）",
+            translator: "唐 · 善無畏、一行 共譯",
+            taisho: "Vol. 18, No. 848",
+            locationText: "如來加持廣大金剛法界宮",
+            summary: "毘盧遮那佛於金剛法界宮加持示現，為金剛手秘密主開示「菩提心為因，大悲為根本，方便為究竟」之真言陀羅尼門；詳解曼荼羅布置、灌頂儀軌與心發自性清淨。",
+            purpose: "【立教用意】：開啟真言密教純密儀軌法門；藉三密相應（身結密印、口誦真言、心住妙觀），使凡夫眾生當生免除歷劫修持之苦，疾得悟入「如實知自心」之即身成佛境界。",
+            quote: "如是我聞：一時，薄伽梵住如來加持廣大金剛法界宮，一切持金剛者皆悉集會。如來神力所加持故，奮迅示現身無盡莊嚴藏……"
+          },
+          {
+            name: "大般若波羅蜜多經（第十會·理趣分）",
+            periodTianti: "二、中期：般若時（四處十六會中唯一天宮會座）",
+            wheel: "二轉：無相法輪（顯密融攝理趣）",
+            wheelColor: "bg-[#a67c1e]",
+            chapter: "1 卷（卷 578）",
+            translator: "唐 · 玄奘 譯",
+            taisho: "Vol. 07, No. 220(10)",
+            locationText: "他化自在天王宮摩尼寶藏殿中",
+            summary: "般若經中唯一於第六天他化自在天宣說者。佛為金剛手等宣說「妙適清淨句是菩薩位、欲箭清淨句是菩薩位」，開示一切世間欲樂本性即空、體本大覺之密意理趣。",
+            purpose: "【立教用意】：作為顯教般若空慧轉入密教法門之殊勝樞紐；開顯「煩惱即菩提、生死即涅槃」之無礙理趣，使利根大士不住涅槃亦不受染著，隨緣廣作佛事。",
+            quote: "如是我聞：一時，薄伽梵妙善成就一切如來金剛住持平等性智種種希有殊勝功德……在他化自在天王宮摩尼寶藏殿中……"
+          },
+          {
+            name: "地藏菩薩本願經",
+            periodTianti: "二、中期：方等時（佛門孝經，付囑地藏）",
+            wheel: "三轉：中道了義法輪（因果報應，慈悲度生）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "2 卷（卷上〈忉利天宮神通品第一〉）",
+            translator: "唐 · 實叉難陀 譯",
+            taisho: "Vol. 13, No. 412",
+            locationText: "忉利天宮",
+            summary: "佛陞忉利天為聖母摩耶夫人說法報慈恩。詳述地藏菩薩因地發「地獄不空，誓不成佛」之宏誓，示現閻浮提眾生起心動念無不是業無不是罪，以及死後地獄罪報與度亡修福之理。",
+            purpose: "【立教用意】：如來於涅槃前將彌勒下生前無佛之世的六道剛強眾生，鄭重付囑地藏大士；樹立佛法「報恩孝道」根本，以因果罪報警醒凡愚，為末法修行防範墮落之大護法慈經。",
+            quote: "如是我聞：一時，佛在忉利天，為母說法。爾時十方無量世界不可說不可說一切諸佛及大菩薩摩訶薩，皆來集會，讚歎釋迦牟尼佛……"
+          },
+          {
+            name: "佛說如來興顯經",
+            periodTianti: "一、前期：華嚴時（華嚴如來出現品古異譯）",
+            wheel: "三轉：中道了義法輪（開顯如來性起）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "4 卷（卷 1）",
+            translator: "西晉 · 竺法護 譯",
+            taisho: "Vol. 10, No. 291",
+            locationText: "顯法身深奧悅豫普見棚閣（琉璃威宮）",
+            summary: "西晉竺法護所譯方等古經（對應《華嚴經·如來出現品》）。佛於法身大莊嚴琉璃宮殿中，開示如來興現世間非因緣所作，乃隨本願法性自然起現，如日照萬物無所偏頗。",
+            purpose: "【立教用意】：顯發「性起」義理；開顯眾生身中本自具足如來廣大智慧德相，但以妄想執著不能證得；若離妄想，一切智、自然智即時現前。",
+            quote: "聞如是：一時，佛遊如來建立之土，號歎法身深奧悅豫普見棚閣，為大嚴淨顯耀威宮琉璃之藏，如來所行，從其本願……"
+          },
+          {
+            name: "大方廣圓覺修多羅了義經",
+            periodTianti: "二、中期：方等時（大乘頓悟印心法門）",
+            wheel: "三轉：中道了義法輪（如來因地，清淨圓覺）",
+            wheelColor: "bg-[#8c2d19]",
+            chapter: "1 卷（全一卷）",
+            translator: "唐 · 佛陀多羅 譯",
+            taisho: "Vol. 17, No. 842",
+            locationText: "神通大光明藏三昧正受境界",
+            summary: "佛入神通大光明藏正受三昧。文殊、普賢、金剛藏等十二位大菩薩依序請問成佛因地修行。佛開示「知是空花，即無輪轉」之頓悟實相，並立奢摩他、三摩鉢提、禪那三種觀門。",
+            purpose: "【立教用意】：作為圓頓行者徹悟心源之直截指南；破除循序漸進之微細知見障，明示眾生本來成佛，示現「居一切時不起妄念，於諸妄心亦不息滅」之圓融大機。",
+            quote: "如是我聞：一時，婆伽婆入於神通大光明藏三昧正受，一切如來光嚴住持，是諸眾生清淨覺地，身心寂滅，平等本際……"
+          }
+        ]
+      }
+    };
+
+    let currentPlaceId = "sravasti";
+    let fontSizeMultiplier = 1;
+    let currentView = "intro"; // "intro" (入門首頁) 或 "app" (專業圖典)
+
+    const placeTitle = document.getElementById("place-title");
+    const placeTag = document.getElementById("place-tag");
+    const placeCoords = document.getElementById("place-coords");
+    const placeDesc = document.getElementById("place-desc");
+    const sutraCount = document.getElementById("sutra-count");
+    const sutraContainer = document.getElementById("sutra-container");
+    const regionTabsContainer = document.getElementById("region-tabs");
+
+    // 視圖切換函式：大眾故事入門 ⇋ 專業圖典考證
+    function switchView(viewName) {
+      currentView = viewName;
+      const introEl = document.getElementById("view-intro");
+      const appEl = document.getElementById("view-app");
+      const btnIntro = document.getElementById("nav-btn-intro");
+      const btnApp = document.getElementById("nav-btn-app");
+
+      if (viewName === 'intro') {
+        introEl.classList.remove('hidden');
+        appEl.classList.add('hidden');
+        btnIntro.classList.add('bg-white', 'text-[#8c2d19]', 'shadow-2xs');
+        btnIntro.classList.remove('text-[#495057]');
+        btnApp.classList.remove('bg-white', 'text-[#8c2d19]', 'shadow-2xs');
+        btnApp.classList.add('text-[#495057]');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        introEl.classList.add('hidden');
+        appEl.classList.remove('hidden');
+        btnApp.classList.add('bg-white', 'text-[#8c2d19]', 'shadow-2xs');
+        btnApp.classList.remove('text-[#495057]');
+        btnIntro.classList.remove('bg-white', 'text-[#8c2d19]', 'shadow-2xs');
+        btnIntro.classList.add('text-[#495057]');
+        setTimeout(updateNavOffset, 50);
+      }
+    }
+
+    // 從首頁的故事卡直接跳轉並選取指定地點
+    function goToAppAndSelect(placeId) {
+      switchView('app');
+      selectLocation(placeId);
+    }
+
+    // 初始化頁籤導覽列
+    function initTabs() {
+      const placesList = [
+        { id: "sravasti", label: "1. 舍衛國祇園" },
+        { id: "kushinagar", label: "2. 拘尸那城" },
+        { id: "vaishali", label: "3. 毘舍離國" },
+        { id: "sarnath", label: "4. 波羅奈鹿野苑" },
+        { id: "bodhgaya", label: "5. 菩提伽耶" },
+        { id: "rajgir_peak", label: "6. 王舍城靈鷲山" },
+        { id: "rajgir_bamboo", label: "7. 竹林精舍" },
+        { id: "lanka", label: "8. 南海楞伽山" },
+        { id: "heaven_realm", label: "☸ 出世間天宮報土" }
+      ];
+
+      regionTabsContainer.innerHTML = placesList.map(item => `
+        <button onclick="selectLocation('${item.id}')" 
+                id="tab-${item.id}"
+                role="tab"
+                class="whitespace-nowrap px-4 py-2 rounded-xl text-sm font-bold border transition-all duration-200 cursor-pointer shadow-2xs flex-shrink-0 ${
+                  item.id === 'heaven_realm' ? 'border-[#e8dfcf] text-[#8c2d19] bg-[#fcfaf4]' : 'border-[#dee2e6] text-[#495057] bg-white hover:bg-[#f8f9fa]'
+                }">
+          ${item.label}
+        </button>
+      `).join('');
+    }
+
+    // 切換地區頁籤
+    function selectLocation(placeId) {
+      if (!SACRED_PLACES[placeId]) return;
+      currentPlaceId = placeId;
+      const data = SACRED_PLACES[placeId];
+
+      // 更新頁籤選取樣式
+      document.querySelectorAll('#region-tabs button').forEach(tab => {
+        tab.classList.remove(
+          'bg-[#8c2d19]', 'text-white', 'border-[#8c2d19]', 'shadow-sm',
+          'bg-[#a67c1e]', 'border-[#a67c1e]'
+        );
+        tab.classList.add('bg-white', 'text-[#495057]', 'border-[#dee2e6]');
+      });
+
+      const activeTab = document.getElementById(`tab-${placeId}`);
+      if (activeTab) {
+        activeTab.classList.remove('bg-white', 'text-[#495057]', 'border-[#dee2e6]');
+        if (placeId === 'heaven_realm') {
+          activeTab.classList.add('bg-[#a67c1e]', 'text-white', 'border-[#a67c1e]', 'shadow-sm');
+        } else {
+          activeTab.classList.add('bg-[#8c2d19]', 'text-white', 'border-[#8c2d19]', 'shadow-sm');
+        }
+        activeTab.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
+      }
+
+      // 更新地圖標記亮起狀態
+      document.querySelectorAll('#india-map g[id^="marker-"]').forEach(el => {
+        el.classList.remove('map-marker-active');
+      });
+      const activeMarker = document.getElementById(`marker-${placeId}`);
+      if (activeMarker) {
+        activeMarker.classList.add('map-marker-active');
+      }
+
+      // 更新目前頁籤地區資訊
+      placeTitle.textContent = data.name;
+      placeTag.textContent = data.alias || "說法處所";
+      placeCoords.textContent = data.region || "";
+      placeDesc.textContent = data.desc;
+      sutraCount.textContent = data.sutras.length;
+
+      // 渲染卡片式經典
+      renderSutras(data.sutras);
+    }
+
+    // 渲染卡片式經典列表
+    function renderSutras(sutras) {
+      if (!sutras || sutras.length === 0) {
+        sutraContainer.innerHTML = `<div class="p-8 text-center text-lg text-[#6c757d] bg-white rounded-2xl border border-[#e9ecef]">此處暫無收錄經典</div>`;
+        return;
+      }
+
+      sutraContainer.innerHTML = sutras.map((sutra, index) => `
+        <article class="bg-white border border-[#e9ecef] rounded-2xl p-5 sm:p-7 shadow-xs hover:border-[#a67c1e] hover:shadow-md transition-all duration-200">
+          
+          <!-- 頂部：天台五時時序與三轉法輪藥石標籤 -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3.5 border-b border-[#f1f3f5] mb-4">
+            <span class="inline-flex items-center text-xs sm:text-sm font-bold text-[#8c2d19] bg-[#fdf5f3] px-3 py-1 rounded-lg border border-[#f5d9d2]">
+              時序：${sutra.periodTianti}
+            </span>
+            <span class="inline-flex items-center text-xs sm:text-sm text-white ${sutra.wheelColor} px-3 py-1 rounded-lg font-semibold shadow-2xs">
+              ${sutra.wheel}
+            </span>
+          </div>
+
+          <!-- 經典題名與卷數 -->
+          <div class="flex flex-wrap items-baseline justify-between gap-2 mb-3.5">
+            <h3 class="text-xl sm:text-2xl font-bold font-serif text-[#212529] tracking-wide flex items-center">
+              <span class="text-[#a67c1e] mr-2">【${index + 1}】</span>
+              ${sutra.name}
+            </h3>
+            <span class="text-sm font-medium text-[#495057] bg-[#f8f9fa] px-3 py-1 rounded-lg border border-[#dee2e6]">
+              ${sutra.chapter}
+            </span>
+          </div>
+
+          <!-- 譯者年代、大正藏出處、具體處所 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-[#495057] mb-4 bg-[#f8f9fa] p-3.5 rounded-xl border border-[#e9ecef]">
+            <div><span class="text-[#6c757d]">譯者年代：</span><span class="font-semibold text-[#212529]">${sutra.translator}</span></div>
+            <div><span class="text-[#6c757d]">大正藏編號：</span><span class="font-semibold text-[#212529]">${sutra.taisho}</span></div>
+            <div class="sm:col-span-2"><span class="text-[#6c757d]">經載說法處所：</span><span class="font-bold text-[#8c2d19]">${sutra.locationText}</span></div>
+          </div>
+
+          <!-- 【核心查驗】：證信序起首原文查證（如是我聞） -->
+          <div class="bg-[#fcfbf9] rounded-xl p-4 sm:p-5 border-l-4 border-[#a67c1e] border border-y-[#f1f3f5] border-r-[#f1f3f5] relative mb-4">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs sm:text-sm font-bold text-[#495057] tracking-wide flex items-center">
+                <svg class="w-4 h-4 mr-1.5 text-[#a67c1e]" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                </svg>
+                證信序起首原文查證（如是我聞）：
+              </span>
+              <button onclick="copySutraQuote(this, '${escapeHtml(sutra.quote)}')" 
+                      class="text-xs px-2.5 py-1 rounded-md bg-white text-[#495057] border border-[#ced4da] hover:bg-[#f8f9fa] transition-colors shadow-2xs">
+                複製原句
+              </button>
+            </div>
+            <p class="sutra-quote-font text-base sm:text-lg lg:text-xl font-serif text-[#1f1d1b] leading-[1.95] tracking-wide mt-1">
+              ${highlightSutraOpening(sutra.quote)}
+            </p>
+          </div>
+
+          <!-- 【大眾白話閱讀】：核心經義故事與用意 -->
+          <div class="bg-[#ffffff] rounded-xl p-4 sm:p-5 border border-[#e9ecef] space-y-3.5 text-sm sm:text-base leading-[1.8] text-[#2c2926]">
+            <div>
+              <span class="font-bold text-[#1f1d1b] inline-block mr-1">【經義精粹與時空背景】：</span>
+              <span class="text-[#495057]">${sutra.summary}</span>
+            </div>
+            <div>
+              <span class="font-bold text-[#8c2d19] inline-block mr-1">【佛陀立教旨趣與對治】：</span>
+              <span class="text-[#343a40]">${sutra.purpose}</span>
+            </div>
+          </div>
+
+        </article>
+      `).join('');
+    }
+
+    function highlightSutraOpening(text) {
+      return text.replace(/(如是我聞|我聞如是|聞如是)/g, '<strong class="text-[#8c2d19] font-black border-b-2 border-[#8c2d19]/50 pb-0.5">$1</strong>');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
+
+    function copySutraQuote(btn, text) {
+      const el = document.createElement('textarea');
+      el.value = text;
+      document.body.appendChild(el);
+      el.select();
+      try {
+        document.execCommand('copy');
+        const orig = btn.textContent;
+        btn.textContent = "已複製！";
+        btn.classList.add('bg-[#edf7ee]', 'text-[#2a6d3f]', 'border-[#a3d4ad]');
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.classList.remove('bg-[#edf7ee]', 'text-[#2a6d3f]', 'border-[#a3d4ad]');
+        }, 1800);
+      } catch (e) {
+        btn.textContent = "複製失敗";
+      } finally {
+        document.body.removeChild(el);
+      }
+    }
+
+    // 字級縮放邏輯：直接作用於根節點 html (rem 基準)，使 Tailwind 所有經文字級等比縮放
+    const fontDecreaseBtn = document.getElementById("font-decrease");
+    const fontResetBtn = document.getElementById("font-reset");
+    const fontIncreaseBtn = document.getElementById("font-increase");
+
+    if (fontIncreaseBtn) {
+      fontIncreaseBtn.addEventListener("click", () => {
+        if (fontSizeMultiplier < 1.45) {
+          fontSizeMultiplier = Math.min(1.45, Number((fontSizeMultiplier + 0.12).toFixed(2)));
+          applyFontSize();
+        }
+      });
+    }
+
+    if (fontDecreaseBtn) {
+      fontDecreaseBtn.addEventListener("click", () => {
+        if (fontSizeMultiplier > 0.85) {
+          fontSizeMultiplier = Math.max(0.85, Number((fontSizeMultiplier - 0.12).toFixed(2)));
+          applyFontSize();
+        }
+      });
+    }
+
+    if (fontResetBtn) {
+      fontResetBtn.addEventListener("click", () => {
+        fontSizeMultiplier = 1;
+        applyFontSize();
+      });
+    }
+
+    function updateNavOffset() {
+      const header = document.querySelector('header');
+      const navSection = document.getElementById('region-nav-section');
+      if (header && navSection) {
+        navSection.style.top = `${header.offsetHeight + 6}px`;
+      }
+    }
+
+    function applyFontSize() {
+      // 改變根節點 font-size，使所有 rem 單位之經典文字即時等比放大/縮小
+      document.documentElement.style.fontSize = `${fontSizeMultiplier * 100}%`;
+
+      // 按鈕即時狀態與百分比反饋
+      if (fontResetBtn) {
+        fontResetBtn.textContent = fontSizeMultiplier === 1 ? "標準" : `${Math.round(fontSizeMultiplier * 100)}%`;
+      }
+
+      if (fontIncreaseBtn) {
+        if (fontSizeMultiplier > 1) {
+          fontIncreaseBtn.classList.add('bg-[#a67c1e]', 'text-white', 'border-[#a67c1e]');
+          fontIncreaseBtn.classList.remove('bg-white', 'text-[#212529]');
+        } else {
+          fontIncreaseBtn.classList.remove('bg-[#a67c1e]', 'text-white', 'border-[#a67c1e]');
+          fontIncreaseBtn.classList.add('bg-white', 'text-[#212529]');
+        }
+      }
+
+      if (fontDecreaseBtn) {
+        if (fontSizeMultiplier < 1) {
+          fontDecreaseBtn.classList.add('bg-[#8c2d19]', 'text-white', 'border-[#8c2d19]');
+          fontDecreaseBtn.classList.remove('bg-white', 'text-[#212529]');
+        } else {
+          fontDecreaseBtn.classList.remove('bg-[#8c2d19]', 'text-white', 'border-[#8c2d19]');
+          fontDecreaseBtn.classList.add('bg-white', 'text-[#212529]');
+        }
+      }
+
+      // 動態更新吸頂導覽列高度，防止放大後被頂部遮蔽
+      setTimeout(updateNavOffset, 60);
+    }
+
+    // 手機版收合地圖切換
+    const toggleMapBtn = document.getElementById("toggle-map-btn");
+    const mapContainer = document.getElementById("map-container");
+    if (toggleMapBtn && mapContainer) {
+      toggleMapBtn.addEventListener("click", () => {
+        if (mapContainer.classList.contains("hidden")) {
+          mapContainer.classList.remove("hidden");
+          toggleMapBtn.textContent = "收合地圖";
+        } else {
+          mapContainer.classList.add("hidden");
+          toggleMapBtn.textContent = "展開地圖";
+        }
+      });
+    }
+
+    window.addEventListener("resize", updateNavOffset);
+
+    window.addEventListener("DOMContentLoaded", () => {
+      initTabs();
+      selectLocation("sravasti");
+      updateNavOffset();
+      // 預設呈現普及大眾之入門首頁
+      switchView("intro");
+    });
+  </script>
+</body>
+</html>
