@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="ja" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Thus Have I Heard (Evaṃ Mayā Śrutam): Sacred Sites of the Buddha & Canonical Atlas</title>
+  <title>如是我聞（かくのごとく我れ聞けり）：釈尊説法の聖地と仏典流布アトラス</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700;900&family=Noto+Serif+TC:wght@400;600;700&family=Shippori+Mincho:wght@400;600;700;800&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { title: ['Cinzel', 'serif'], serif: ['Newsreader', 'Georgia', 'serif'], cjk: ['"Noto Serif TC"', 'serif'] },
+          fontFamily: { serif: ['"Shippori Mincho"', '"Noto Serif JP"', 'serif'], cjk: ['"Noto Serif TC"', 'serif'] },
           colors: { vermilion: '#8c2d19', gold: '#9a7018', ink: '#1c1b1a', charcoal: '#383431', bordercolor: '#e5e7eb', mutedbg: '#f8f9fa' }
         }
       }
     }
   </script>
   <style>
-    body { font-family: 'Newsreader', Georgia, serif; color: #1c1b1a; background: #fff; -webkit-font-smoothing: antialiased; }
+    body { font-family: 'Shippori Mincho', 'Noto Serif JP', serif; color: #1c1b1a; background: #fff; -webkit-font-smoothing: antialiased; }
     button, input { font-family: inherit; }
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #f1f1f1; }
@@ -44,28 +44,28 @@
   <header id="main-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-bordercolor shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-y-3">
       <div class="flex items-center space-x-3.5 cursor-pointer" onclick="switchView('intro')">
-        <div class="w-10 h-10 rounded-full bg-vermilion text-white flex items-center justify-center font-bold text-lg shadow-sm font-serif select-none ring-2 ring-gold/40 shrink-0 font-cjk">聞</div>
+        <div class="w-10 h-10 rounded-full bg-vermilion text-white flex items-center justify-center font-bold text-lg shadow-sm select-none ring-2 ring-gold/40 shrink-0 font-cjk">聞</div>
         <div>
-          <h1 class="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-ink flex items-center gap-2 font-title">
-            Thus Have I Heard <span class="text-xs font-normal text-gold border border-gold/40 px-2 py-0.5 rounded tracking-widest hidden md:inline font-sans uppercase">Sacred Sites Atlas</span>
+          <h1 class="text-lg sm:text-xl md:text-2xl font-bold tracking-tight text-ink flex items-center gap-2">
+            如是我聞 <span class="text-xs font-normal text-gold border border-gold/40 px-2 py-0.5 rounded tracking-widest hidden md:inline font-sans">釈尊説法聖地と経蔵考証</span>
           </h1>
-          <p class="text-xs sm:text-sm text-charcoal/80 tracking-wide font-normal mt-0.5">Tiantai Five Periods · Three Turnings of the Wheel · 24 Essential Canonical Discourses</p>
+          <p class="text-xs sm:text-sm text-charcoal/80 tracking-wide font-normal mt-0.5">天台五時八教 · 解深密経三転法輪 · 証信序原典アトラス（厳選24部根本聖典）</p>
         </div>
       </div>
       <div class="flex items-center space-x-2 md:space-x-3">
         <nav class="flex bg-mutedbg p-1 rounded-lg border border-bordercolor text-xs md:text-sm">
-          <button id="nav-btn-intro" onclick="switchView('intro')" class="nav-toggle-btn active px-3.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium"><span>📖</span><span>Historical Intro</span></button>
-          <button id="nav-btn-app" onclick="switchView('app')" class="nav-toggle-btn px-3.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium"><span>🗺️</span><span>Canonical Atlas</span></button>
+          <button id="nav-btn-intro" onclick="switchView('intro')" class="nav-toggle-btn active px-3.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium"><span>📖</span><span>入門と物語</span></button>
+          <button id="nav-btn-app" onclick="switchView('app')" class="nav-toggle-btn px-3.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium"><span>🗺️</span><span>経蔵アトラス</span></button>
         </nav>
         <div class="flex items-center bg-mutedbg rounded-lg border border-bordercolor p-0.5 text-xs font-sans">
-          <button onclick="adjustFontSize(-1)" class="w-8 h-7 flex items-center justify-center hover:bg-white rounded text-charcoal" title="Decrease font size">A-</button>
-          <span id="font-size-indicator" onclick="adjustFontSize(0)" class="px-2 h-7 flex items-center justify-center font-medium cursor-pointer text-charcoal text-[11px]">Normal</span>
-          <button onclick="adjustFontSize(1)" class="w-8 h-7 flex items-center justify-center hover:bg-white rounded font-bold text-ink" title="Enlarge font size">A+</button>
+          <button onclick="adjustFontSize(-1)" class="w-8 h-7 flex items-center justify-center hover:bg-white rounded text-charcoal" title="文字を小さく">A-</button>
+          <span id="font-size-indicator" onclick="adjustFontSize(0)" class="px-2 h-7 flex items-center justify-center font-medium cursor-pointer text-charcoal text-[11px]">標準</span>
+          <button onclick="adjustFontSize(1)" class="w-8 h-7 flex items-center justify-center hover:bg-white rounded font-bold text-ink" title="文字を大きく">A+</button>
         </div>
-        <div class="flex items-center bg-mutedbg rounded-lg border border-bordercolor p-0.5 text-xs font-serif shrink-0">
-          <a href="buddha-ru-shi.html?view=intro" onclick="switchLanguage(event, 'buddha-ru-shi.html')" class="px-2.5 py-1 rounded text-charcoal/80 hover:text-ink transition-colors">繁中</a>
+        <div class="flex items-center bg-mutedbg rounded-lg border border-bordercolor p-0.5 text-xs shrink-0">
+          <a href="buddha-ru-shi.html?view=intro" onclick="switchLanguage(event, 'buddha-ru-shi.html')" class="px-2.5 py-1 rounded text-charcoal/80 hover:text-ink transition-colors font-cjk">繁中</a>
           <span class="px-2.5 py-1 rounded bg-white text-vermilion font-bold shadow-2xs cursor-default">日本語</span>
-          <a href="buddha-ru-shi-en.html?view=intro" onclick="switchLanguage(event, 'buddha-ru-shi-en.html')" class="px-2.5 py-1 rounded text-charcoal/80 hover:text-ink transition-colors">English</a>
+          <a href="buddha-ru-shi-en.html?view=intro" onclick="switchLanguage(event, 'buddha-ru-shi-en.html')" class="px-2.5 py-1 rounded text-charcoal/80 hover:text-ink transition-colors font-sans">English</a>
         </div>
       </div>
     </div>
@@ -73,101 +73,101 @@
 
   <section id="view-intro" class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 md:py-16">
     <div class="text-center max-w-4xl mx-auto space-y-5 mb-14">
-      <div><span class="inline-block text-xs sm:text-sm font-semibold tracking-widest text-[#8a6828] border border-[#e8dfcf] px-4 py-1.5 rounded-full bg-[#fcfbf9] shadow-2xs font-sans uppercase">A Solemn Witness from 2,500 Years Ago</span></div>
-      <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-[1.2] font-title pt-1">
-        Why Does Every Buddhist Scripture Open with<br class="hidden sm:inline">
-        <span class="text-vermilion italic font-serif">"Thus Have I Heard"</span>?
+      <div><span class="inline-block text-xs sm:text-sm font-semibold tracking-widest text-[#8a6828] border border-[#e8dfcf] px-4 py-1.5 rounded-full bg-[#fcfbf9] shadow-2xs">二千五百年の誓いと証誠の刻印</span></div>
+      <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ink leading-[1.25] pt-1">
+        なぜすべての仏典は、<br class="hidden sm:inline">
+        <span class="text-vermilion italic">「如是我聞」</span>より始まるのか？
       </h2>
       <div class="pt-2 space-y-2 text-charcoal max-w-2xl mx-auto">
-        <p class="text-base sm:text-lg md:text-xl font-normal leading-relaxed">It was the solemn vow of Venerable Ānanda, the foremost in hearing, pledged to all future generations:</p>
-        <p class="text-lg sm:text-xl md:text-2xl font-bold text-vermilion tracking-wide italic">"On that day, I was sitting right there in the assembly, and I heard the Master speak these very words with my own ears..."</p>
+        <p class="text-base sm:text-lg md:text-xl font-normal leading-relaxed">それは多聞第一の弟子・阿難（アーナンダ）尊者が後世に残した厳粛なる誓約：</p>
+        <p class="text-lg sm:text-xl md:text-2xl font-bold text-vermilion tracking-wide italic">「あの日、私は確かに仏の御前に座し、直にこの教えを聞き届けた——」</p>
       </div>
     </div>
 
     <div class="bg-mutedbg/60 border border-bordercolor rounded-2xl p-6 md:p-10 mb-14 shadow-xs">
       <div class="text-center max-w-2xl mx-auto mb-8">
-        <span class="text-xs font-bold tracking-widest text-gold border border-gold/30 px-3 py-1 rounded-full bg-white font-sans uppercase">The Proof of Authenticity · Xuanzang's Buddhabhūmi-sūtra-śāstra (T1530)</span>
-        <h3 class="text-2xl sm:text-3xl font-bold text-ink mt-3 font-title">The Fourfold Sworn Guarantee & Three Immortal Functions</h3>
-        <p class="text-sm text-charcoal/80 mt-2 leading-relaxed">The opening formula <em class="text-ink font-semibold">Evaṃ mayā śrutam</em> is neither a hollow ritual nor a mythological revelation. It is an empirical deposition affirming that the teachings originate from an authentic historical Buddha.</p>
+        <span class="text-xs font-bold tracking-widest text-gold border border-gold/30 px-3 py-1 rounded-full bg-white">玄奘三蔵訳『仏地経論』巻一・近代仏教学（中村元博士等）に基づく考証</span>
+        <h3 class="text-2xl sm:text-3xl font-bold text-ink mt-3">「如是我聞（かくのごとく我れ聞けり）」の四重の保証と真義</h3>
+        <p class="text-sm text-charcoal/80 mt-2 leading-relaxed">古代インドにおいて、神秘的な神啓ではなく人間が歴史的責任を持って「私自身が聞いた」と名乗り出た、極めて理性的かつ厳密な証言の形式です。</p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div class="bg-white p-6 sm:p-7 rounded-xl border border-bordercolor shadow-xs hover:border-vermilion/40 transition-colors">
           <div class="flex items-center space-x-3 mb-5 border-b border-bordercolor/60 pb-3.5">
-            <span class="w-8 h-8 rounded-full bg-vermilion/10 text-vermilion flex items-center justify-center font-bold text-sm shrink-0 font-sans">IV</span>
-            <div><h4 class="text-base sm:text-lg font-bold text-ink font-title">The Fourfold Depositions (Four Meanings)</h4><p class="text-xs text-charcoal/60 mt-0.5">Ānanda's direct accountability to history and the Sangha</p></div>
+            <span class="w-8 h-8 rounded-full bg-vermilion/10 text-vermilion flex items-center justify-center font-bold text-sm shrink-0">四</span>
+            <div><h4 class="text-base sm:text-lg font-bold text-ink">経題を冠する「四重の義」（釈義）</h4><p class="text-xs text-charcoal/60 mt-0.5">結集に際し、阿難が大衆と歴史に対して明かした厳粛なる根拠</p></div>
           </div>
           <ul class="space-y-4 text-sm sm:text-base text-charcoal">
-            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title">1. By Analogy (As Spoken by the Buddha)</div><p class="text-charcoal/90 text-sm leading-relaxed">"The doctrine I report conforms perfectly to what the Tathāgata proclaimed, like a seal stamped into clay or water poured into water, without the slightest deviation."</p></li>
-            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title">2. By Admonition (Listen in This Manner)</div><p class="text-charcoal/90 text-sm leading-relaxed">"The transmitter urges future students: 'With the same utmost reverence and devotion that I received these words in the Buddha's presence, you too must listen and practice.'"</p></li>
-            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title">3. By Inquest (Truth Under Interrogation)</div><p class="text-charcoal/90 text-sm leading-relaxed">When cross-examined by the assembly—<em>'Is this your own invention or direct transmission?'</em>—the narrator answers: <em>'I heard this directly from the Master; nothing is fabricated.'</em></p></li>
-            <li><div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title">4. By Commission (According to Your Trust)</div><p class="text-charcoal/90 text-sm leading-relaxed">Requested by the Elders at the First Council to rehearse the Dharma, Ānanda gives his solemn assent: <em>'I will recount precisely what I have heard.'</em></p></li>
+            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1">1. 譬喩（ひゆ）に依る：仏の説かれた如し</div><p class="text-charcoal/90 text-sm leading-relaxed">「私が語る法義は、釈尊が親しく説かれた教えと寸分違わず合致しており、水に水を注ぎ、印を泥に押すが如く違わない。」</p></li>
+            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1">2. 教誨（きょうけ）に依る：如是に聴くべし</div><p class="text-charcoal/90 text-sm leading-relaxed">伝法者が後世の信徒に対し、「私がかつて釈尊の御前で如実に聴受した通りに、至誠を尽くして信順し修習せよ」と誡めること。</p></li>
+            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1">3. 問答（もんどう）に依る：自作に非ず</div><p class="text-charcoal/90 text-sm leading-relaxed">大衆からの「汝みずから作せるや」との問いに、「私は如来の御前で直に聞いたのであり、私意によって作ったのではない」と答えて疑いを晴らすこと。</p></li>
+            <li><div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1">4. 許可（きょか）に依る：信託に応ず</div><p class="text-charcoal/90 text-sm leading-relaxed">結集の大衆から法を説くことを請われ、結集者が「聞いた通りに如実に語ることを許諾（応諾）する」という厳粛な誓約。</p></li>
           </ul>
         </div>
         <div class="bg-white p-6 sm:p-7 rounded-xl border border-bordercolor shadow-xs hover:border-gold/50 transition-colors">
           <div class="flex items-center space-x-3 mb-5 border-b border-bordercolor/60 pb-3.5">
-            <span class="w-8 h-8 rounded-full bg-gold/15 text-gold flex items-center justify-center font-bold text-sm shrink-0 font-sans">III</span>
-            <div><h4 class="text-base sm:text-lg font-bold text-ink font-title">Three Functions Sustaining the True Dharma</h4><p class="text-xs text-charcoal/60 mt-0.5">Delivering historical certitude across two and a half millennia</p></div>
+            <span class="w-8 h-8 rounded-full bg-gold/15 text-gold flex items-center justify-center font-bold text-sm shrink-0">信</span>
+            <div><h4 class="text-base sm:text-lg font-bold text-ink">正法を久住せしめる三大の作用</h4><p class="text-xs text-charcoal/60 mt-0.5">二千五百年を越えて読誦者に届けられる確信の証左</p></div>
           </div>
           <ul class="space-y-4 text-sm sm:text-base text-charcoal">
-            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title">1. Anti-Counterfeit Seal (Dispelling Doubt)</div><p class="text-charcoal/90 text-sm leading-relaxed">Firmly confirms that the sūtra proceeds from the golden mouth of the awakened Lord, completely warding off non-Buddhist forgeries or arbitrary interpolations.</p></li>
-            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title">2. Inspiring Joyful Faith (Faithful Practice)</div><p class="text-charcoal/90 text-sm leading-relaxed">Awakening unshakeable trust in readers and practitioners, assuring them that the lineage is pure and that they may safely "accept and uphold" the teaching in daily life.</p></li>
-            <li><div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title">3. Lineage Custodianship (Humility & Concord)</div><p class="text-charcoal/90 text-sm leading-relaxed">The reciter recedes into the background, stating <em>'I merely heard'</em>, manifesting the sacred responsibility of transmitting without personal ego or sectarian contention.</p></li>
+            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-gold text-sm sm:text-[15px] mb-1">1. 真正性の確立（防偽求真）</div><p class="text-charcoal/90 text-sm leading-relaxed">神話や偽作を斥け、釈迦牟尼仏の金口所説であることを証明する「真正性の封印」。</p></li>
+            <li class="border-b border-bordercolor/40 pb-3.5"><div class="font-bold text-gold text-sm sm:text-[15px] mb-1">2. 聞即信順の起信（安心受持）</div><p class="text-charcoal/90 text-sm leading-relaxed">読誦者に疑念を離れさせ、親鸞聖人が説く「聞即信（本願を聞きて疑いなき心）」を成立させ、信受奉行せしめる。</p></li>
+            <li><div class="font-bold text-gold text-sm sm:text-[15px] mb-1">3. 師資相承の責任（無諍伝承）</div><p class="text-charcoal/90 text-sm leading-relaxed">自己の我見を退け、仏陀の真意を次世代へそのまま託す伝承者としての至誠と無諍の精神。</p></li>
           </ul>
-          <div class="mt-4 pt-3.5 border-t border-bordercolor text-xs text-charcoal/80 italic bg-mutedbg/40 p-2.5 rounded-lg">✦ As noted by the treatise: "Placing this formula at the beginning of each sūtra demonstrates utmost gravity, preserving the Buddha's intent so that sentient beings may practice without skepticism."</div>
+          <div class="mt-4 pt-3.5 border-t border-bordercolor text-xs text-charcoal/80 italic bg-mutedbg/40 p-2.5 rounded-lg">✦ 中村元博士は『原始仏典』において、「神の啓示ではなく、人間・阿難が『私自身が聞いた』と証言した点に、仏教の徹底した理性と人間主義がある」と指摘されています。</div>
         </div>
       </div>
     </div>
 
     <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
-      <span class="text-xs font-bold tracking-widest text-charcoal/60 uppercase font-sans">Sacred Footsteps Across Ancient India</span>
-      <h3 class="text-2xl sm:text-3xl font-bold text-ink font-title">Where on Earth Were These Words Spoken?</h3>
-      <p class="text-sm sm:text-base text-charcoal/80 leading-relaxed">Behind every "Thus Have I Heard" lies a real grove, a windswept mountain peak, or a riverside monastery in the Gangetic plains. Click on any of the three pivotal scenes below to explore:</p>
+      <span class="text-xs font-bold tracking-widest text-charcoal/60 uppercase">時空を超えて蘇る説法の現場</span>
+      <h3 class="text-2xl sm:text-3xl font-bold text-ink">文字の背後に息づく古代インドの息吹</h3>
+      <p class="text-sm sm:text-base text-charcoal/80 leading-relaxed">「如是我聞」の背後には、古代インドの風、木々のざわめき、そして人々の真摯な問いかけが存在していました。三つの決定的な現場をクリックして地図で確認してください：</p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
       <div onclick="jumpToLocation('kushinagar')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col justify-between">
         <div>
-          <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-vermilion tracking-wider font-sans uppercase">Final Journey · Malla Kingdom</span><span class="text-[11px] bg-vermilion/10 text-vermilion px-2 py-0.5 rounded font-sans">Parinirvāṇa</span></div>
-          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">Kuśinagar · Between the Twin Sāla Trees</h3>
-          <p class="text-xs text-gold font-medium mb-3">Ānanda's Tears and the Birth of the Four Words</p>
-          <p class="text-sm text-charcoal/90 leading-relaxed mb-4">Beside the Hiraññavatī River, as the Buddha prepared to enter Final Nirvāṇa, Ānanda wept inconsolably. Venerable Aniruddha reminded him: <em>'Ask the Master: When we compile the discourses in the future, what words shall open each scripture?'</em> The Buddha answered: <em>'Begin with "Thus Have I Heard".'</em></p>
+          <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-vermilion tracking-wider uppercase">【最後の旅路と託宣】末羅国</span><span class="text-[11px] bg-vermilion/10 text-vermilion px-2 py-0.5 rounded">示寂の地</span></div>
+          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors">拘尸那羅 · 沙羅双樹の間</h3>
+          <p class="text-xs text-gold font-medium mb-3">阿難の涙と経首四文字の誕生</p>
+          <p class="text-sm text-charcoal/90 leading-relaxed mb-4">跋提河のほとり、沙羅双樹の下で涅槃に入ろうとする仏を前に、阿難は悲嘆に暮れて泣き崩れました。阿那律尊者は「経の初めに何を置くべきか」を問うよう促し、釈尊は「まさに『如是我聞』と置くべし」と遺勅されました。</p>
         </div>
-        <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold font-sans"><span>Mahāparinirvāṇa Sūtra Site</span><span class="group-hover:translate-x-1 transition-transform">Explore on Map →</span></div>
+        <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold"><span>『大般涅槃経』示寂の地</span><span class="group-hover:translate-x-1 transition-transform">地図で確認 →</span></div>
       </div>
       <div onclick="jumpToLocation('shravasti')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col justify-between">
         <div>
-          <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-vermilion tracking-wider font-sans uppercase">25 Rains Retreats · Kosala</span><span class="text-[11px] bg-gold/15 text-gold px-2 py-0.5 rounded font-sans">Longest Residence</span></div>
-          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">Śrāvastī · Jeta's Grove Monastery</h3>
-          <p class="text-xs text-gold font-medium mb-3">Gold-Paved Grounds and the Daily Begging Round</p>
-          <p class="text-sm text-charcoal/90 leading-relaxed mb-4">Anāthapiṇḍika covered the earth with gold coins to purchase Prince Jeta's grove for the Sangha. Here the Buddha spent 25 rainy seasons. From the daily routine of putting on robes and collecting alms emerged the profound non-attachment of the <em>Diamond Sūtra</em> and the boundless bliss of the <em>Amitābha Sūtra</em>.</p>
+          <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-vermilion tracking-wider uppercase">【二十五年安居】コーサラ国</span><span class="text-[11px] bg-gold/15 text-gold px-2 py-0.5 rounded">長住の道場</span></div>
+          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors">舎衛国 · 祇樹給孤独園</h3>
+          <p class="text-xs text-gold font-medium mb-3">黄金敷き詰めた精舎と日々の歩み</p>
+          <p class="text-sm text-charcoal/90 leading-relaxed mb-4">給孤独長者が黄金を敷き詰めて築いた大精舎。釈尊はここに二十五安居を過ごされました。衣を着し鉢を持って托鉢する日常から始まる『金剛般若経』や、極楽浄土の荘厳を説く『阿弥陀経』がここで響き渡りました。</p>
         </div>
-        <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold font-sans"><span>Diamond & Amitābha Sūtra Site</span><span class="group-hover:translate-x-1 transition-transform">Explore on Map →</span></div>
+        <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold"><span>『金剛経』『阿弥陀経』説処</span><span class="group-hover:translate-x-1 transition-transform">地図で確認 →</span></div>
       </div>
       <div onclick="jumpToLocation('rajgir_vulture')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col justify-between">
         <div>
-          <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-vermilion tracking-wider font-sans uppercase">The Universal Vehicle · Magadha</span><span class="text-[11px] bg-ink/10 text-ink px-2 py-0.5 rounded font-sans">Lotus Assembly</span></div>
-          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">Rājagṛha · Vulture Peak (Gṛdhrakūṭa)</h3>
-          <p class="text-xs text-gold font-medium mb-3">Rocky Crag Like a Soaring Vulture Head</p>
-          <p class="text-sm text-charcoal/90 leading-relaxed mb-4">The craggy, secluded summit overlooking the ancient capital. Emitting a ray of white light from his brow, the Buddha unified the three vehicles into the One Universal Buddha Vehicle in the <em>Lotus Sūtra</em> and bestowed prophecies of future awakening upon all his disciples.</p>
+          <div class="flex items-center justify-between mb-2"><span class="text-xs font-bold text-vermilion tracking-wider uppercase">【一仏乗の開顕】マガダ国</span><span class="text-[11px] bg-ink/10 text-ink px-2 py-0.5 rounded">法華盛筵</span></div>
+          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors">王舎城 · 霊鷲山（耆闍崛山）</h3>
+          <p class="text-xs text-gold font-medium mb-3">鷲が低頭する形の険峰に放たれた光</p>
+          <p class="text-sm text-charcoal/90 leading-relaxed mb-4">幽寂清爽たる鷲の頭の巨岩。釈尊は白毫の光を放ち、三乗を会通して一仏乗に帰せしめ、一切の弟子に作仏の記別を授ける『妙法蓮華経』を開顕されました。「霊山一会儼然として未だ散らず」の聖域です。</p>
         </div>
-        <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold font-sans"><span>Lotus & Heart Sūtra Site</span><span class="group-hover:translate-x-1 transition-transform">Explore on Map →</span></div>
+        <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold"><span>『法華経』『般若心経』説処</span><span class="group-hover:translate-x-1 transition-transform">地図で確認 →</span></div>
       </div>
     </div>
 
     <div class="text-center pt-2 pb-6">
-      <button onclick="switchView('app')" class="inline-flex items-center space-x-3 bg-vermilion hover:bg-vermilion/90 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-sans">
-        <span>Enter the Interactive Canonical Atlas (24 Sūtras)</span>
+      <button onclick="switchView('app')" class="inline-flex items-center space-x-3 bg-vermilion hover:bg-vermilion/90 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
+        <span>インタラクティブ経蔵アトラスを開く（厳選24部）</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
       </button>
-      <p class="text-xs text-charcoal/60 mt-3 font-sans">8 Earthly Holy Sites + 1 Transcendental Realm · Strictly verified against the Taishō Tripiṭaka</p>
+      <p class="text-xs text-charcoal/60 mt-3 font-sans">地上8大聖地 + 1出世間道場 · 大正新脩大蔵経テキスト対照・正統訓読文完備</p>
     </div>
   </section>
 
   <main id="view-app" class="hidden flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4">
     <div id="sticky-tab-bar" class="sticky top-18 z-40 bg-white/95 backdrop-blur-md pt-2 pb-3 border-b border-bordercolor mb-6">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-xs font-bold tracking-widest text-charcoal/70 uppercase font-sans">Sacred Site Selector</span>
-        <span class="text-xs text-gold font-sans font-medium">8 Earthly Historic Sites + 1 Transcendental Realm (24 Canonical Sūtras)</span>
+        <span class="text-xs font-bold tracking-widest text-charcoal/70 uppercase">説法聖地セレクター</span>
+        <span class="text-xs text-gold font-medium">インド8大聖地 + 1出世間道場（厳選24部根本聖典）</span>
       </div>
       <div id="location-tabs" class="flex space-x-2 overflow-x-auto no-scrollbar pb-1 text-sm font-medium"></div>
     </div>
@@ -175,8 +175,8 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
       <div class="lg:col-span-5 bg-white rounded-2xl border border-bordercolor p-4 shadow-sm lg:sticky lg:top-36">
         <div class="flex items-center justify-between mb-3 px-1">
-          <div><h3 class="text-base font-bold text-ink font-title">Discourse Geography of Ancient India</h3><p class="text-[11px] text-charcoal/70 font-sans">Click on any marker to inspect its canonical scriptures</p></div>
-          <span class="text-[10px] bg-mutedbg text-charcoal border border-bordercolor px-2 py-0.5 rounded font-sans">Gangetic Basin & Deccan</span>
+          <div><h3 class="text-base font-bold text-ink">古代インド説法地理図</h3><p class="text-[11px] text-charcoal/70">端点をクリックして経典と証信序を照会</p></div>
+          <span class="text-[10px] bg-mutedbg text-charcoal border border-bordercolor px-2 py-0.5 rounded">ガンジス川流域・デカン高原</span>
         </div>
         <div class="relative w-full aspect-[4/5] bg-[#fafbfc] rounded-xl overflow-hidden border border-bordercolor/80 flex items-center justify-center p-2">
           <svg viewBox="0 0 500 640" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
@@ -188,21 +188,21 @@
               </linearGradient>
             </defs>
             <path d="M 80,110 Q 150,135 220,120 T 360,145 T 460,170" fill="none" stroke="#d5d0c8" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
-            <text x="195" y="112" fill="#8c857b" font-size="10" letter-spacing="2" font-family="'Cinzel', serif">H I M A L A Y A S</text>
+            <text x="200" y="112" fill="#8c857b" font-size="11" letter-spacing="3">ヒマラヤ山脈</text>
             <path d="M 60,160 C 100,180 120,240 125,310 C 130,370 160,440 220,530 C 235,550 245,555 255,530 C 310,430 360,340 375,280 C 390,230 420,220 440,210" fill="none" stroke="#8a847a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,1"/>
-            <path d="M 60,160 Q 110,130 180,150" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/><text x="75" y="150" fill="#9e988f" font-size="8" font-family="sans-serif">Pakistan</text>
-            <path d="M 220,135 Q 280,140 320,150" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/><text x="255" y="145" fill="#9e988f" font-size="8" font-family="sans-serif">Nepal</text>
-            <path d="M 370,250 Q 385,270 375,290" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/><text x="375" y="275" fill="#9e988f" font-size="8" font-family="sans-serif">Bangladesh</text>
+            <path d="M 60,160 Q 110,130 180,150" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/><text x="80" y="150" fill="#9e988f" font-size="9">パキスタン</text>
+            <path d="M 220,135 Q 280,140 320,150" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/><text x="260" y="145" fill="#9e988f" font-size="9">ネパール</text>
+            <path d="M 370,250 Q 385,270 375,290" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/><text x="382" y="275" fill="#9e988f" font-size="9">バングラデシュ</text>
             <path d="M 140,165 C 170,180 200,210 240,225 C 280,240 310,235 340,255 C 370,270 380,290 385,320" fill="none" stroke="url(#gangesGradient)" stroke-width="4.5" stroke-linecap="round"/>
-            <text x="205" y="215" fill="#2c5d63" font-size="10" font-weight="bold" font-family="'Cinzel', serif">Ganges River</text>
+            <text x="215" y="215" fill="#2c5d63" font-size="11" font-weight="bold">ガンジス川 (Ganges)</text>
             <path d="M 265,540 C 285,540 295,565 285,585 C 275,600 255,590 255,570 C 255,550 260,540 265,540 Z" fill="#f2efe9" stroke="#7c766c" stroke-width="1.8"/>
-            <text x="235" y="605" fill="#524d45" font-size="9" font-weight="bold" font-family="sans-serif">Sri Lanka (Mt. Laṅkā)</text>
+            <text x="240" y="605" fill="#524d45" font-size="10" font-weight="bold">スリランカ (楞伽山)</text>
             <g id="map-nodes-container"></g>
           </svg>
         </div>
         <div onclick="jumpToLocation('celestial')" class="mt-4 p-3 bg-mutedbg hover:bg-gold/10 border border-bordercolor hover:border-gold/60 rounded-xl cursor-pointer transition-all flex items-center justify-between">
-          <div class="flex items-center space-x-2"><span class="text-base">✨</span><div><div class="text-xs font-bold text-ink font-title">Transcendental Dharmadhātu & Celestial Realms</div><div class="text-[10px] text-charcoal/70 font-sans">Trāyastriṃśa Heaven, Tuṣita, Palace of Reality, Unhindered Samādhi</div></div></div>
-          <span class="text-xs text-gold font-bold font-sans">Switch →</span>
+          <div class="flex items-center space-x-2"><span class="text-base">✨</span><div><div class="text-xs font-bold text-ink">出世間法界 · 天宮・報土の道場</div><div class="text-[10px] text-charcoal/70">忉利天、兜率天、如来法界宮、円覚光明正受道場</div></div></div>
+          <span class="text-xs text-gold font-bold">切替 →</span>
         </div>
       </div>
 
@@ -210,405 +210,405 @@
         <div class="bg-white rounded-2xl border border-bordercolor p-6 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-bordercolor pb-3 mb-4">
             <div>
-              <span id="place-subtag" class="text-xs font-bold tracking-widest text-vermilion uppercase font-sans">Sacred Discourse Sanctuary</span>
-              <h2 id="place-title" class="text-2xl sm:text-3xl font-bold text-ink mt-0.5 font-title">Śrāvastī · Jeta's Grove Monastery</h2>
+              <span id="place-subtag" class="text-xs font-bold tracking-widest text-vermilion uppercase">仏陀遊行の聖域</span>
+              <h2 id="place-title" class="text-2xl sm:text-3xl font-bold text-ink mt-0.5">舎衛国 祇樹給孤独園</h2>
             </div>
-            <div id="place-sutra-count" class="text-xs bg-mutedbg text-charcoal px-3 py-1.5 rounded-full border border-bordercolor font-sans font-medium">5 Canonical Sūtras Recorded</div>
+            <div id="place-sutra-count" class="text-xs bg-mutedbg text-charcoal px-3 py-1.5 rounded-full border border-bordercolor font-medium">5部を収載</div>
           </div>
-          <p id="place-desc" class="text-sm sm:text-base text-charcoal leading-relaxed font-normal">Loading canonical data...</p>
+          <p id="place-desc" class="text-sm sm:text-base text-charcoal leading-relaxed font-normal">読み込み中...</p>
         </div>
         <div id="sutra-list" class="space-y-6"></div>
       </div>
     </div>
   </main>
 
-  <footer class="bg-white border-t border-bordercolor mt-16 py-8 text-center text-xs text-charcoal/70 font-sans">
+  <footer class="bg-white border-t border-bordercolor mt-16 py-8 text-center text-xs text-charcoal/70">
     <div class="max-w-7xl mx-auto px-4 space-y-2">
-      <p class="font-serif text-sm text-ink font-bold italic">"May we fathom the Tathāgata's true meaning and circulate the True Dharma for the benefit of all beings."</p>
-      <p>Source Authorities: <em>Taishō Shinshū Daizōkyō</em> · Xuanzang's <em>Buddhabhūmi-sūtra-śāstra</em> · Tiantai Master Zhiyi's <em>Five Periods & Eight Teachings</em> · Kuiji's <em>Three Turnings Commentary</em></p>
-      <p class="text-charcoal/50 pt-2">© CATHY:2026 Interactive Buddhist Canonical Atlas · Open for Academic and Dharma Transmission Use</p>
+      <p class="font-bold text-sm text-ink italic">「願わくは如来の真実義を解し、正法を流通して群生を利せん」</p>
+      <p>典拠：『大正新脩大蔵経』· 唐玄奘訳『仏地経論』· 天台智者大師五時八教分斉 · 慈恩基師三転法輪疏 · 中村元訳『原始仏典』</p>
+      <p class="text-charcoal/50 pt-2">© CATHY:2026 如是我聞 仏陀説法アトラス（学術・弘法無償公開版）</p>
     </div>
   </footer>
 
   <script>
     const MAP_NODES = [
-      { id: 'shravasti', cx: 170, cy: 175, tx: 100, ty: 165, name: 'Śrāvastī · Jeta' },
-      { id: 'vaishali', cx: 285, cy: 220, tx: 290, ty: 210, name: 'Vaiśālī' },
-      { id: 'kushinagar', cx: 275, cy: 175, tx: 282, ty: 172, name: 'Kuśinagar (Nirvāṇa)', red: true },
-      { id: 'sarnath', cx: 235, cy: 250, tx: 150, ty: 260, name: 'Sārnāth (Deer Park)' },
-      { id: 'bodhgaya', cx: 285, cy: 265, tx: 195, ty: 275, name: 'Bodh Gayā', gold: true },
-      { id: 'rajgir_vulture', cx: 330, cy: 268, tx: 340, ty: 265, name: 'Vulture Peak' },
-      { id: 'rajgir_bamboo', cx: 315, cy: 295, tx: 230, ty: 305, name: 'Bamboo Grove' },
-      { id: 'lanka', cx: 275, cy: 565, tx: 290, ty: 565, name: 'Mt. Laṅkā' }
+      { id: 'shravasti', cx: 170, cy: 175, tx: 105, ty: 165, name: '舎衛国・祇園' },
+      { id: 'vaishali', cx: 285, cy: 220, tx: 288, ty: 210, name: '毘舎離国' },
+      { id: 'kushinagar', cx: 275, cy: 175, tx: 282, ty: 172, name: '拘尸那羅 (涅槃)', red: true },
+      { id: 'sarnath', cx: 235, cy: 250, tx: 155, ty: 260, name: '鹿野苑 (初転)' },
+      { id: 'bodhgaya', cx: 285, cy: 265, tx: 200, ty: 275, name: '菩提伽耶 (成道)', gold: true },
+      { id: 'rajgir_vulture', cx: 330, cy: 268, tx: 340, ty: 265, name: '霊鷲山 (法華)' },
+      { id: 'rajgir_bamboo', cx: 315, cy: 295, tx: 235, ty: 305, name: '竹林精舎' },
+      { id: 'lanka', cx: 275, cy: 565, tx: 290, ty: 565, name: '楞伽山頂' }
     ];
 
-    const SACRED_PLACES_EN = {
+    const SACRED_PLACES_JA = {
       shravasti: {
         id: 'shravasti',
-        name: 'Śrāvastī · Jeta\'s Grove Monastery (Anāthapiṇḍika\'s Park)',
-        shortName: 'Śrāvastī (Jeta\'s Grove)',
-        subtag: 'Capital of Kosala · Longest Residence of 25 Rainy Retreats',
-        desc: 'Sanskrit Śrāvastī, Jetavana Anāthapiṇḍikasyārāma. The wealthy merchant Sudatta (Anāthapiṇḍika, "Benefactor of the Destitute") covered the entire estate with gold bullion to purchase Prince Jeta\'s grove and build a great monastery for the Sangha. The Buddha spent twenty-five rainy season retreats here, preaching across the Āgamas, Vaipulya, and Prajñāpāramitā within the serene context of everyday monastic discipline.',
+        name: '舎衛国 祇樹給孤独園（ぎじゅぎっこどくおん）',
+        shortName: '舎衛国 祇園',
+        subtag: 'コーサラ国首都 · 釈尊が25雨安居を過ごされた最長の弘法道場',
+        desc: 'サンスクリット語 Śrāvastī（シュラーヴァスティー）、Jetavana Anāthapiṇḍikasyārāma。給孤独長者（スダッタ）が黄金を地表に敷き詰めてジェータ太子の園林を買い取り、僧伽のために建立した大僧苑。釈尊はここに二十五回の夏安居を過ごされ、衣を着し托鉢する日常の中で、阿含の解脱、執着を蕩尽する『金剛経』、極楽の荘厳を説く『阿弥陀経』、そして如来蔵の清浄を顕す『首楞厳経』を説かれました。',
         sutras: [
           {
-            t: 'Saṃyuktāgama (Selected Discourses)（雜阿含經）',
-            v: 'Taishō Vol. 02, No. 99 (50 Fascicles)',
-            p: 'II. Deer Park Period (Āgama)',
-            turn: 'First Turning: The Four Noble Truths',
-            tr: 'Trans. Guṇabhadra (Liu Song Dynasty)',
-            loc: 'Śrāvastī, Jeta\'s Grove, Anāthapiṇḍika\'s Park',
+            t: '阿含部·雑阿含経（節録）（雜阿含經）',
+            v: '大正蔵 第02冊 No. 99 (50巻)',
+            p: '第二 鹿苑時（阿含時）',
+            turn: '初転四諦法輪',
+            tr: '劉宋·求那跋陀羅 訳',
+            loc: '舎衛国祇樹給孤独園',
             oq: '如是我聞：一時，佛住舍衛國祇樹給孤獨園。爾時，世尊告諸比丘：「當觀色無常。如是觀者，則為正觀；正觀者，則生厭離；厭離者，喜貪盡；喜貪盡者，說心解脫。」',
-            tran: '"Thus have I heard: At one time, the Buddha was staying in Śrāvastī at Jeta\'s Grove, Anāthapiṇḍika\'s Park. At that time, the Blessed One addressed the monks: \'You should contemplate form as impermanent. Contemplating thus is right contemplation. With right contemplation, one becomes disenchanted; through disenchantment, passion and desire are exhausted; with the exhaustion of passion, the mind is liberated.\'"',
-            s: 'The foundational core of early Buddhist teachings. Grounded upon the five aggregates, twelve sense bases, eighteen elements, dependent origination, and the Four Noble Truths, it elucidates the cessation of greed, anger, and delusion to attain unconditioned Nirvāṇa.',
-            pur: 'To dismantle the erroneous views of self and nihilism/eternalism held by disciples, establishing right view to transcend the cycle of birth and death.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、舎衛国の祇樹給孤独園に住したまいき。その時、世尊、諸の比丘に告げてのたまわく：「まさに色（物質）の無常なるを観ずべし。かくのごとく観ずる者は、すなわち正観となす；正観する者は、すなわち厭離を生ず；厭離する者は、喜貪尽く；喜貪尽くる者は、心解脱と説く。」',
+            s: '初期仏教の根本所依。五蘊・十二処・十八界・十二因縁および四聖諦を基盤とし、縁起無我と貪瞋痴の滅尽による寂静涅槃の道を明かす。',
+            pur: '声聞弟子をして我見・辺見を破せしめ、正見正思惟を確立して阿羅漢果を証得せしめ、生死の輪廻を超脱せしめる。'
           },
           {
-            t: 'Vajracchedikā Prajñāpāramitā Sūtra (The Diamond Sūtra)（金剛般若波羅蜜經）',
-            v: 'Taishō Vol. 08, No. 235 (1 Fascicle)',
-            p: 'IV. Prajñāpāramitā Period',
-            turn: 'Second Turning: Revealing Emptiness',
-            tr: 'Trans. Kumārajīva (Later Qin Dynasty)',
-            loc: 'Śrāvastī, Jeta\'s Grove, Anāthapiṇḍika\'s Park',
+            t: '金剛般若波羅蜜経（金剛般若波羅蜜經）',
+            v: '大正蔵 第08冊 No. 235 (1巻)',
+            p: '第四 般若時',
+            turn: '第二 顕空法輪',
+            tr: '後秦·鳩摩羅什 訳',
+            loc: '舎衛国祇樹給孤独園',
             oq: '如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘眾千二百五十人俱。爾時，世尊食時，著衣持鉢，入舍衛大城乞食。於其城中，次第乞已，還至本處。飯食訖，收衣鉢，洗足已，敷座而坐。',
-            tran: '"Thus have I heard: At one time, the Buddha was dwelling in Śrāvastī at Jeta\'s Grove, Anāthapiṇḍika\'s Park, together with a great assembly of 1,250 monks. At that time, when mealtime arrived, the Blessed One put on his robes, took his alms bowl, and entered the great city of Śrāvastī to beg for food. Having begged in sequence, he returned, finished his meal, put away robe and bowl, washed his feet, and sat down on his seat."',
-            s: 'Arising from the mundane act of dressing and begging alms, Subhūti poses the fundamental question of how bodhisattvas should abide and subdue their minds. The Buddha points directly to the principle: "One should give rise to a mind that abides nowhere" (應無所住而生其心).',
-            pur: 'To eliminate subtle attachments to Dharmas among Śrāvakas and dissolve conceptual grasping in Bodhisattvas practicing generosity and liberation.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、舎衛国の祇樹給孤独園に在して、大比丘衆千二百五十人と倶なりき。その時、世尊、食時になりて、衣を着し鉢を持ち、舎衛の大城に入りて乞食したまう。その城の中において、次第に乞いおわりて、本処に還り至りたまいき。飯食訖わりて、衣鉢を収め、足を洗いおわりて、座を敷きて坐したまえり。',
+            s: '托鉢乞食という日常の立ち居振る舞いから発し、須菩提の問いに答えて「応無所住而生其心（まさに住する所無くしてその心を生ずべし）」の無住を直指する。',
+            pur: '法相に執着する二乗や、布施・度衆生に相を執する大乗の初発心を破し、一切の自性執を蕩尽して本源の空性を証知せしめる。'
           },
           {
-            t: 'Amitābha Sūtra (Sukhāvatīvyūha Sūtra)（佛說阿彌陀經）',
-            v: 'Taishō Vol. 12, No. 366 (1 Fascicle)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: The Middle Way (Pure Land)',
-            tr: 'Trans. Kumārajīva (Later Qin Dynasty)',
-            loc: 'Śrāvastī, Jeta\'s Grove, Anāthapiṇḍika\'s Park',
+            t: '仏説阿弥陀経（佛說阿彌陀經）',
+            v: '大正蔵 第12冊 No. 366 (1巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（浄土他力易行）',
+            tr: '後秦·鳩摩羅什 訳',
+            loc: '舎衛国祇樹給孤独園',
             oq: '如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘僧千二百五十人俱，皆是大阿羅漢，眾所知識……爾時，佛告長老舍利弗：「從是西方，過十萬億佛土，有世界名曰極樂，其土有佛，號阿彌陀，今現在說法。」',
-            tran: '"Thus have I heard: At one time, the Buddha was dwelling in Śrāvastī at Jeta\'s Grove, Anāthapiṇḍika\'s Park, with a community of 1,250 great bhikṣus, all great arhats... The Buddha said to Elder Śāriputra: \'Passing westward from here beyond a hundred thousand billion Buddha-lands, there is a world named Ultimate Bliss (Sukhāvatī). In that realm is a Buddha named Amitābha, who is currently teaching the Dharma.\'"',
-            s: 'A spontaneous teaching delivered without inquiry (anadhyeṣita). Reveals the pristine adornments of the Western Pure Land and the expedient gate of single-minded recitation of Amitābha\'s name to secure non-retrogression.',
-            pur: 'Compassionately providing burdened beings in the degenerate age a direct passage to cross over samsara through reliance on Amitābha\'s Primal Vow.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、舎衛国の祇樹給孤独園に在して、大比丘僧千二百五十人と倶なりき、皆これ大阿羅漢にして、衆に知識せらる…その時、仏、長老舎利弗に告げてのたまわく：「これより西方、十万億の仏土を過ぎて、世界あり名づけて極楽という。その土に仏まします、阿弥陀と号す、いま現在に法を説きたまう。」',
+            s: '問われずして自ら説かれた無問自説の経。西方極楽世界の依正荘厳を説き、執持名号一心不乱により不退転の往生を得る勝方便を開示。親鸞聖人「聞即信」の根本経典。',
+            pur: '末代の苦悩濁悪の衆生を愍れみ、自力断惑の難行を離れ、弥陀の本願名号に帰依して横超三界する円頓の捷径を施す。'
           },
           {
-            t: 'Mahāratnakūṭa Sūtra (Assembly of Mañjuśrī\'s Prajñā)（大寶積經·文殊說般若會）',
-            v: 'Taishō Vol. 11, No. 310 (Fascicle 115)',
-            p: 'IV. Prajñāpāramitā Period',
-            turn: 'Second & Third Turning: Non-Duality',
-            tr: 'Trans. Mandrasena (Liang Dynasty)',
-            loc: 'Śrāvastī, Jeta\'s Grove, Anāthapiṇḍika\'s Park',
+            t: '大宝積経·文殊説般若会（大寶積經·文殊說般若會）',
+            v: '大正蔵 第11冊 No. 310 (巻115)',
+            p: '第四 般若時',
+            turn: '第二 顕空 / 第三転 中道',
+            tr: '梁·曼陀羅仙 訳',
+            loc: '舎衛国祇樹給孤独園',
             oq: '如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘眾一萬人俱，菩薩摩訶薩十萬人俱……爾時，文殊師利法王子白佛言：「世尊！何等名為般若波羅蜜？云何修習？」佛言：「文殊師利！法無可住，是般若波羅蜜；法無受著，是修習般若。」',
-            tran: '"Thus have I heard: At one time, the Buddha was dwelling in Śrāvastī at Jeta\'s Grove, Anāthapiṇḍika\'s Park, with 10,000 bhikṣus and 100,000 bodhisattva mahāsattvas... Mañjuśrī Dharma Prince said to the Buddha: \'World-Honored One, what is named Prajñāpāramitā? How is it practiced?\' The Buddha answered: \'Mañjuśrī, that dharmas have nowhere to abide is Prajñāpāramitā; that dharmas are free from grasping is the practice of Prajñā.\'"',
-            s: 'Mañjuśrī expounds the "One-Practice Samādhi" (一行三昧) at Jeta\'s Grove, demonstrating that pure recitation of a single Buddha\'s name converges with the profound non-dual emptiness of prajñā wisdom.',
-            pur: 'Guiding practitioners beyond reified concepts so that mindfulness of the Buddha and the emptiness of all dharmas are experienced as indivisible.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、舎衛国の祇樹給孤独園に在して、大比丘衆一万人と倶に、菩薩摩訶薩十万人と倶なりき…その時、文殊師利法王子、仏に白して言さく：「世尊！何等を行名づけて般若波羅蜜となすや？云何修習すや？」仏言わく：「文殊師利！法に住すべき無き、これ般若波羅蜜なり；法に受着無き、これ般若を修習するなり。」',
+            s: '文殊師利菩薩が祇園精舎において「一行三昧」を宣説。専ら一仏の名号を念ずることが甚深の般若無相の空慧と相即不二であることを直指する。',
+            pur: '大乗の行者をして有所得の執着を超脱せしめ、念仏三昧と実相空慧の円融無礙なる境地に安住せしめる。'
           },
           {
-            t: 'Śūraṅgama Sūtra (Da Fo Ding Shou Leng Yan Jing)（大佛頂首楞嚴經）',
-            v: 'Taishō Vol. 19, No. 945 (10 Fascicles)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: Ultimate Tathāgatagarbha',
-            tr: 'Trans. Pramiti (Tang Dynasty)',
-            loc: 'Śrāvastī, Jeta\'s Grove Monastery',
+            t: '大仏頂首楞厳経（大佛頂首楞嚴經）',
+            v: '大正蔵 第19冊 No. 945 (10巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（了義円頓）',
+            tr: '唐·般剌密帝 訳',
+            loc: '室羅筏城祇桓精舎',
             oq: '如是我聞：一時，佛在室羅筏城祇桓精舍，與大比丘眾千二百五十人俱，皆是無漏大阿羅漢……爾時，阿難因乞食次，經歷婬室，遭大梵術娑毗迦羅先梵天咒攝入婬席……世尊頂放百寶無畏光明，光中出生千里寶蓮華，有佛化身結跏趺坐，宣說神咒。',
-            tran: '"Thus have I heard: At one time, the Buddha was dwelling in the city of Śrāvastī at Jeta\'s Grove Monastery, with an assembly of 1,250 great bhikṣus, all undefiled great arhats... At that time, Ānanda, while begging for alms, passed by a brothel and was ensnared by the Matanga woman\'s spell... The World-Honored One emitted a hundred-jeweled fearless radiance from the crown of his head, manifesting a lotus with an emanation Buddha who proclaimed the sacred dhāraṇī."',
-            s: 'Prompted by Ānanda\'s peril, the Buddha investigates the mind in seven locations and reveals true seeing in ten aspects, distinguishing the illusory mind from the everlasting true mind and laying out the 25 gates to enlightenment.',
-            pur: 'Providing practitioners in the Dharma-ending age with a discerning beacon to dissolve demonic delusions and realize the immutable Śūraṅgama Samādhi.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、室羅伐城の祇桓精舎に在して、大比丘衆千二百五十人と倶なりき…阿難、乞食に因る次いで、婬室を経歴し、大梵術摩登伽の呪に遭いて婬席に摂入せらる…世尊、頂より百宝無畏の光明を放ち、光の中に千里の宝蓮華を生じ、化身の仏ましまして神咒を宣説したまいき。',
+            s: '阿難の難を機縁に、「七処徴心・十番顕見」によって妄想心と常住真心とを峻別し、首楞厳大定・二十五円通・五十陰魔の境相を詳述する。',
+            pur: '末法の禅定修業者をして邪正を見極めさせ、魔網を破除して如来の無上菩提の密因を円成せしめる。'
           }
         ]
       },
       sarnath: {
         id: 'sarnath',
-        name: 'Vārāṇasī · Sārnāth (Isipatana Deer Park)',
-        shortName: 'Sārnāth (Deer Park)',
-        subtag: 'Suburbs of Kashi · First Turning of the Wheel & Emergence of the Triple Gem',
-        desc: 'Sanskrit Sārnāth, Rṣipatana Mṛgadāva ("The Deer Park where Sages Alighted"). After attaining supreme awakening under the Bodhi Tree, the Buddha walked over a hundred miles to preach to the five ascetics. Rejecting both sensual indulgence and self-mortification, he revealed the Middle Way and the Twelve Aspects of the Four Noble Truths, establishing the Triple Gem in the human world.',
+        name: '波羅奈国 鹿野苑（仙人堕処・サールナート）',
+        shortName: '波羅奈 鹿野苑',
+        subtag: 'カーシー国古都郊外 · 初転法輪と仏法僧三宝具足の聖域',
+        desc: 'サンスクリット語 Sārnāth（リシパタナ・仙人堕処）。菩提樹下で成道された釈尊が百里を行脚し、阿若憍陳如ら五比丘のために中道と苦集滅道の「三転十二相」を説かれ、世に初めて法輪が巡り三宝が成立した聖地です。',
         sutras: [
           {
-            t: 'Dhammacakkappavattana Sutta (Saṃyuktāgama No. 379)（雜阿含經·轉法輪經）',
-            v: 'Taishō Vol. 02, No. 99 (Fascicle 15, p. 103b)',
-            p: 'II. Deer Park Period (Āgama)',
-            turn: 'First Turning: The Four Noble Truths',
-            tr: 'Trans. Guṇabhadra (Liu Song Dynasty)',
-            loc: 'Vārāṇasī, Sārnāth Deer Park, Abode of Sages',
+            t: '雑阿含経·巻十五第379経（転法輪経）（雜阿含經·轉法輪經）',
+            v: '大正蔵 第02冊 No. 99 (巻15 頁103b)',
+            p: '第二 鹿苑時',
+            turn: '初転四諦法輪（根本結集）',
+            tr: '劉宋·求那跋陀羅 訳',
+            loc: '波羅奈国鹿野苑中仙人住処',
             oq: '如是我聞：一時，佛住波羅奈國鹿野苑中仙人住處。爾時，世尊告五比丘：「此苦聖諦，本所未曾聞法，當正思惟，時生眼、智、明、覺；此苦集、此苦滅、此苦滅道跡聖諦，本所未曾聞法，當正思惟，時生眼、智、明、覺……」',
-            tran: '"Thus have I heard: At one time, the Buddha was staying in the country of Vārāṇasī in the Deer Park, the abode of the sages. At that time, the World-Honored One addressed the five monks: \'This is the noble truth of suffering, a teaching never heard before; by right contemplation, vision arose, knowledge arose, wisdom arose, and awakening arose...\'"',
-            s: 'The primary Chinese Āgama transmission of the First Discourse. Proclaims the twelve aspects of the Four Noble Truths to the five monks, birthing the pristine "eye, knowledge, illumination, and vision of reality."',
-            pur: 'Bestowing the pure Dharma-eye upon Kaundinya and companions, igniting the lamp of the True Dharma in the human realm.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、波羅奈国の鹿野苑中仙人住処に住したまいき。その時、世尊、五比丘に告げてのたまわく：「この苦聖諦は、本よりいまだかつて聞かざる法なり、まさに正思惟すべし、時に眼・智・明・覚を生ず；この苦集、この苦滅、この苦滅道跡聖諦…時に眼・智・明・覚を生ず…」',
+            s: '四諦初転の根本結集。五比丘に「眼・智・明・覚」の三転十二行相を宣説し、苦集滅道四聖諦が出世間解脱の源頭であることを確立。',
+            pur: '憍陳如ら五比丘をして法眼浄を得せしめ、正法の灯を人間に掲げて縁起四諦の正見を確立せしめる。'
           },
           {
-            t: 'Dharmacakrapravartana Sūtra (Three Turnings Discourse)（佛說三轉法輪經）',
-            v: 'Taishō Vol. 02, No. 110 (1 Fascicle)',
-            p: 'II. Deer Park Period (Āgama)',
-            turn: 'First Turning: The Four Noble Truths',
-            tr: 'Trans. Yijing (Tang Dynasty)',
-            loc: 'Vārāṇasī, Sārnāth Deer Park, Sage-Alighting Place',
+            t: '転法輪経（仏説三転法輪経）（佛說三轉法輪經）',
+            v: '大正蔵 第02冊 No. 110 (1巻)',
+            p: '第二 鹿苑時',
+            turn: '初転四諦法輪',
+            tr: '唐·義浄 訳',
+            loc: '波羅奈国仙人堕処施鹿林中',
             oq: '如是我聞：一時，薄伽梵在婆羅痆斯仙人墮處施鹿林中。爾時，世尊告五苾芻曰：「有二極端，出家之人不應親近：何等為二？一者於諸欲境耽著嗜好……二者受諸自苦……捨此二邊，有中道行，如來現證，能生眼智，導向涅槃。」',
-            tran: '"Thus have I heard: At one time, the Bhagavān was dwelling in Vārāṇasī at the Deer Park, the place where the sages alighted. At that time, the World-Honored One said to the five bhikṣus: \'There are two extremes that should not be pursued by one who has gone forth: devotion to sensual pleasures... and devotion to self-torment. Avoiding these two extremes, the Tathāgata has awakened to the Middle Way, which produces vision and knowledge and leads to Nirvāṇa.\'"',
-            s: 'The Buddha\'s inaugural proclamation. By renouncing the two extremes and walking the Eightfold Path, he guides disciples through the three revolutions: "This is suffering, you should know it; this is origin, you should abandon it; this is cessation, you should realize it; this is the path, you should cultivate it."',
-            pur: 'Opening the primordial portal of liberation for ordinary mortals and dismantling extreme asceticism and hedonism.'
+            yom: '【訓読】如是我れ聞けり：一時、薄伽梵、婆羅痆斯の仙人堕処、施鹿林中に在したまいき。その時、世尊、五苾芻に告げてのたまわく：「二つの極端あり、出家の人親近すべからず…この二辺を捨てて中道の行あり、如来現証して能く眼智を生じ、涅槃に導く。」',
+            s: '快楽と苦行の二辺を離れた八正道の中道行を宣言。「此は苦なり汝知るべし、此は集なり汝断ずべし、此は滅なり汝証すべし、此は道なり汝修すべし」を説く。',
+            pur: '五濁悪世の衆生に初めて仏道の光明を示し、外道の不毛な苦行と快楽主義を打ち破る。'
           }
         ]
       },
       bodhgaya: {
         id: 'bodhgaya',
-        name: 'Magadha · Bodh Gayā (The Diamond Throne & Bodhi Tree)',
-        shortName: 'Bodh Gayā (Bodhi Tree)',
-        subtag: 'Banks of Nairañjanā River · Seat of Supreme Perfect Awakening',
-        desc: 'Sanskrit Bodh Gayā. After six years of austere practices, Prince Siddhārtha crossed the Nairañjanā River, accepted milk-rice from the maiden Sujātā, and sat upon the Diamond Throne (Vajrāsana) beneath the Pippala Tree, vowing: "I shall not arise from this seat until unexcelled awakening is achieved." Seeing the morning star, he attained Buddhahood and expounded the boundless ocean of the Avataṃsaka realm.',
+        name: '摩竭陀国 菩提伽耶（ブッダガヤ・金剛座）',
+        shortName: '菩提伽耶 菩提樹',
+        subtag: '尼連禅河畔 · 悟透生命実相成無上正覚道場',
+        desc: 'サンスクリット語 Bodh Gayā。悉達多太息が六年苦行を経て尼連禅河を渡り、スジャータの乳粥を供養され、畢鉢羅樹下の金剛宝座に「正覚を得ずんば起たず」と誓われて夜半に明星を見て豁然大悟された地。自受用三昧において毘盧遮那法身を現じ、事事無礙の『華厳経』を開示された仏教信仰の心霊の源泉です。',
         sutras: [
           {
-            t: 'Avataṃsaka Sūtra (The Flower Ornament Scripture, 80 Fascicles)（大方廣佛華嚴經·八十華嚴）',
-            v: 'Taishō Vol. 10, No. 279 (80 Fascicles)',
-            p: 'I. Avataṃsaka Period',
-            turn: 'Root Dharma Wheel: Non-Dual Harmony',
-            tr: 'Trans. Śikṣānanda (Tang Dynasty)',
-            loc: 'Magadha, Araṇya Bodhimaṇḍa',
+            t: '大方広仏華厳経（八十華厳·前会）（大方廣佛華嚴經·八十華嚴）',
+            v: '大正蔵 第10冊 No. 279 (80巻)',
+            p: '第一 華厳時',
+            turn: '根本法輪（円頓中道）',
+            tr: '唐·実叉難陀 訳',
+            loc: '摩竭提国阿蘭若法菩提道場',
             oq: '如是我聞：一時，佛在摩竭提國阿蘭若法菩提場中，始成正覺。其地堅固，金剛所成……阿僧祇寶以為莊嚴。阿蘭若樹，高顯姝妙，枝條敷榮……佛身圓滿，放一切光明。',
-            tran: '"Thus have I heard: At one time, the Buddha was in the country of Magadha, in the wilderness bodhimanda, having just realized true awakening. The ground was diamond-solid, adorned with incalculable jewels... The Bodhi Tree was lofty and sublime, its branches blossoming... The Buddha\'s body was fully perfected, radiating light everywhere."',
-            s: 'In the Samādhi of Ocean Reflection, the Buddha appears as Vairocana, revealing the interpenetration of all phenomena (事事無礙) through seven locations and nine assemblies, culminating in Sudhana\'s pilgrimage to 53 spiritual mentors.',
-            pur: 'To reveal the unexcelled realm of the Buddha\'s direct realization to Great Bodhisattvas; while Śrāvaka disciples with unripened faculties were left "as if deaf and blind."'
+            yom: '【訓読】如是我れ聞けり：一時、仏、摩竭提国の阿蘭若法菩提場の中に在して、始めて正覚を成じたまいき。その地堅固にして金剛の所成なり…阿僧祇の宝を以て荘厳となす。阿蘭若樹、高顕姝妙にして…仏身円満にして一切の光明を放ちたまえり。',
+            s: '如来の自受用三昧境界をそのまま顕現した七処九会の壮大なる法門。一即一切・一切即一の重々無尽法界縁起と善財童子の五十三参を描く。',
+            pur: '法身の大士をして不可思議の仏果菩提を証知せしめんがため。小乗の鈍根は光を前にして「聾の如く盲の如し」とされた。'
           }
         ]
       },
       rajgir_vulture: {
         id: 'rajgir_vulture',
-        name: 'Rājagṛha · Vulture Peak (Gṛdhrakūṭa)',
-        shortName: 'Rājagṛha (Vulture Peak)',
-        subtag: 'Crown of Five Mountains · The One Vehicle & Profound Prajñā',
-        desc: 'Sanskrit Gṛdhrakūṭa ("Peak of Vultures"). A solitary, rugged crag shaped like a soaring vulture, where vultures frequently roosted. This sacred sanctuary is the epicenter of Mahāyāna revelation, where the Buddha emitted light from his brow, reconciled the three vehicles into the One Buddha Vehicle in the Lotus Sūtra, preached the Infinite Life Sūtra, and expounded the profound emptiness of the Heart Sūtra.',
+        name: '王舎城 耆闍崛山（霊鷲山・グリドラクータ）',
+        shortName: '王舎城 霊鷲山',
+        subtag: 'マガダ国五山之冠 · 純円一仏乗と甚深般若の法宴',
+        desc: 'サンスクリット語 Gṛdhrakūṭa（鷲の峰）。山頂の巨岩が低頭する鷲に似る故に名づけられる。山清幽にして大乗開顕の聖壇。釈尊はここに白毫の光明を放ち、二乗作仏・久遠実成の『法華経』とその序曲『無量義経』、極楽の因果を説く『無量寿経』『観経』、そして『大般若経』と大本『般若心経』を説かれました。日蓮聖人が「霊山一会儼然未散」と感得された根本聖域です。',
         sutras: [
           {
-            t: 'Anantanirdeśa Sūtra (Prologue to the Lotus Sūtra)（無量義經）',
-            v: 'Taishō Vol. 09, No. 276 (1 Fascicle)',
-            p: 'V. Lotus & Nirvāṇa Period',
-            turn: 'Third Turning: Ultimate Harmony',
-            tr: 'Trans. Dharmagatayaśas (Liu Song Dynasty)',
-            loc: 'Rājagṛha, Vulture Peak',
+            t: '無量義経（法華開経）（無量義經）',
+            v: '大正蔵 第09冊 No. 276 (1巻)',
+            p: '第五 法華涅槃時（開経）',
+            turn: '第三転 中道法輪（極談序曲）',
+            tr: '劉宋·曇摩伽陀耶舎 訳',
+            loc: '王舎城耆闍崛山中',
             oq: '如是我聞：一時，佛住王舍城耆闍崛山中，與大比丘眾萬二千人俱……爾時，大莊嚴菩薩摩訶薩，與八萬菩薩摩訶薩俱，從座而起，詣世尊所，頭面禮足，繞百千匝，燒香散華，種種供養……佛言：「無量義者，從一法生；其一法者，即無相也。」',
-            tran: '"Thus have I heard: At one time, the Buddha was dwelling on Vulture Peak at Rājagṛha with an assembly of 12,000 great bhikṣus... The Buddha declared: \'The infinite meanings arise from a single Dharma; and that single Dharma is signlessness itself (animitta).\'"',
-            s: 'The opening prelude to the Lotus Sūtra. Delivered before entering the Samādhi of Infinite Meaning, it reveals that all diverse teachings flow from the non-dual reality of signlessness.',
-            pur: 'Guiding the assembly from divergent doctrinal branches back to the singular truth of the One Reality.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、王舎城の耆闍崛山の中に住したまい、大比丘衆万二千人と倶なりき…仏言わく：「無量の義は、一法より生ず；その一法とは、即ち無相なり。」',
+            s: '『妙法蓮華経』の開経。仏が無量義処三昧に入られる前に説かれ、「一法より無量義を生じ、無量義は一実相に帰す」と説く。',
+            pur: '大衆を枝末の教えから本源の実相へと帰らしめ、無相の一実乗へと悟入せしめる。'
           },
           {
-            t: 'Saddharmapuṇḍarīka Sūtra (The Lotus Sūtra)（妙法蓮華經）',
-            v: 'Taishō Vol. 09, No. 262 (7 Fascicles)',
-            p: 'V. Lotus & Nirvāṇa Period',
-            turn: 'Third Turning: Unexcelled One Vehicle',
-            tr: 'Trans. Kumārajīva (Later Qin Dynasty)',
-            loc: 'Rājagṛha, Vulture Peak',
+            t: '妙法蓮華経（妙法蓮華經）',
+            v: '大正蔵 第09冊 No. 262 (7巻)',
+            p: '第五 法華涅槃時',
+            turn: '第三転 中道法輪（開権顕実・純円）',
+            tr: '後秦·鳩摩羅什 訳',
+            loc: '王舎城耆闍崛山中',
             oq: '如是我聞：一時，佛住王舍城耆闍崛山中，與大比丘眾萬二千人俱……菩薩摩訶薩八萬人……爾時，世尊四眾圍遶，供養恭敬，尊重讚歎。為諸菩薩說大乘經，名無量義、教菩薩法、佛所護念。佛說此經已，結跏趺坐，入於無量義處三昧，身心不動。是時天雨曼陀羅華。',
-            tran: '"Thus have I heard: At one time, the Buddha was staying on Vulture Peak at Rājagṛha with an assembly of 12,000 great bhikṣus and 80,000 bodhisattva mahāsattvas... Having preached the sūtra called Infinite Meaning, the Buddha sat cross-legged and entered the Samādhi of Infinite Meaning, unmoving in body and mind. At that time, heavenly Mandārava flowers rained down."',
-            s: 'The ultimate purpose of the Buddha\'s advent. Dissolves the provisional vehicles with the declaration: "There is only the One Vehicle, neither two nor three," revealing the immeasurable lifespan and primordial awakening of the Tathāgata.',
-            pur: 'Bestowing universal prophecies of future Buddhahood upon all Śrāvakas, fulfilling the vow that "whoever hears the Dharma shall attain awakening."'
+            yom: '【訓読】如是我れ聞けり：一時、仏、王舎城の耆闍崛山の中に住したまい、大比丘衆万二千人と倶なりき…その時、世尊、四衆に囲遶供養恭敬せられ…無量義処三昧に入りたまいて身心動じたまわず。この時天より曼陀羅華を雨らす。',
+            s: '釈尊出世の本懐。「正直捨方便、但説無上道」。三乗の権教を開いて一仏乗に帰せしめ、如来の久遠実成を明かす。',
+            pur: '声聞縁覚の弟子にことごとく成仏の記別を授け、「聞法を承くる者は一として成仏せずということなけん」という万人成仏の至理を確立する。'
           },
           {
-            t: 'Prajñāpāramitā Hṛdaya (Heart Sūtra · Extended Canonical Recension)（般若波羅蜜多心經·大藏經廣本）',
-            v: 'Taishō Vol. 08, No. 253 / No. 252 (1 Fascicle)',
-            p: 'IV. Prajñāpāramitā Period',
-            turn: 'Second Turning: Essence of Emptiness',
-            tr: 'Trans. Prajñā and Liyan (Tang Dynasty)',
-            loc: 'Rājagṛha, Vulture Peak',
+            t: '般若心経·大蔵経広本（般若波羅蜜多心經·大藏經廣本）',
+            v: '大正蔵 第08冊 No. 253 / No. 252 (1巻)',
+            p: '第四 般若時',
+            turn: '第二 顕空法輪（般若心髄）',
+            tr: '唐·般若 共 利言 訳',
+            loc: '王舎城耆闍崛山中',
             oq: '如是我聞：一時，佛在王舍城耆闍崛山中，與大比丘眾及諸菩薩摩訶薩俱。爾時，世尊入甚深廣明三昧。是時觀自在菩薩摩訶薩，在佛會中，行深般若波羅蜜多時，照見五蘊皆空，離諸苦厄。即從座起，承佛威神……',
-            tran: '"Thus have I heard: At one time, the Buddha was on Vulture Peak at Rājagṛha, together with a great assembly of bhikṣus and bodhisattva mahāsattvas. At that time, the World-Honored One entered the samādhi called Vast Profound Radiance. At that moment, Avalokiteśvara Bodhisattva, coursing in the deep Prajñāpāramitā, perceived that all five aggregates are empty..."',
-            s: 'The canonical extended recension featuring complete nidāna authentication. The Buddha enters samādhi while Avalokiteśvara, empowered by the Buddha\'s spiritual force, expounds "Form is emptiness, emptiness is form" to Śāriputra.',
-            pur: 'Dismantling delusions and attachment to conceptual labels, guiding seekers directly into the liberating wisdom of emptiness.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、王舎城の耆闍崛山の中に在して、大比丘衆および諸の菩薩摩訶薩と倶なりき。その時、世尊、甚深広明三昧に入りたまえり。この時、観自在菩薩摩訶薩…深き般若波羅蜜多を行ずるとき、五蘊皆空なりと照見して、諸の苦厄を離れたまいき。',
+            s: '六成就通序を完備した広本心経。仏が広明三昧に入られ、観自在菩薩が仏威を承けて舎利子に色即是空・空即是色の般若心髄を宣説。',
+            pur: '名相への拘泥を破り、諸法自性の空慧に直入して究竟の涅槃を円証せしめる。'
           },
           {
-            t: 'Sukhāvatīvyūha Sūtra (The Longer Infinite Life Sūtra)（佛說無量壽經）',
-            v: 'Taishō Vol. 12, No. 360 (2 Fascicles)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: The Pure Land Way',
-            tr: 'Trans. Saṃghavarman (Cao Wei Dynasty)',
-            loc: 'Rājagṛha, Vulture Peak',
+            t: '仏説無量寿経（佛說無量壽經）',
+            v: '大正蔵 第12冊 No. 360 (2巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（大経・本願成就）',
+            tr: '曹魏·康僧鎧 訳',
+            loc: '王舎城耆闍崛山中',
             oq: '如是我聞：一時，佛在王舍城耆闍崛山中，與大比丘眾萬二千人俱……爾時，世尊諸根悅豫，姿色清淨，光顏巍巍，如明鏡授照，光映徹表裏……阿難即從座起，白佛言：「今日世尊，諸根悅豫，姿色清淨……得無世尊住諸佛所住，行導師所行乎？」',
-            tran: '"Thus have I heard: At one time, the Buddha was dwelling on Vulture Peak at Rājagṛha with 12,000 monks... At that time, all the senses of the World-Honored One were joyful, his countenance radiant, magnificent like a mirror reflecting light... Ānanda arose from his seat and asked: \'Today the World-Honored One\'s senses are radiant... does the Lord dwell in the state of all Buddhas?\'"',
-            s: 'Beholding the Buddha\'s radiant countenance, Ānanda asks a rare question. The Buddha reveals Dharmākara Bhikṣu\'s 48 Great Vows, the creation of Sukhāvatī, and the methods of rebirth for the three grades of practitioners.',
-            pur: 'Establishing the fundamental scripture of Pure Land practice, offering Amitābha\'s vow-power as a great ship to ferry all beings across the sea of suffering.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、王舎城の耆闍崛山の中に在して…その時、世尊、諸根悦豫し、姿色清浄にして光顔巍巍たり…阿難即ち座より起ちて仏に白して言さく：「今日世尊、諸根悦豫し…諸仏の住したまう所に住したまえる無きか」',
+            s: '釈尊の面容が歓喜に輝き、法蔵菩薩の四十八願の建立と極楽世界の成就、三輩往生の行法を宣説された浄土門の根本経典。',
+            pur: '弥陀の願力を大舟航となし、生死の苦海に漂う一切衆生を普く済度する。'
           },
           {
-            t: 'Amitāyurdhyāna Sūtra (Contemplation of Infinite Life)（佛說觀無量壽佛經）',
-            v: 'Taishō Vol. 12, No. 365 (1 Fascicle)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: Sixteen Contemplations',
-            tr: 'Trans. Kālayaśas (Liu Song Dynasty)',
-            loc: 'Rājagṛha, Vulture Peak / Royal Palace Dungeon',
+            t: '仏説観無量寿仏経（佛說觀無量壽佛經）',
+            v: '大正蔵 第12冊 No. 365 (1巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（十六妙観）',
+            tr: '劉宋·畺良耶舍 訳',
+            loc: '王舎城耆闍崛山 / 王宮牢獄',
             oq: '如是我聞：一時，佛在王舍城耆闍崛山中，與大比丘眾千二百五十人俱，菩薩三萬二千……爾時王舍大城有一太子，名阿闍世，隨順調達惡友之教，幽閉其父頻婆娑羅王……韋提希見佛世尊，悲泣雨淚，白佛言：「唯願世尊為我廣說未生怨緣，教我觀於清淨業處。」',
-            tran: '"Thus have I heard: At one time, the Buddha was staying on Vulture Peak at Rājagṛha with 1,250 bhikṣus and 32,000 bodhisattvas... Prince Ajātaśatru, influenced by Devadatta, imprisoned his father King Bimbisāra... Queen Vaidehī, weeping bitterly, implored the Buddha: \'May the World-Honored One teach me how to contemplate the realm of pure karma.\'"',
-            s: 'Born from palace tragedy, the Buddha reveals the Sixteen Contemplations to Queen Vaidehī, declaring: "This mind creates the Buddha; this mind is the Buddha" (是心作佛，是心是佛).',
-            pur: 'Rescuing burdened beings trapped in agony, providing both focused contemplation and single-minded recitation to guarantee rebirth in paradise.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、王舎城の耆闍崛山の中に在して…阿闍世太子、父を幽閉す…韋提希、世尊に見えたてまつりて悲泣雨涙して仏に白して言さく：「唯だ願わくは世尊、我がために清浄の業処を観ずることを教えたまえ。」',
+            s: '王宮の悲劇を機縁に、韋提希夫人の請いに応じて十六観門を開示。「是心作仏、是心是仏」の理を顕す。',
+            pur: '苦悩の凡夫を救済し、観想と念仏によって極楽安養の往生を証得せしめる。'
           },
           {
-            t: 'Mahāprajñāpāramitā Sūtra (Assemblies I–VI & XV)（大般若波羅蜜多經·前六會與第十五會）',
-            v: 'Taishō Vols. 05–07, No. 220 (600 Fascicles)',
-            p: 'IV. Prajñāpāramitā Period',
-            turn: 'Second Turning: Revealing Emptiness',
-            tr: 'Trans. Xuanzang (Tang Dynasty)',
-            loc: 'Rājagṛha, Vulture Peak',
+            t: '大般若波羅蜜多経（前六会と第十五会）（大般若波羅蜜多經·前六會與第十五會）',
+            v: '大正蔵 第05冊~第07冊 No. 220 (600巻)',
+            p: '第四 般若時',
+            turn: '第二 顕空法輪',
+            tr: '唐·玄奘 訳',
+            loc: '王舎城耆闍崛山中',
             oq: '如是我聞：一時，薄伽梵住王舍城鷲峰山中，與大苾芻眾千二百五十人俱，發趣聲聞大德安坐，皆阿羅漢……復有菩薩摩訶薩眾，俱胝那庾多百千人……薄伽梵身放百千萬億大光明，普照十方無量佛剎。',
-            tran: '"Thus have I heard: At one time, the Bhagavān was staying on Vulture Peak at Rājagṛha with an assembly of 1,250 great bhikṣus, all arhats... and hundreds of thousands of kotis of nayutas of bodhisattva mahāsattvas... The Bhagavān emitted billions of great rays of light, illuminating limitless Buddha-lands in the ten directions."',
-            s: 'Xuanzang\'s monumental 600-fascicle translation. Seven of the sixteen assemblies were proclaimed on Vulture Peak, establishing that all dharmas are devoid of intrinsic nature, ungraspable, and fundamentally pure.',
-            pur: 'Shattering every subtle conceptual clinging and cultivating the unhindered wisdom of bodhisattvas.'
+            yom: '【訓読】如是我れ聞けり：一時、薄伽梵、王舎城の鷲峰山の中に住したまい、大苾芻衆千二百五十人と倶なりき…復た菩薩摩訶薩衆倶胝那庾多百千人あり…薄伽梵、身より百千万億の大光明を放ちて、普く十方無量の仏刹を照らしたまえり。',
+            s: '十六会中、前六会と第十五会が鷲峰山において宣説され、一切法自性空と実相無相の妙理を極談。',
+            pur: '有所得の執着を摧破し、菩薩の無礙の智慧を陶冶して無住解脱を成ぜしめる。'
           }
         ]
       },
       rajgir_bamboo: {
         id: 'rajgir_bamboo',
-        name: 'Rājagṛha · Bamboo Grove Monastery (Veḷuvana Karaṇḍanivāpa)',
-        shortName: 'Bamboo Grove (Veḷuvana)',
-        subtag: 'Gift of Merchant Karaṇḍa & King Bimbisāra · First Buddhist Monastery',
-        desc: 'Sanskrit Veḷuvana Karaṇḍanivāpa. The very first dedicated monastery in Buddhist history, where King Bimbisāra built dwellings upon land gifted by the elder Karaṇḍa. Here the Buddha established foundational monastic disciplinary codes (prātimokṣa), converted the two chief disciples Śāriputra and Maudgalyāyana, and delivered esoteric teachings such as the Prajñānaya.',
+        name: '王舎城 竹林精舎（迦蘭陀竹園）',
+        shortName: '王舎城 竹林精舎',
+        subtag: '迦蘭陀長者献林 · 仏教史上最初の根本精舎道場',
+        desc: 'サンスクリット語 Veḷuvana Karaṇḍanivāpa。カランダ長者が園林を寄進し頻婆娑羅王が堂舎を造営した、仏教教団最初の精舎。舎利弗・目連の二大弟子が帰依し、布薩など多くの戒規が制定され、『理趣分』等の甚深密意法門が説かれました。',
         sutras: [
           {
-            t: 'Mahāprajñāpāramitā Sūtra · Assembly XVI (Prajñānaya / Adhyardhaśatikā)（大般若經·第十六會般若理趣分）',
-            v: 'Taishō Vol. 07, No. 220 (Fascicle 578)',
-            p: 'IV. Prajñāpāramitā Period',
-            turn: 'Second & Third Turning: Esoteric Prajñā',
-            tr: 'Trans. Xuanzang (Tang Dynasty)',
-            loc: 'Rājagṛha, Veḷuvana Monastery, White Heron Pond',
+            t: '大般若波羅蜜多経·第十六会（般若理趣分）（大般若經·第十六會般若理趣分）',
+            v: '大正蔵 第07冊 No. 220 (巻578)',
+            p: '第四 般若時',
+            turn: '第二 顕空 / 密契中道',
+            tr: '唐·玄奘 訳',
+            loc: '王舎城竹林精舎迦蘭陀竹園白鷺池側',
             oq: '如是我聞：一時，薄伽梵住王舍城竹林精舍迦蘭陀竹園白鷺池側，與大苾芻眾千二百五十人俱……復有大乘菩薩摩訶薩眾俱胝那庾多百千人俱。爾時，世尊告金剛手菩薩言：「大寶菩薩，諸法自性清淨，即是般若波羅蜜多清淨。」',
-            tran: '"Thus have I heard: At one time, the Bhagavān was residing in Rājagṛha at the Bamboo Grove Monastery by Karaṇḍa\'s White Heron Pond with 1,250 bhikṣus and countless bodhisattvas... The World-Honored One said to Vajrapāṇi Bodhisattva: \'Great Jewel Bodhisattva, the innate purity of all dharmas is the very purity of Prajñāpāramitā.\'"',
-            s: 'The esoteric crown of the Prajñā corpus, revered daily in Japanese Shingon and esoteric schools as the Rishu-kyō. Declares that passion, desire, and mental states are fundamentally pure in their essential nature.',
-            pur: 'Transcending dualistic discrimination between defilement and purity, awakening advanced practitioners to the realization that afflictions are identical to Bodhi.'
+            yom: '【訓読】如是我れ聞けり：一時、薄伽梵、王舎城の竹林精舎迦蘭陀竹園白鷺池の側に住したまいき…その時、世尊、金剛手菩薩に告げてのたまわく：「大宝菩薩、諸法の自性清浄なるは、即ち是れ般若波羅蜜多の清浄なり」',
+            s: '真言密教で日夜読誦される『理趣経』と同本。煩悩の当体が本来清浄なる大楽金剛不壊の法性を直指する。',
+            pur: '二元対立を絶ち、煩悩即菩提・生死即涅槃の至深実相を上根の行者に悟入せしめる。'
           }
         ]
       },
       vaishali: {
         id: 'vaishali',
-        name: 'Vaiśālī · Āmrapālī\'s Grove & Tree of Musical Resonances',
-        shortName: 'Vaiśālī (Āmrapālī\'s Grove)',
-        subtag: 'Vajjian Republic · The Non-Dual Gate of Vimalakīrti & Medicine Buddha',
-        desc: 'Sanskrit Vaiśālī (translated by Xuanzang as "City of Expansive Splendor"). An enlightened ancient republic. In Āmrapālī\'s Mango Grove, Vimalakīrti feigned illness to expound the non-dual Dharma of "abiding in the world yet transcending it"; beneath the Tree of Celestial Resonances, the Buddha revealed the healing vows of the Medicine Buddha; and in the Great Forest Gabled Hall, he foretold his Nirvāṇa.',
+        name: '毘舎離国（広厳城·菴羅樹園/楽音樹下）',
+        shortName: '毘舎離 菴羅樹園',
+        subtag: 'ヴァッジ共和の邦 · 維摩居士不二法門と薬師如来現生救済',
+        desc: 'サンスクリット語 Vaiśālī（広厳城）。商業繁栄の自由共和都市。名妓アンバパーリーが寄進した「菴羅樹園」では維摩居士が不二法門を顕し、「楽音樹下」では現世の苦難を抜く『薬師経』が説かれ、「大林精舎重閣講堂」では涅槃の予告と『普賢観経』が開顕されました。',
         sutras: [
           {
-            t: 'Vimalakīrti Nirdeśa Sūtra（維摩詰所說經）',
-            v: 'Taishō Vol. 14, No. 475 (3 Fascicles)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: Non-Duality (Rebuking Dualism)',
-            tr: 'Trans. Kumārajīva (Later Qin Dynasty)',
-            loc: 'Vaiśālī, Āmrapālī\'s Mango Grove',
+            t: '維摩詰所説経（維摩詰所說經）',
+            v: '大正蔵 第14冊 No. 475 (3巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（弾偏斥小）',
+            tr: '後秦·鳩摩羅什 訳',
+            loc: '毘耶離城菴羅樹園',
             oq: '如是我聞：一時，佛在毘耶離菴羅樹園，與大比丘眾八千人俱，菩薩三萬二千，眾所知識……爾時，毘耶離大城中有長者子，名曰寶積，與五百長者子俱，持七寶蓋，來詣佛所，頭面禮足，各以其蓋供養於佛。佛之威神，令諸寶蓋合成一蓋，遍覆三千大千世界。',
-            tran: '"Thus have I heard: At one time, the Buddha was staying in Vaiśālī in Āmrapālī\'s Mango Grove with 8,000 bhikṣus and 32,000 bodhisattvas... Ratnākara and 500 noble youths came offering parasols of seven gems. By the Buddha\'s power, all parasols merged into a single canopy sheltering the entire trichiliocosm."',
-            s: 'The layman Vimalakīrti displays illness, prompting profound dialogues with Mañjuśrī. He expounds that "when the mind is pure, the Buddha-land is pure" and proclaims the Gate of Non-Duality through his famous "thunderous silence."',
-            pur: 'Rebuking the self-complacent isolation of the Hīnayāna, inspiring householders and monastics alike to embody bodhisattva activities in the midst of worldly dust.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、毘耶離の菴羅樹園に在して、大比丘衆八千人と倶なりき、菩薩三万二千…仏の威神、諸の宝蓋をして合して一蓋となさしめ、普く三千大千世界を覆えり。',
+            s: '維摩詰居士が病を現じ、文殊菩薩らと問答。「心浄まれば仏土浄まる」「黙然たる雷鳴」を以て不二法門を顕揚。',
+            pur: '出家二乗の自己保身を弾呵し、世俗のただ中にあって自在に法を弘める大乗菩薩道を激励する。'
           },
           {
-            t: 'Bhaiṣajyaguru Sūtra (Medicine Buddha Sūtra)（藥師琉璃光如來本願功德經）',
-            v: 'Taishō Vol. 14, No. 450 (1 Fascicle)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: Present-Life Relief',
-            tr: 'Trans. Xuanzang (Tang Dynasty)',
-            loc: 'Vaiśālī, Beneath the Tree of Musical Resonances',
+            t: '薬師琉璃光如来本願功徳経（藥師琉璃光如來本願功德經）',
+            v: '大正蔵 第14冊 No. 450 (1巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（現生救済）',
+            tr: '唐·玄奘 訳',
+            loc: '広厳城楽音樹下',
             oq: '如是我聞：一時，薄伽梵遊化諸國，至廣嚴城，住樂音樹下，與大苾芻眾八千人俱，菩薩摩訶薩三萬六千……爾時，曼殊室利法王子菩薩摩訶薩，承佛威神，從座而起，偏袒一肩，右膝著地，向薄伽梵合掌曲躬而白佛言：「世尊，唯願演說如是相類諸佛名號、本昔殊勝大願，令蒙利益。」',
-            tran: '"Thus have I heard: At one time, the Bhagavān was wandering through various states until he reached Vaiśālī, residing beneath the Tree of Musical Resonances with 8,000 bhikṣus and 36,000 bodhisattvas... Mañjuśrī Bodhisattva arose, bared his right shoulder, knelt on his right knee, and implored the Buddha to proclaim the names and great vows of such Buddhas for the benefit of beings."',
-            s: 'At Mañjuśrī\'s request, the Buddha expounds the Twelve Great Vows of Bhaiṣajyaguru Buddha of the Eastern Lapis Lazuli Pure Land, emphasizing deliverance from disease, starvation, imprisonment, and physical destitution in this present life.',
-            pur: 'Relieving mortals oppressed by poverty, suffering, and calamity, leading them toward holistic well-being and ultimate awakening.'
+            yom: '【訓読】如是我れ聞けり：一時、薄伽梵、諸国を遊化して広厳城に至り、楽音樹下に住したまいき…曼殊室利法王子…白して言さく：「世尊、唯だ願わくは如是相類の諸仏の名号、本昔の殊勝の大願を演説して利益を蒙らしめたまえ。」',
+            s: '東方浄瑠璃界の薬師如来の十二大願を開示。病苦除滅、飢渇充足、正見導入など現世利益を明かす。',
+            pur: '現実の病苦や貧困に苦しむ衆生を救済し、安心立命を与えつつ究極の菩提へ導く。'
           },
           {
-            t: 'Samantabhadra Meditation Sūtra (Epilogue to the Lotus Sūtra)（佛說觀普賢菩薩行法經）',
-            v: 'Taishō Vol. 09, No. 277 (1 Fascicle)',
-            p: 'V. Lotus & Nirvāṇa Period',
-            turn: 'Third Turning: Ultimate Repentance',
-            tr: 'Trans. Dharmamitra (Liu Song Dynasty)',
-            loc: 'Vaiśālī, Great Forest Gabled Hall',
+            t: '仏説観普賢菩薩行法経（佛說觀普賢菩薩行法經）',
+            v: '大正蔵 第09冊 No. 277 (1巻)',
+            p: '第五 法華涅槃時（法華結経）',
+            turn: '第三転 中道法輪（実相懺悔）',
+            tr: '劉宋·曇摩蜜多 訳',
+            loc: '毘舎離国大林精舎重閣講堂',
             oq: '如是我聞：一時，佛在毘舍離國大林精舍重閣講堂，告諸比丘：「卻後三月，我當般涅槃。」尊者阿難即從座起，整衣服，叉手合掌，遶佛三匝，為佛作禮，胡跪合掌，啼泣交流……爾時，世尊告阿難言：「諦聽諦聽，吾當為汝分別解說普賢菩薩行願。」',
-            tran: '"Thus have I heard: At one time, the Buddha was in Vaiśālī at the Great Forest Gabled Hall, addressing the monks: \'In three months, I shall enter Parinirvāṇa.\' Venerable Ānanda arose, circled the Buddha three times, knelt with tears streaming, and wept... The World-Honored One said: \'Listen attentively; I shall explain the vows and practices of Samantabhadra Bodhisattva.\'"',
-            s: 'The closing scripture of the Lotus Sūtra. Announcing his impending Nirvāṇa, the Buddha teaches the contemplation of Samantabhadra riding a six-tusked white elephant and reveals the ultimate meditation of reality-repentance.',
-            pur: 'Providing transgressive beings with the profound practice of repentance: "Since transgressions arise from the mind, let the mind repent; when the mind is extinguished, sins vanish as well."'
+            yom: '【訓読】如是我れ聞けり：一時、仏、毘舎離国の大林精舎重閣講堂に在して諸の比丘に告げたまわく：「却後三月にして、我れ当に般涅槃すべし。」阿難、座より起ちて…涕泣交流す…世尊、阿難に告げたまわく：「諦聴せよ、吾当に汝のために普賢菩薩の行願を分別解説すべし。」',
+            s: '『法華経』の結経。涅槃を予告し、普賢菩薩の観想と「罪は心より生ず心に懺すべし」の実相懺悔法門を伝授。',
+            pur: '犯戒や重罪を犯した修行者に、実相を観ずる深奥の懺悔妙門を提供する。'
           }
         ]
       },
       kushinagar: {
         id: 'kushinagar',
-        name: 'Kuśinagar · Between the Twin Sāla Trees',
-        shortName: 'Kuśinagar (Twin Sāla Trees)',
-        subtag: 'Banks of Hiraññavatī River · Final Parinirvāṇa & Birth of "Thus Have I Heard"',
-        desc: 'Sanskrit Kuśinagara. The grove of Sāla trees by the Hiraññavatī River in the Malla kingdom. At the age of eighty, the Buddha reclined on his right side facing west and entered Final Extinction. Here he proclaimed the eternal nature of the Tathāgata in the Mahāparinirvāṇa Sūtra and commanded Ānanda to place "Thus Have I Heard" at the head of all scriptures.',
+        name: '拘尸那羅国（娑羅双樹の間）',
+        shortName: '拘尸那羅 双樹間',
+        subtag: '跋提河畔 · 最終滅度の示現と「如是我聞」四文字誕生の地',
+        desc: 'サンスクリット語 Kuśinagar。ヒランニャヴァティー河畔の娑羅林。釈尊は八十歳にして頭北面西右脇臥の姿で大般涅槃に入られ、『大般涅槃経』において「常楽我浄」の法身常住を説き、阿難に「経首に如是我聞を置け」と遺勅された本図典の源泉です。',
         sutras: [
           {
-            t: 'Mahāparinirvāṇa Sūtra (Northern 40-Fascicle Recension)（大般涅槃經·北本四十卷）',
-            v: 'Taishō Vol. 12, No. 374 (40 Fascicles)',
-            p: 'V. Lotus & Nirvāṇa Period',
-            turn: 'Third Turning: Eternal Buddha-Nature',
-            tr: 'Trans. Dharmakṣema (Northern Liang Dynasty)',
-            loc: 'Kuśinagar, Between the Twin Sāla Trees',
+            t: '大般涅槃経（北本四十巻）（大般涅槃經·北本四十卷）',
+            v: '大正蔵 第12冊 No. 374 (40巻)',
+            p: '第五 法華涅槃時',
+            turn: '第三転 中道法輪（扶律顕常）',
+            tr: '北涼·曇無讖 訳',
+            loc: '拘尸那城娑羅双樹間',
             oq: '如是我聞：一時，佛在拘尸那城娑羅雙樹間，爾時春秋二月十五日，臨般涅槃。以佛神力，出大音聲，其聲遍滿三千大千世界……爾時，世尊與諸比丘，右脇而臥，頭枕北方，足指指南，面仰向西，背向東方，將入涅槃。',
-            tran: '"Thus have I heard: At one time, the Buddha was in Kuśinagar between the twin Sāla trees. On the fifteenth day of the second month, as he approached Parinirvāṇa, by his spiritual power he emitted a great sound that resounded throughout the trichiliocosm... Reclining on his right side with his head to the north and facing west, he was about to enter Nirvāṇa."',
-            s: 'The Buddha\'s final testament. Refuting the nihilistic view of the Tathāgata\'s extinction, he proclaims the permanence, bliss, true self, and purity (常樂我淨) of the Dharmakāya, declaring that all sentient beings possess Buddha-nature.',
-            pur: 'Rescuing grieving disciples from despair and establishing unshakeable faith in the intrinsic, imperishable Buddha-nature within all life.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、拘尸那城の娑羅双樹間に在したまいき。その時、春秋二月十五日、般涅槃に臨みたまう。仏の神力を以て大音声を出し、その声三千大千世界に遍満せり…世尊、右脇にして臥し…将に涅槃に入らんとしたまえり。',
+            s: '釈尊最後の遺誡。「如来常住・法身無壊」「一切衆生悉有仏性」を説き、常楽我浄の真涅槃を開顕。',
+            pur: '仏滅後の弟子たちが断滅見に沈むのを防ぎ、仏性の本具不滅を信じさせ、金剛不壊の信念を確立せしめる。'
           }
         ]
       },
       lanka: {
         id: 'lanka',
-        name: 'Southern Ocean · Mount Laṅkā Summit (Sri Lanka)',
-        shortName: 'Mount Laṅkā (Sri Lanka)',
-        subtag: 'Isolated Ocean Peak · Mind-Only and Bodhidharma\'s Heart-Seal',
-        desc: 'Sanskrit Mount Laṅkā. An inaccessible maritime peak rising from the ocean island of modern Sri Lanka. Ascending via spiritual power with Mahāmati Bodhisattva and the Rākṣasa King Rāvaṇa, the Buddha illuminated the five dharmas, three natures, eight consciousnesses, and two forms of selflessness, declaring: "The ocean of storehouse consciousness is ever still, stirred only by the winds of external objects."',
+        name: '南海浜 楞伽山頂（スリランカ島）',
+        shortName: '南海浜 楞伽山',
+        subtag: '絶海の峻峰 · 万法唯心と達磨伝心印証の道場',
+        desc: 'サンスクリット語 Mount Laṅkā。インド洋南端スリランカ島の峻険なる山頂。大慧菩薩と羅刹王羅婆那の請いにより、五法・三自性・八識・二無我の義理を説き、「蔵識の海は常住にして、境界の風に動かさる」と万法唯心の真理を開示された禅宗初祖達磨伝心の宝典です。',
         sutras: [
           {
-            t: 'Laṅkāvatāra Sūtra (Lankavatara Ratna Sutra)（楞伽阿跋多羅寶經）',
-            v: 'Taishō Vol. 16, No. 670 (4 Fascicles)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: Mind-Only & Tathāgatagarbha',
-            tr: 'Trans. Guṇabhadra (Liu Song Dynasty)',
-            loc: 'Summit of Mount Laṅkā on the Southern Sea',
+            t: '楞伽阿跋多羅宝経（楞伽阿跋多羅寶經）',
+            v: '大正蔵 第16冊 No. 670 (4巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（万法唯心）',
+            tr: '劉宋·求那跋陀羅 訳',
+            loc: '南海浜楞伽山頂',
             oq: '如是我聞：一時，佛住南海濱楞伽山頂種種寶華莊嚴處，與大比丘僧及大菩薩眾俱……大慧菩薩摩訶薩，承佛威神，從座而起，偏袒右肩，右膝著地，合掌恭敬，以偈讚佛。',
-            tran: '"Thus have I heard: At one time, the Buddha was staying on the summit of Mount Laṅkā on the southern seashore, a place adorned with various jeweled flowers, together with a great assembly of bhikṣus and bodhisattvas... Mahāmati Bodhisattva arose, bared his right shoulder, knelt on his right knee, and praised the Buddha with verses."',
-            s: 'The fundamental four-fascicle text transmitted by Bodhidharma to Huike as the seal of the Chan lineage. Reconciles the Tathāgatagarbha with the Ālayavijñāna, shattering worldly dualisms through inner self-realization.',
-            pur: 'Severing the conceptual wanderings of the discriminating mind, guiding practitioners to verify direct personal awakening beyond words and signs.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、南海の浜なる楞伽山頂の種種の宝華荘厳の処に住したまい、大比丘僧および大菩薩衆と倶なりき…大慧菩薩摩訶薩、仏の威神を承けて座より起ち…偈を以て仏を讃じたてまつりき。',
+            s: '達磨祖師が慧可に授けた四巻伝心の経。「蔵識の海は常住にして、境界の風に動かさる」。如来蔵と阿頼耶識を会通。',
+            pur: '分別識心の攀縁を破除し、如如たる自覚聖智の境地に帰せしめ、文字を離れた実修内証を印可せしめる。'
           }
         ]
       },
       celestial: {
         id: 'celestial',
-        name: 'Transcendental Dharmadhātu & Celestial Realms',
-        shortName: 'Transcendental Realms',
-        subtag: 'Non-Physical Coordinates · The Saṃbhogakāya and Palace of Reality',
-        desc: 'Transcending terrestrial geography, these are the celestial abodes and pure Sambhogakāya palaces of the Tathāgata. In Trāyastriṃśa Heaven, the Buddha taught the Kṣitigarbha Sūtra out of filial piety for his mother Queen Māyā; in Tuṣita Heaven, he expounded the dedication of merits; in the Palace of Reality, he delivered the Saṃdhinirmocana Sūtra; and in Unhindered Samādhi, he proclaimed the Perfect Enlightenment Sūtra.',
+        name: '出世間法界 · 天宮・報土の道場',
+        shortName: '出世間 天宮報土',
+        subtag: '非物質時空座標 · 報身如来と法界真如の宣説境',
+        desc: '物質地理を超越した清浄なる天界と如来法界宮殿。忉利天では母・摩耶夫人への至孝のために『地蔵経』を説き、兜率天では『華厳経』兜率会を説き、最勝光曜七宝荘厳如来法界宮では『解深密経』を説き、光明正受無礙道場では『円覚経』を説かれました。',
         sutras: [
           {
-            t: 'Avataṃsaka Sūtra · Tuṣita Heaven Assembly（大方廣佛華嚴經·兜率天宮會）',
-            v: 'Taishō Vol. 10, No. 279 (Fascicle 23)',
-            p: 'I. Avataṃsaka Period',
-            turn: 'Root Dharma Wheel: Non-Dual Harmony',
-            tr: 'Trans. Śikṣānanda (Tang Dynasty)',
-            loc: 'Tuṣita Palace of Universal Jeweled Adornments',
+            t: '華厳経·兜率天宮会（大方廣佛華嚴經·兜率天宮會）',
+            v: '大正蔵 第10冊 No. 279 (巻23)',
+            p: '第一 華厳時',
+            turn: '根本法輪（円頓中道）',
+            tr: '唐·実叉難陀 訳',
+            loc: '兜率天宮一切宝荘厳殿',
             oq: '如是我聞：一時，佛在兜率天宮一切寶莊嚴殿，與菩薩摩訶薩俱……爾時，世尊不離菩提樹下而上升兜率天宮，一切天子見佛世尊光明赫奕，歎未曾有。',
-            tran: '"Thus have I heard: At one time, the Buddha was in the Palace of All-Jeweled Adornments in Tuṣita Heaven with bodhisattva mahāsattvas... At that time, without leaving the foot of the Bodhi Tree, the World-Honored One ascended to Tuṣita Palace, and all the devas marveled at his brilliant radiance."',
-            s: 'One of the nine assemblies of the Flower Ornament Scripture. Without departing from the Bodhi Tree, the Tathāgata manifests in heaven to expound the ten dedications of merit and the unhindered activity of bodhisattvas.',
-            pur: 'Revealing the infinite vastness of the Dharmadhātu, inspiring practitioners to dedicate all roots of virtue toward universal Buddhahood.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、兜率天宮の一切宝荘厳殿の中に在して、菩薩摩訶薩と倶なりき…その時、世尊、菩提樹下を離れずして兜率天宮に上昇したまい、一切の天子、仏世尊の光明赫奕たるを見て未曾有なりと歎ず。',
+            s: '華厳九会の一。如来は菩提樹下を離れずして天界に化現し、十廻向品を説いて法界の融通無礙を顕す。',
+            pur: '菩薩をして法界の広大無辺なるを知らしめ、一切の善根を一切衆生に廻向して仏智を成就せしめる。'
           },
           {
-            t: 'Kṣitigarbha Bodhisattva Pūrvapraṇidhāna Sūtra (Earth Store Sūtra)（地藏菩薩本願經）',
-            v: 'Taishō Vol. 13, No. 412 (2 Fascicles)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: Filial Rescue',
-            tr: 'Trans. Śikṣānanda (Tang Dynasty)',
-            loc: 'Trāyastriṃśa Heaven (Summit of Mount Meru)',
+            t: '地蔵菩薩本願経（地藏菩薩本願經）',
+            v: '大正蔵 第13冊 No. 412 (2巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（至孝救済）',
+            tr: '唐·実叉難陀 訳',
+            loc: '忉利天宮',
             oq: '如是我聞：一時，佛在忉利天，為母說法。爾時，十方無量世界，不可說不可說一切諸佛，及大菩薩摩訶薩，皆來集會，讚歎釋迦牟尼佛，能於五濁惡世，現不可思議大智慧神通之力，調伏剛強眾生。',
-            tran: '"Thus have I heard: At one time, the Buddha was in Trāyastriṃśa Heaven preaching the Dharma for his mother. At that time, ineffable numbers of Buddhas and bodhisattva mahāsattvas from immeasurable worlds of the ten directions gathered in assembly, praising Śākyamuni Buddha for taming obstinate beings in the five defilements."',
-            s: 'Ascending to heaven to repay the maternal kindness of Queen Māyā, the Buddha entrusts suffering sentient beings to Kṣitigarbha Bodhisattva until the advent of Maitreya, illuminating the laws of cause and effect and hell realms.',
-            pur: 'Demonstrating supreme filial reverence and laying down the bedrock of karmic retribution as an anchor for living beings.'
+            yom: '【訓読】如是我れ聞けり：一時、仏、忉利天に在して母のために法を説きたまいき。その時、十方無量世界の不可説不可説の一切諸仏、および大菩薩摩訶薩、皆来たり集会して釈迦牟尼仏を讃歎したまいき。',
+            s: '母・摩耶夫人の恩に報いるため忉利天に昇り、弥勒出世までの間の衆生救済を地蔵菩薩に信託。因果応報と地獄の相を説く。',
+            pur: '仏教至極の孝道を示し、因果応報の磐石の根基を確立して濁世衆生の安心立命の根本となす。'
           },
           {
-            t: 'Saṃdhinirmocana Sūtra (Unraveling the Intent)（解深密經）',
-            v: 'Taishō Vol. 16, No. 676 (5 Fascicles)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: Ultimate Yogācāra',
-            tr: 'Trans. Xuanzang (Tang Dynasty)',
-            loc: 'Most Victorious Radiant Jeweled Palace of Reality',
+            t: '解深密経（解深密經）',
+            v: '大正蔵 第16冊 No. 676 (5巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（唯識立教の正典）',
+            tr: '唐·玄奘 訳',
+            loc: '最勝光曜七宝荘厳如来法界宮殿',
             oq: '如是我聞：一時，薄伽梵住最勝光曜七寶莊嚴，放大光明，普照一切無邊世界，皆悉芬馥，周匝遍滿無量無數妙吉祥處，大無喪無虧，是無等者之所行處……',
-            tran: '"Thus have I heard: At one time, the Bhagavān was dwelling in the Most Victorious Radiant Seven-Jeweled Adornment, radiating immense light that illuminated limitless worlds... a wondrously auspicious abode devoid of deficiency, the realm traversed only by the Peerless Ones..."',
-            s: 'The primary founding text of the Yogācāra school. The Buddha explicitly divides his teaching into the "Three Turnings of the Wheel": the provisional Four Truths, the provisional Emptiness of Prajñā, and the ultimate, definitive Middle Way of the Three Natures.',
-            pur: 'Settling debates over existence and emptiness, delivering seekers from nihilism by establishing the ineffable nature of ultimate truth.'
+            yom: '【訓読】如是我れ聞けり：一時、薄伽梵、最勝光曜七宝荘厳に住したまい、大光明を放ちて普く一切の無辺世界を照らしたまえり…大にして喪無く虧無く、これ無等者の行ずる所の処なり…',
+            s: '唯識宗の根本立教経典。「三転法輪」を親口に判釈し、初転四諦、二転般若空を経て、第三転中道唯識勝義の至理を建立。',
+            pur: '空有の諍論を裁決し、空を執して断滅に堕ちる者を救い、離言法性の真如実相を顕示する。'
           },
           {
-            t: 'Mahāvaipulya Pūrṇabuddhasūtra (Sūtra of Complete Enlightenment)（大方廣圓覺修多羅了義經）',
-            v: 'Taishō Vol. 17, No. 842 (1 Fascicle)',
-            p: 'III. Vaipulya (Expansive) Period',
-            turn: 'Third Turning: Ultimate Awakening',
-            tr: 'Trans. Buddhatrāta (Tang Dynasty)',
-            loc: 'Sanctuary of Radiant Samādhi and Unhindered Reality',
+            t: '大方広円覚修多羅了義経（大方廣圓覺修多羅了義經）',
+            v: '大正蔵 第17冊 No. 842 (1巻)',
+            p: '第三 方等時',
+            turn: '第三転 中道法輪（円覚了義）',
+            tr: '唐·佛陀多羅 訳',
+            loc: '光明正受無礙道場',
             oq: '如是我聞：一時，婆伽婆入於神通大光明藏三昧正受，一切如來光嚴住持，是諸眾生清淨覺地，身心寂滅，平等本際，圓滿十方，不二隨順，於不二境現諸淨土。與大菩薩摩訶薩十萬人俱……',
-            tran: '"Thus have I heard: At one time, the Bhagavān entered the samādhi of the Great Treasury of Spiritual Radiance, the pure awakening ground of all beings where body and mind are extinguished and equal in original nature... together with 100,000 bodhisattva mahāsattvas..."',
-            s: 'Entering the radiant treasury samādhi, the Buddha engages in sequential inquiries with twelve great bodhisattvas, expounding the pristine innate awakening, transcendence of illusion, and stages of meditation.',
-            pur: 'Guiding contemplative meditators directly into their intrinsic nature of perfect enlightenment, free from illusion and spiritual bypass.'
+            yom: '【訓読】如是我れ聞けり：一時、婆伽婆、神通大光明蔵三昧正受に入りたまえり、一切如来の光厳住持、これ諸の衆生の清浄覚地にして、身心寂滅、平等本際、十方に円満し…大菩薩摩訶薩十万人と倶なりき…',
+            s: '神通大光明蔵三昧に入り、文殊・普賢ら十二大菩薩と次第に問答。本具の円覚自性清浄、離幻即覚、禅定階梯を極談。',
+            pur: '末世の修行者をして本具の円覚真心に直悟せしめ、魔道と幻翳に堕することなく無上仏果を成就せしめる。'
           }
         ]
       }
@@ -617,7 +617,7 @@
     let currentPlaceId = 'shravasti';
     let currentScaleIndex = 0;
     const scaleFactors = [1.0, 1.12, 1.25, 1.38];
-    const scaleLabels = ['Normal', 'Large', 'Extra', 'Max'];
+    const scaleLabels = ['標準', '大', '特大', '極大'];
 
     function switchView(viewName) {
       const isIntro = viewName === 'intro';
@@ -654,7 +654,7 @@
         <g id="map-node-${n.id}" class="map-node" onclick="jumpToLocation('${n.id}')">
           <circle cx="${n.cx}" cy="${n.cy}" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
           <circle cx="${n.cx}" cy="${n.cy}" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-          <text x="${n.tx}" y="${n.ty}" font-size="10" font-weight="bold" fill="${n.red ? '#8c2d19' : (n.gold ? '#9a7018' : '#1c1b1a')}" font-family="sans-serif">${n.name}</text>
+          <text x="${n.tx}" y="${n.ty}" font-size="10" font-weight="bold" fill="${n.red ? '#8c2d19' : (n.gold ? '#9a7018' : '#1c1b1a')}">${n.name}</text>
         </g>
       `).join('');
     }
@@ -662,13 +662,13 @@
     function initLocationTabs() {
       const container = document.getElementById('location-tabs');
       if (!container) return;
-      container.innerHTML = Object.keys(SACRED_PLACES_EN).map(key => {
-        const place = SACRED_PLACES_EN[key];
+      container.innerHTML = Object.keys(SACRED_PLACES_JA).map(key => {
+        const place = SACRED_PLACES_JA[key];
         return `
-          <button id="tab-btn-${key}" onclick="renderPlace('${key}')" class="location-tab-btn px-4 py-2 rounded-xl shrink-0 text-sm flex items-center gap-1.5 font-sans">
+          <button id="tab-btn-${key}" onclick="renderPlace('${key}')" class="location-tab-btn px-4 py-2 rounded-xl shrink-0 text-sm flex items-center gap-1.5">
             ${key === 'celestial' ? '✨' : ''}
             <span>${place.shortName}</span>
-            <span class="text-[11px] opacity-75">(${place.sutras.length})</span>
+            <span class="text-[11px] opacity-75 font-sans">(${place.sutras.length})</span>
           </button>
         `;
       }).join('');
@@ -676,10 +676,10 @@
 
     function renderPlace(placeId) {
       currentPlaceId = placeId;
-      const place = SACRED_PLACES_EN[placeId];
+      const place = SACRED_PLACES_JA[placeId];
       if (!place) return;
 
-      Object.keys(SACRED_PLACES_EN).forEach(key => {
+      Object.keys(SACRED_PLACES_JA).forEach(key => {
         const btn = document.getElementById(`tab-btn-${key}`);
         if (btn) btn.classList.toggle('active', key === placeId);
       });
@@ -690,7 +690,7 @@
 
       document.getElementById('place-subtag').textContent = place.subtag;
       document.getElementById('place-title').textContent = place.name;
-      document.getElementById('place-sutra-count').textContent = `${place.sutras.length} Canonical Sūtras Recorded`;
+      document.getElementById('place-sutra-count').textContent = `${place.sutras.length}部を収載`;
       document.getElementById('place-desc').textContent = place.desc;
 
       const listContainer = document.getElementById('sutra-list');
@@ -706,31 +706,31 @@
             <div class="text-xs text-charcoal/70">${s.v}</div>
           </div>
           <div class="mb-5">
-            <h3 class="text-xl sm:text-2xl font-bold text-ink mb-1.5 font-title">${idx + 1}. ${s.t}</h3>
-            <div class="text-xs sm:text-sm text-charcoal/80 flex flex-wrap gap-x-4 gap-y-1 font-sans">
-              <span><strong>Lineage:</strong> ${s.tr}</span>
-              <span><strong>Setting:</strong> ${s.loc}</span>
+            <h3 class="text-xl sm:text-2xl font-bold text-ink mb-1.5 font-serif">${idx + 1}. ${s.t}</h3>
+            <div class="text-xs sm:text-sm text-charcoal/80 flex flex-wrap gap-x-4 gap-y-1">
+              <span><strong>訳出伝承：</strong>${s.tr}</span>
+              <span><strong>経中説処：</strong>${s.loc}</span>
             </div>
           </div>
           <div class="bg-mutedbg/60 border-l-4 border-gold p-4 sm:p-5 rounded-r-xl mb-6">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xs font-bold tracking-widest text-gold uppercase flex items-center gap-1.5 font-sans">
-                <span>📜</span> Primary Canonical Authentication (Thus Have I Heard)
+                <span>📜</span> 証信序起首原典（如是我聞）
               </span>
-              <button onclick="copyQuote(this)" class="text-xs text-charcoal/60 hover:text-vermilion underline transition-colors font-sans">Copy Quote</button>
+              <button onclick="copyQuote(this)" class="text-xs text-charcoal/60 hover:text-vermilion underline transition-colors font-sans">テキストをコピー</button>
             </div>
-            <p class="text-base sm:text-lg text-ink font-serif font-medium leading-[1.8] tracking-wide select-all mb-3 italic">${s.tran}</p>
-            <div class="pt-3 border-t border-dashed border-[#ded9cf] text-xs sm:text-sm text-charcoal/85 leading-relaxed font-cjk">
-              <strong>Taishō Original (大正藏原文)：</strong>${s.oq}
+            <p class="text-base sm:text-lg text-ink font-medium leading-[1.85] tracking-wide select-all mb-3 font-cjk">${s.oq}</p>
+            <div class="pt-3 border-t border-dashed border-[#ded9cf] text-xs sm:text-sm text-charcoal/90 leading-relaxed italic font-serif">
+              ${s.yom}
             </div>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-xs sm:text-sm text-charcoal">
             <div class="p-4 bg-mutedbg/40 rounded-xl border border-bordercolor/60">
-              <div class="font-bold text-ink mb-1 flex items-center gap-1 text-sm font-title"><span>✦</span> Core Doctrinal Summary</div>
+              <div class="font-bold text-ink mb-1 flex items-center gap-1 text-sm font-serif"><span>✦</span> 核心教義の要綱</div>
               <p class="leading-relaxed">${s.s}</p>
             </div>
             <div class="p-4 bg-mutedbg/40 rounded-xl border border-bordercolor/60">
-              <div class="font-bold text-ink mb-1 flex items-center gap-1 text-sm font-title"><span>✦</span> Purpose & Spiritual Remedy</div>
+              <div class="font-bold text-ink mb-1 flex items-center gap-1 text-sm font-serif"><span>✦</span> 立教の本懐と対治の深意</div>
               <p class="leading-relaxed">${s.pur}</p>
             </div>
           </div>
@@ -762,11 +762,9 @@
       initMapNodes();
       initLocationTabs();
       const params = new URLSearchParams(window.location.search);
-      const hash = window.location.hash.replace('#', '');
       if (params.get('view') === 'app') switchView('app');
       else switchView('intro');
-      if (hash && SACRED_PLACES_JA[hash]) renderPlace(hash);
-      else renderPlace('shravasti');
+      renderPlace('shravasti');
     });
   </script>
 </body>
