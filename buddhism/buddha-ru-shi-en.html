@@ -4,14 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Thus Have I Heard (Evaṃ Mayā Śrutam): Sacred Sites of the Buddha & Canonical Atlas</title>
-  
-  <!-- Tailwind CSS CDN -->
+
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Newsreader (Classical Editorial Serif) & Cinzel (Noble Roman Inscription) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600&family=Noto+Serif+TC:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 
   <script>
     tailwind.config = {
@@ -23,12 +20,12 @@
             cjk: ['"Noto Serif TC"', 'serif'],
           },
           colors: {
-            vermilion: '#8c2d19',     // Classical Buddhist Ochre Red
-            gold: '#9a7018',          // Sacred Dharma Gold
-            ink: '#1c1b1a',           // Deep Lampblack
-            charcoal: '#383431',      // Subdued Charcoal
-            bordercolor: '#e5e7eb',   // Clean Border Gray
-            mutedbg: '#f8f9fa',       // Soft Rice Paper Gray
+            vermilion: '#8c2d19',
+            gold: '#9a7018',
+            ink: '#1c1b1a',
+            charcoal: '#383431',
+            bordercolor: '#e5e7eb',
+            mutedbg: '#f8f9fa',
           }
         }
       }
@@ -46,7 +43,31 @@
     button, input, select, textarea {
       font-family: inherit;
     }
-    
+
+    .lang-switcher-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 2.5rem;
+      padding: 0.375rem 0.625rem;
+      border-radius: 0.375rem;
+      font-size: 0.75rem;
+      line-height: 1.2;
+      text-decoration: none;
+      color: #383431;
+      transition: all 0.2s ease;
+    }
+    .lang-switcher-btn:hover {
+      color: #1c1b1a;
+    }
+    .lang-switcher-btn.active {
+      background-color: #ffffff;
+      color: #8c2d19;
+      font-weight: 700;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      cursor: default;
+    }
+
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -99,7 +120,6 @@
       color: #1c1b1a;
     }
 
-    /* Fixed Map Node Highlight without drift */
     .map-node {
       cursor: pointer;
       transition: filter 0.2s ease, opacity 0.2s ease;
@@ -137,11 +157,8 @@
 </head>
 <body class="min-h-screen flex flex-col bg-white text-ink">
 
-  <!-- ==================== Header Navigation Bar ==================== -->
   <header id="main-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-bordercolor shadow-xs">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-y-3">
-      
-      <!-- Logo and Site Identity -->
       <div class="flex items-center space-x-3.5 cursor-pointer" onclick="switchView('intro')">
         <div class="w-10 h-10 rounded-full bg-vermilion text-white flex items-center justify-center font-bold text-lg shadow-sm font-serif select-none ring-2 ring-gold/40 shrink-0 font-cjk">
           聞
@@ -159,10 +176,7 @@
         </div>
       </div>
 
-      <!-- Mode Switch and Font Resizer -->
       <div class="flex items-center space-x-2 md:space-x-3">
-        
-        <!-- View Toggle: Story Intro / Sūtra Atlas -->
         <nav class="flex bg-mutedbg p-1 rounded-lg border border-bordercolor text-xs md:text-sm">
           <button id="nav-btn-intro" onclick="switchView('intro')" class="nav-toggle-btn active px-3.5 py-1.5 rounded-md flex items-center gap-1.5 font-medium">
             <span>📖</span>
@@ -174,21 +188,22 @@
           </button>
         </nav>
 
-        <!-- Font Size Group -->
         <div class="flex items-center bg-mutedbg rounded-lg border border-bordercolor p-0.5 text-xs font-sans">
           <button id="font-decrease" onclick="adjustFontSize(-1)" class="w-8 h-7 flex items-center justify-center hover:bg-white rounded text-charcoal" title="Decrease font size">A-</button>
-          <span id="font-size-indicator" onclick="adjustFontSize(0)" class="px-2 h-7 flex items-center justify-center font-medium cursor-pointer text-charcoal text-[11px]" title="Reset to standard font size">Normal</span>
+          <span id="font-size-indicator" onclick="adjustFontSize(0)" class="px-2 h-7 flex items-center justify-center font-medium cursor-pointer text-charcoal text-[11px]" title="Reset to standard font size">Standard</span>
           <button id="font-increase" onclick="adjustFontSize(1)" class="w-8 h-7 flex items-center justify-center hover:bg-white rounded font-bold text-ink" title="Enlarge font size">A+</button>
         </div>
 
+        <div id="lang-switcher" class="flex items-center bg-mutedbg rounded-lg border border-bordercolor p-0.5 text-xs font-sans">
+          <a href="buddha-ru-shi.html" data-page="buddha-ru-shi.html" class="lang-switcher-btn">繁中</a>
+          <a href="buddha-ru-shi-jp.html" data-page="buddha-ru-shi-jp.html" class="lang-switcher-btn">日本語</a>
+          <a href="buddha-ru-shi-en.html" data-page="buddha-ru-shi-en.html" class="lang-switcher-btn active">English</a>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- ==================== View 1: Public Introductory Gateway (Intro) ==================== -->
   <section id="view-intro" class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 md:py-16">
-    
-    <!-- Hero Headline -->
     <div class="text-center max-w-4xl mx-auto space-y-5 mb-14">
       <div>
         <span class="inline-block text-xs sm:text-sm font-semibold tracking-widest text-[#8a6828] border border-[#e8dfcf] px-4 py-1.5 rounded-full bg-[#fcfbf9] shadow-2xs font-sans uppercase">
@@ -211,7 +226,6 @@
       </div>
     </div>
 
-    <!-- Epistemological Core: Xuanzang's Buddhabhumi-sutra-sastra -->
     <div class="bg-mutedbg/60 border border-bordercolor rounded-2xl p-6 md:p-10 mb-14 shadow-xs">
       <div class="text-center max-w-2xl mx-auto mb-8">
         <span class="text-xs font-bold tracking-widest text-gold border border-gold/30 px-3 py-1 rounded-full bg-white font-sans uppercase">
@@ -221,13 +235,11 @@
           The Fourfold Sworn Guarantee & Three Immortal Functions
         </h3>
         <p class="text-sm text-charcoal/80 mt-2 leading-relaxed">
-          The Sanskrit opening formula <em class="text-ink font-semibold">Evaṃ mayā śrutam</em> is neither a hollow ritual nor a mythological revelation. It is an empirical deposition affirming that the teachings originate from an authentic historical Buddha.
+          The Sanskrit opening formula <em class="text-ink font-semibold">Evaṃ mayā śrutam</em> is neither a hollow ritual nor a mythological revelation. It is an empirical deposition affirming that the words were heard directly by Ānanda in the Buddha's presence and then faithfully transmitted.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        <!-- Left Card: Four Interpretations -->
         <div class="bg-white p-6 sm:p-7 rounded-xl border border-bordercolor shadow-xs hover:border-vermilion/40 transition-colors">
           <div class="flex items-center space-x-3 mb-5 border-b border-bordercolor/60 pb-3.5">
             <span class="w-8 h-8 rounded-full bg-vermilion/10 text-vermilion flex items-center justify-center font-bold text-sm shrink-0 font-sans">IV</span>
@@ -238,41 +250,24 @@
           </div>
           <ul class="space-y-4 text-sm sm:text-base text-charcoal">
             <li class="border-b border-bordercolor/40 pb-3.5 last:border-b-0 last:pb-0">
-              <div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title tracking-wide">
-                1. By Analogy (As Spoken by the Buddha)
-              </div>
-              <p class="text-charcoal/90 text-sm leading-relaxed">
-                "The doctrine I report conforms perfectly to what the Tathāgata proclaimed, like a seal stamped into clay or water poured into water, without the slightest deviation."
-              </p>
+              <div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title tracking-wide">1. By Analogy (As Spoken by the Buddha)</div>
+              <p class="text-charcoal/90 text-sm leading-relaxed">"The doctrine I report conforms perfectly to what the Tathāgata proclaimed, like a seal stamped into clay or water poured into water, without the slightest deviation."</p>
             </li>
             <li class="border-b border-bordercolor/40 pb-3.5 last:border-b-0 last:pb-0">
-              <div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title tracking-wide">
-                2. By Admonition (Listen in This Manner)
-              </div>
-              <p class="text-charcoal/90 text-sm leading-relaxed">
-                "The transmitter urges future students: 'With the same utmost reverence and devotion that I received these words in the Buddha's presence, you too must listen and practice.'"
-              </p>
+              <div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title tracking-wide">2. By Admonition (Listen in This Manner)</div>
+              <p class="text-charcoal/90 text-sm leading-relaxed">"The transmitter urges future students: 'With the same utmost reverence and devotion that I received these words in the Buddha's presence, you too must listen and practice.'"</p>
             </li>
             <li class="border-b border-bordercolor/40 pb-3.5 last:border-b-0 last:pb-0">
-              <div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title tracking-wide">
-                3. By Inquest (Truth Under Interrogation)
-              </div>
-              <p class="text-charcoal/90 text-sm leading-relaxed">
-                When cross-examined by the assembly—<em>'Is this your own invention or direct transmission?'</em>—the narrator answers: <em>'I heard this directly from the Master; nothing is fabricated.'</em>
-              </p>
+              <div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title tracking-wide">3. By Inquest (Truth Under Interrogation)</div>
+              <p class="text-charcoal/90 text-sm leading-relaxed">When cross-examined by the assembly—<em>'Is this your own invention or direct transmission?'</em>—the narrator answers: <em>'I heard this directly from the Master; nothing is fabricated by me.'</em></p>
             </li>
             <li class="border-b border-bordercolor/40 pb-3.5 last:border-b-0 last:pb-0">
-              <div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title tracking-wide">
-                4. By Commission (According to Your Trust)
-              </div>
-              <p class="text-charcoal/90 text-sm leading-relaxed">
-                Requested by the Elders at the First Council to rehearse the Dharma, Ānanda gives his solemn assent: <em>'I will recount precisely what I have heard.'</em>
-              </p>
+              <div class="font-bold text-vermilion text-sm sm:text-[15px] mb-1 font-title tracking-wide">4. By Commission (According to Your Trust)</div>
+              <p class="text-charcoal/90 text-sm leading-relaxed">Requested by the Elders at the First Council to rehearse the Dharma, Ānanda gives his solemn assent: <em>'I will recount precisely what I have heard.'</em></p>
             </li>
           </ul>
         </div>
 
-        <!-- Right Card: Three Functions -->
         <div class="bg-white p-6 sm:p-7 rounded-xl border border-bordercolor shadow-xs hover:border-gold/50 transition-colors">
           <div class="flex items-center space-x-3 mb-5 border-b border-bordercolor/60 pb-3.5">
             <span class="w-8 h-8 rounded-full bg-gold/15 text-gold flex items-center justify-center font-bold text-sm shrink-0 font-sans">III</span>
@@ -283,171 +278,119 @@
           </div>
           <ul class="space-y-4 text-sm sm:text-base text-charcoal">
             <li class="border-b border-bordercolor/40 pb-3.5 last:border-b-0 last:pb-0">
-              <div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title tracking-wide">
-                1. Anti-Counterfeit Seal (Dispelling Doubt)
-              </div>
-              <p class="text-charcoal/90 text-sm leading-relaxed">
-                Firmly confirms that the sūtra proceeds from the golden mouth of the awakened Lord, completely warding off non-Buddhist forgeries or arbitrary interpolations.
-              </p>
+              <div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title tracking-wide">1. Anti-Counterfeit Seal (Dispelling Doubt)</div>
+              <p class="text-charcoal/90 text-sm leading-relaxed">Firmly confirms that the sūtra proceeds from the golden mouth of the awakened Lord, completely warding off non-Buddhist forgeries or arbitrary interpolations.</p>
             </li>
             <li class="border-b border-bordercolor/40 pb-3.5 last:border-b-0 last:pb-0">
-              <div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title tracking-wide">
-                2. Inspiring Joyful Faith (Faithful Practice)
-              </div>
-              <p class="text-charcoal/90 text-sm leading-relaxed">
-                Awakening unshakeable trust in readers and practitioners, assuring them that the lineage is pure and that they may safely "accept and uphold" the teaching in daily life.
-              </p>
+              <div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title tracking-wide">2. Inspiring Joyful Faith (Faithful Practice)</div>
+              <p class="text-charcoal/90 text-sm leading-relaxed">Awakening unshakeable trust in readers and practitioners, assuring them that the lineage is pure and that they may safely "accept and uphold" the teaching in daily life.</p>
             </li>
             <li class="border-b border-bordercolor/40 pb-3.5 last:border-b-0 last:pb-0">
-              <div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title tracking-wide">
-                3. Lineage Custodianship (Humility & Concord)
-              </div>
-              <p class="text-charcoal/90 text-sm leading-relaxed">
-                The reciter recedes into the background, stating <em>'I merely heard'</em>, manifesting the sacred responsibility of transmitting without personal ego or sectarian contention.
-              </p>
+              <div class="font-bold text-gold text-sm sm:text-[15px] mb-1 font-title tracking-wide">3. Lineage Custodianship (Humility & Concord)</div>
+              <p class="text-charcoal/90 text-sm leading-relaxed">The reciter recedes into the background, stating <em>'I merely heard'</em>, manifesting the sacred responsibility of transmitting without personal ego or sectarian contention.</p>
             </li>
           </ul>
           <div class="mt-4 pt-3.5 border-t border-bordercolor text-xs text-charcoal/80 italic bg-mutedbg/40 p-2.5 rounded-lg">
-            ✦ As noted by the treatise: "Placing this formula at the beginning of each sūtra demonstrates utmost gravity, preserving the Buddha's intent so that sentient beings may practice without skepticism."
+            ✦ As noted by the treatise: "Placing this formula at the beginning of each sūtra demonstrates utmost gravity, preserving the Buddha's intent so that sentient beings may practice without doubt."
           </div>
         </div>
-
       </div>
     </div>
 
-    <!-- Narrative Bridge -->
     <div class="text-center max-w-2xl mx-auto mb-8 space-y-2">
-      <span class="text-xs font-bold tracking-widest text-charcoal/60 uppercase font-sans">
-        Sacred Footsteps Across Ancient India
-      </span>
-      <h3 class="text-2xl sm:text-3xl font-bold text-ink font-title">
-        Where on Earth Were These Words Spoken?
-      </h3>
+      <span class="text-xs font-bold tracking-widest text-charcoal/60 uppercase font-sans">Sacred Footsteps Across Ancient India</span>
+      <h3 class="text-2xl sm:text-3xl font-bold text-ink font-title">Where on Earth Were These Words Spoken?</h3>
       <p class="text-sm sm:text-base text-charcoal/80 leading-relaxed">
-        Behind every "Thus Have I Heard" lies a real grove, a windswept mountain peak, or a riverside monastery in the Gangetic plains. Click on any of the three pivotal scenes below to travel directly to the interactive atlas:
+        Behind every "Thus Have I Heard" lies a real grove, a windswept mountain peak, or a riverside monastery in the Gangetic plains. Click on any of the three pivotal scenes below to travel directly to the map and the relevant scriptures.
       </p>
     </div>
 
-    <!-- Three Historic Key Scene Cards -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-      
-      <!-- Scene 1: Kushinagar -->
-      <div onclick="jumpToLocation('kushinagar')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col justify-between">
+      <div onclick="jumpToLocation('kushinagar')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col">
         <div>
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-bold text-vermilion tracking-wider font-sans uppercase">Final Journey · Malla Kingdom</span>
             <span class="text-[11px] bg-vermilion/10 text-vermilion px-2 py-0.5 rounded font-sans">Parinirvāṇa</span>
           </div>
-          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">
-            Kuśinagar · Between the Twin Sāla Trees
-          </h3>
+          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">Kuśinagar · Between the Twin Sāla Trees</h3>
           <p class="text-xs text-gold font-medium mb-3">Ānanda's Tears and the Birth of the Four Words</p>
           <p class="text-sm text-charcoal/90 leading-relaxed mb-4">
-            Beside the Hiraññavatī River, as the Buddha prepared to enter Final Nirvāṇa, Ānanda wept inconsolably. Venerable Aniruddha reminded him: <em>'Ask the Master: When we compile the discourses in the future, what words shall open each scripture?'</em> The Buddha answered: <em>'Begin with "Thus Have I Heard".'</em>
+            Beside the Hiraññavatī River, as the Buddha prepared to enter Final Nirvāṇa, Ānanda wept inconsolably. Venerable Aniruddha reminded him: <em>'Ask the Master: When we compile the discourses, what opening shall we use?'</em>
           </p>
         </div>
         <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold font-sans">
           <span>Mahāparinirvāṇa Sūtra Site</span>
-          <span class="group-hover:translate-x-1 transition-transform flex items-center gap-1">
-            Explore on Map <span>→</span>
-          </span>
+          <span class="group-hover:translate-x-1 transition-transform flex items-center gap-1">Explore on Map <span>→</span></span>
         </div>
       </div>
 
-      <!-- Scene 2: Shravasti -->
-      <div onclick="jumpToLocation('shravasti')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col justify-between">
+      <div onclick="jumpToLocation('shravasti')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col">
         <div>
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-bold text-vermilion tracking-wider font-sans uppercase">25 Rains Retreats · Kosala</span>
             <span class="text-[11px] bg-gold/15 text-gold px-2 py-0.5 rounded font-sans">Longest Residence</span>
           </div>
-          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">
-            Śrāvastī · Jeta's Grove Monastery
-          </h3>
+          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">Śrāvastī · Jeta's Grove Monastery</h3>
           <p class="text-xs text-gold font-medium mb-3">Gold-Paved Grounds and the Daily Begging Round</p>
           <p class="text-sm text-charcoal/90 leading-relaxed mb-4">
-            Anāthapiṇḍika covered the earth with gold coins to purchase Prince Jeta's grove for the Sangha. Here the Buddha spent 25 rainy seasons. From the daily routine of putting on robes and collecting alms emerged the profound non-attachment of the <em>Diamond Sūtra</em> and the boundless bliss of the <em>Amitābha Sūtra</em>.
+            Anāthapiṇḍika covered the earth with gold coins to purchase Prince Jeta's grove for the Sangha. Here the Buddha spent twenty-five rainy seasons and expounded the Diamond and Amitābha teachings amid daily alms rounds.
           </p>
         </div>
         <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold font-sans">
           <span>Diamond & Amitābha Sūtra Site</span>
-          <span class="group-hover:translate-x-1 transition-transform flex items-center gap-1">
-            Explore on Map <span>→</span>
-          </span>
+          <span class="group-hover:translate-x-1 transition-transform flex items-center gap-1">Explore on Map <span>→</span></span>
         </div>
       </div>
 
-      <!-- Scene 3: Vulture Peak -->
-      <div onclick="jumpToLocation('rajgir_vulture')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col justify-between">
+      <div onclick="jumpToLocation('rajgir_vulture')" class="group bg-white p-6 rounded-2xl border border-bordercolor shadow-sm hover:shadow-md hover:border-gold/60 transition-all cursor-pointer flex flex-col">
         <div>
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-bold text-vermilion tracking-wider font-sans uppercase">The Universal Vehicle · Magadha</span>
             <span class="text-[11px] bg-ink/10 text-ink px-2 py-0.5 rounded font-sans">Lotus Assembly</span>
           </div>
-          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">
-            Rājagṛha · Vulture Peak (Gṛdhrakūṭa)
-          </h3>
+          <h3 class="text-xl font-bold text-ink mb-2 group-hover:text-vermilion transition-colors font-title">Rājagṛha · Vulture Peak (Gṛdhrakūṭa)</h3>
           <p class="text-xs text-gold font-medium mb-3">Rocky Crag Like a Soaring Vulture Head</p>
           <p class="text-sm text-charcoal/90 leading-relaxed mb-4">
-            The craggy, secluded summit overlooking the ancient capital. Emitting a ray of white light from his brow, the Buddha unified the three vehicles into the One Universal Buddha Vehicle in the <em>Lotus Sūtra</em> and bestowed prophecies of future awakening upon all his disciples.
+            The craggy, secluded summit overlooking the ancient capital. Emitting a ray of white light from his brow, the Buddha unified the three vehicles into the One Universal Buddha Vehicle in the Lotus assembly.
           </p>
         </div>
         <div class="pt-3 border-t border-dashed border-bordercolor flex items-center justify-between text-xs text-gold font-bold font-sans">
           <span>Lotus & Heart Sūtra Site</span>
-          <span class="group-hover:translate-x-1 transition-transform flex items-center gap-1">
-            Explore on Map <span>→</span>
-          </span>
+          <span class="group-hover:translate-x-1 transition-transform flex items-center gap-1">Explore on Map <span>→</span></span>
         </div>
       </div>
-
     </div>
 
-    <!-- Enter Atlas Button -->
     <div class="text-center pt-2 pb-6">
-      <button onclick="switchView('app')" class="inline-flex items-center space-x-3 bg-vermilion hover:bg-vermilion/90 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 font-sans">
+      <button onclick="switchView('app')" class="inline-flex items-center space-x-3 bg-vermilion hover:bg-vermilion/90 text-white px-8 py-4 rounded-xl font-bold text-lg shadow-md hover:shadow-lg transition-all">
         <span>Enter the Interactive Canonical Atlas (24 Sūtras)</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
       </button>
       <p class="text-xs text-charcoal/60 mt-3 font-sans">8 Earthly Holy Sites + 1 Transcendental Realm · Strictly verified against the Taishō Tripiṭaka</p>
     </div>
-
   </section>
 
-  <!-- ==================== View 2: Canonical Atlas Main System (App) ==================== -->
   <main id="view-app" class="hidden flex-1 w-full max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-4">
-    
-    <!-- Sticky Location Tabs Bar -->
     <div id="sticky-tab-bar" class="sticky top-18 z-40 bg-white/95 backdrop-blur-md pt-2 pb-3 border-b border-bordercolor mb-6">
       <div class="flex items-center justify-between mb-2">
-        <span class="text-xs font-bold tracking-widest text-charcoal/70 uppercase font-sans">
-          Sacred Site Selector
-        </span>
+        <span class="text-xs font-bold tracking-widest text-charcoal/70 uppercase font-sans">Sacred Site Selector</span>
         <span class="text-xs text-gold font-sans font-medium">8 Earthly Historic Sites + 1 Transcendental Realm (24 Canonical Sūtras)</span>
       </div>
 
-      <div id="location-tabs" class="flex space-x-2 overflow-x-auto no-scrollbar pb-1 text-sm font-medium">
-        <!-- Rendered dynamically by JavaScript -->
-      </div>
+      <div id="location-tabs" class="flex space-x-2 overflow-x-auto no-scrollbar pb-1 text-sm font-medium"></div>
     </div>
 
-    <!-- Main Dual Column Layout -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-      
-      <!-- Left Column: Ink-Wash Style Map of Ancient India (5 cols) -->
       <div class="lg:col-span-5 bg-white rounded-2xl border border-bordercolor p-4 shadow-sm lg:sticky lg:top-36">
-        
         <div class="flex items-center justify-between mb-3 px-1">
           <div>
             <h3 class="text-base font-bold text-ink font-title">Discourse Geography of Ancient India</h3>
             <p class="text-[11px] text-charcoal/70 font-sans">Click on any marker to inspect its canonical scriptures</p>
           </div>
-          <span class="text-[10px] bg-mutedbg text-charcoal border border-bordercolor px-2 py-0.5 rounded font-sans">
-            Gangetic Basin & Deccan
-          </span>
+          <span class="text-[10px] bg-mutedbg text-charcoal border border-bordercolor px-2 py-0.5 rounded font-sans">Gangetic Basin & Deccan</span>
         </div>
 
         <div class="relative w-full aspect-[4/5] bg-[#fafbfc] rounded-xl overflow-hidden border border-bordercolor/80 flex items-center justify-center p-2">
-          
           <svg viewBox="0 0 500 640" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="gangesGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -457,759 +400,75 @@
               </linearGradient>
             </defs>
 
-            <!-- Himalayas -->
             <path d="M 80,110 Q 150,135 220,120 T 360,145 T 460,170" fill="none" stroke="#d5d0c8" stroke-width="12" stroke-linecap="round" opacity="0.6"/>
             <text x="195" y="112" fill="#8c857b" font-size="10" letter-spacing="2" font-family="'Cinzel', serif">H I M A L A Y A S</text>
-
-            <!-- Coastline of the Subcontinent -->
-            <path d="M 60,160 
-                     C 100,180 120,240 125,310 
-                     C 130,370 160,440 220,530 
-                     C 235,550 245,555 255,530 
-                     C 310,430 360,340 375,280 
-                     C 390,230 420,220 440,210" 
-                  fill="none" stroke="#8a847a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,1"/>
-
-            <!-- Modern Borders Reference (Dashed) -->
+            <path d="M 60,160 C 100,180 120,240 125,310 C 130,370 160,440 220,530 C 235,550 245,555 255,530 C 310,430 360,340 375,280 C 390,230 420,220 440,210" fill="none" stroke="#8a847a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2,1"/>
             <path d="M 60,160 Q 110,130 180,150" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/>
             <text x="75" y="150" fill="#9e988f" font-size="8" font-family="sans-serif">Pakistan</text>
-
             <path d="M 220,135 Q 280,140 320,150" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/>
             <text x="255" y="145" fill="#9e988f" font-size="8" font-family="sans-serif">Nepal</text>
-
             <path d="M 370,250 Q 385,270 375,290" fill="none" stroke="#b0aba2" stroke-width="1" stroke-dasharray="4,4"/>
             <text x="375" y="275" fill="#9e988f" font-size="8" font-family="sans-serif">Bangladesh</text>
-
-            <!-- Ganges River -->
-            <path d="M 140,165 
-                     C 170,180 200,210 240,225 
-                     C 280,240 310,235 340,255 
-                     C 370,270 380,290 385,320" 
-                  fill="none" stroke="url(#gangesGradient)" stroke-width="4.5" stroke-linecap="round"/>
+            <path d="M 140,165 C 170,180 200,210 240,225 C 280,240 310,235 340,255 C 370,270 380,290 385,320" fill="none" stroke="url(#gangesGradient)" stroke-width="4.5" stroke-linecap="round"/>
             <text x="205" y="215" fill="#2c5d63" font-size="10" font-weight="bold" font-family="'Cinzel', serif">Ganges River</text>
-
-            <!-- Sri Lanka (Mount Laṅkā) -->
-            <path d="M 265,540 C 285,540 295,565 285,585 C 275,600 255,590 255,570 C 255,550 260,540 265,540 Z" 
-                  fill="#f2efe9" stroke="#7c766c" stroke-width="1.8"/>
+            <path d="M 265,540 C 285,540 295,565 285,585 C 275,600 255,590 255,570 C 255,550 260,540 265,540 Z" fill="#f2efe9" stroke="#7c766c" stroke-width="1.8"/>
             <text x="235" y="605" fill="#524d45" font-size="9" font-weight="bold" font-family="sans-serif">Sri Lanka (Mt. Laṅkā)</text>
 
-            <!-- Geographic Nodes -->
-            <!-- 1. Shravasti -->
             <g id="map-node-shravasti" class="map-node" onclick="jumpToLocation('shravasti')">
               <circle cx="170" cy="175" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
               <circle cx="170" cy="175" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-              <text x="100" y="165" font-size="10" font-weight="bold" fill="#1c1b1a" font-family="sans-serif">Śrāvastī · Jeta</text>
+              <text x="110" y="165" font-size="11" font-weight="bold" fill="#1c1b1a">Śrāvastī · Jeta Grove</text>
             </g>
-
-            <!-- 2. Vaishali -->
             <g id="map-node-vaishali" class="map-node" onclick="jumpToLocation('vaishali')">
               <circle cx="285" cy="220" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
               <circle cx="285" cy="220" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-              <text x="290" y="210" font-size="10" font-weight="bold" fill="#1c1b1a" font-family="sans-serif">Vaiśālī</text>
+              <text x="288" y="210" font-size="11" font-weight="bold" fill="#1c1b1a">Vaiśālī</text>
             </g>
-
-            <!-- 3. Kushinagar -->
             <g id="map-node-kushinagar" class="map-node" onclick="jumpToLocation('kushinagar')">
               <circle cx="275" cy="175" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
               <circle cx="275" cy="175" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-              <text x="282" y="172" font-size="10" font-weight="bold" fill="#8c2d19" font-family="sans-serif">Kuśinagar (Nirvāṇa)</text>
+              <text x="282" y="172" font-size="11" font-weight="bold" fill="#8c2d19">Kuśinagar (Parinirvāṇa)</text>
             </g>
-
-            <!-- 4. Sarnath -->
             <g id="map-node-sarnath" class="map-node" onclick="jumpToLocation('sarnath')">
               <circle cx="235" cy="250" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
               <circle cx="235" cy="250" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-              <text x="150" y="260" font-size="10" font-weight="bold" fill="#1c1b1a" font-family="sans-serif">Sārnāth (Deer Park)</text>
+              <text x="165" y="260" font-size="11" font-weight="bold" fill="#1c1b1a">Sārnāth (First Turning)</text>
             </g>
-
-            <!-- 5. Bodhgaya -->
             <g id="map-node-bodhgaya" class="map-node" onclick="jumpToLocation('bodhgaya')">
               <circle cx="285" cy="265" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
               <circle cx="285" cy="265" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-              <text x="195" y="275" font-size="10" font-weight="bold" fill="#9a7018" font-family="sans-serif">Bodh Gayā</text>
+              <text x="210" y="270" font-size="11" font-weight="bold" fill="#9a7018">Bodh Gaya (Enlightenment)</text>
             </g>
-
-            <!-- 6. Vulture Peak -->
-            <g id="map-node-rajgir_vulture" class="map-node" onclick="jumpToLocation('rajgir_vulture')">
-              <circle cx="330" cy="268" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
-              <circle cx="330" cy="268" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-              <text x="340" y="265" font-size="10" font-weight="bold" fill="#1c1b1a" font-family="sans-serif">Vulture Peak</text>
-            </g>
-
-            <!-- 7. Bamboo Grove -->
-            <g id="map-node-rajgir_bamboo" class="map-node" onclick="jumpToLocation('rajgir_bamboo')">
-              <circle cx="315" cy="295" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
-              <circle cx="315" cy="295" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-              <text x="230" y="305" font-size="10" font-weight="bold" fill="#1c1b1a" font-family="sans-serif">Bamboo Grove</text>
-            </g>
-
-            <!-- 8. Mount Lanka -->
-            <g id="map-node-lanka" class="map-node" onclick="jumpToLocation('lanka')">
-              <circle cx="275" cy="565" r="14" fill="none" stroke="#9a7018" stroke-width="1" class="halo" opacity="0.4"/>
-              <circle cx="275" cy="565" r="5.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core-dot"/>
-              <text x="290" y="565" font-size="10" font-weight="bold" fill="#1c1b1a" font-family="sans-serif">Mt. Laṅkā</text>
-            </g>
-
           </svg>
         </div>
-
-        <!-- Celestial Realm Entrance -->
-        <div onclick="jumpToLocation('celestial')" class="mt-4 p-3 bg-mutedbg hover:bg-gold/10 border border-bordercolor hover:border-gold/60 rounded-xl cursor-pointer transition-all flex items-center justify-between">
-          <div class="flex items-center space-x-2">
-            <span class="text-base">✨</span>
-            <div>
-              <div class="text-xs font-bold text-ink font-title">Transcendental Dharmadhātu & Celestial Realms</div>
-              <div class="text-[10px] text-charcoal/70 font-sans">Trāyastriṃśa Heaven, Tuṣita, Palace of Reality, Unhindered Samādhi</div>
-            </div>
-          </div>
-          <span class="text-xs text-gold font-bold font-sans">Switch →</span>
-        </div>
-
       </div>
 
-      <!-- Right Column: Site Overview and Sūtra List (7 cols) -->
       <div class="lg:col-span-7 space-y-6">
-        
-        <!-- Location Overview Card -->
         <div class="bg-white rounded-2xl border border-bordercolor p-6 shadow-xs">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-bordercolor pb-3 mb-4">
             <div>
-              <span id="place-subtag" class="text-xs font-bold tracking-widest text-vermilion uppercase font-sans">
-                Sacred Discourse Sanctuary
-              </span>
-              <h2 id="place-title" class="text-2xl sm:text-3xl font-bold text-ink mt-0.5 font-title">
-                Śrāvastī · Jeta's Grove Monastery
-              </h2>
+              <span id="place-subtag" class="text-xs font-bold tracking-widest text-vermilion uppercase">Sacred Domain of the Buddha</span>
+              <h2 id="place-title" class="text-2xl sm:text-3xl font-black text-ink mt-0.5">Śrāvastī · Jeta's Grove Monastery</h2>
             </div>
-            <div id="place-sutra-count" class="text-xs bg-mutedbg text-charcoal px-3 py-1.5 rounded-full border border-bordercolor font-sans font-medium">
-              5 Canonical Sūtras Recorded
-            </div>
+            <div id="place-sutra-count" class="text-xs bg-mutedbg text-charcoal px-3 py-1.5 rounded-full border border-bordercolor font-medium">5 selected scriptures</div>
           </div>
 
-          <!-- Location & Historical Analysis -->
-          <p id="place-desc" class="text-sm sm:text-base text-charcoal leading-relaxed font-normal">
-            Loading canonical data...
-          </p>
+          <p id="place-desc" class="text-sm sm:text-base text-charcoal leading-relaxed">Loading…</p>
         </div>
 
-        <!-- Sūtra Cards Container -->
-        <div id="sutra-list" class="space-y-6">
-          <!-- Dynamically generated by JavaScript -->
-        </div>
-
+        <div id="sutra-list" class="space-y-6"></div>
       </div>
-
     </div>
-
   </main>
 
-  <!-- ==================== Footer ==================== -->
-  <footer class="bg-white border-t border-bordercolor mt-16 py-8 text-center text-xs text-charcoal/70 font-sans">
+  <footer class="bg-white border-t border-bordercolor mt-16 py-8 text-center text-xs text-charcoal/70">
     <div class="max-w-7xl mx-auto px-4 space-y-2">
-      <p class="font-serif text-sm text-ink font-bold italic">"May we fathom the Tathāgata's true meaning and circulate the True Dharma for the benefit of all beings."</p>
-      <p>Source Authorities: <em>Taishō Shinshū Daizōkyō</em> · Xuanzang's <em>Buddhabhūmi-sūtra-śāstra</em> · Tiantai Master Zhiyi's <em>Five Periods & Eight Teachings</em> · Kuiji's <em>Three Turnings Commentary</em></p>
-      <p class="text-charcoal/50 pt-2">© 2026 Interactive Buddhist Canonical Atlas · Open for Academic and Dharma Transmission Use</p>
+      <p class="font-bold text-sm text-ink">“May one awaken to the true intent of the Tathāgata and propagate the Dharma across the ten directions.”</p>
+      <p>Sources: Taishō Tripiṭaka · Xuanzang's Buddhabhūmi-sūtra-śāstra · Tiantai and Madhyamaka doctrinal frameworks · Canonical atlas (24 selected major sūtras)</p>
+      <p class="text-charcoal/50 pt-2">© 2026 Thus Have I Heard — Sacred Sites Atlas (Scholarly, open and public resource)</p>
     </div>
   </footer>
 
-  <!-- ==================== JavaScript Core Logic & Complete 24 Sūtras Database ==================== -->
-  <script>
-    /* ==================== Complete 24 Canonical Discourses Database ==================== */
-    const SACRED_PLACES_EN = {
-      shravasti: {
-        id: 'shravasti',
-        name: 'Śrāvastī · Jeta\'s Grove Monastery (Anāthapiṇḍika\'s Park)',
-        shortName: 'Śrāvastī (Jeta\'s Grove)',
-        subtag: 'Capital of Kosala · Longest Residence of 25 Rainy Retreats',
-        desc: 'Sanskrit Śrāvastī, Jetavana Anāthapiṇḍikasyārāma. The wealthy merchant Sudatta (Anāthapiṇḍika, "Benefactor of the Destitute") covered the entire estate with gold bullion to purchase Prince Jeta\'s grove and build a great monastery for the Sangha. The Buddha spent twenty-five rainy season retreats here, preaching across the Āgamas, Vaipulya, and Prajñāpāramitā within the serene context of everyday monastic discipline.',
-        sutras: [
-          {
-            title: 'Saṃyuktāgama (Selected Discourses)（雜阿含經）',
-            volume: 'Taishō Vol. 02, No. 99 (50 Fascicles)',
-            period: 'II. Deer Park Period (Āgama)',
-            turning: 'First Turning: The Four Noble Truths',
-            translator: 'Trans. Guṇabhadra (Liu Song Dynasty)',
-            locationInText: 'Śrāvastī, Jeta\'s Grove, Anāthapiṇḍika\'s Park',
-            originQuote: '如是我聞：一時，佛住舍衛國祇樹給孤獨園。爾時，世尊告諸比丘：「當觀色無常。如是觀者，則為正觀；正觀者，則生厭離；厭離者，喜貪盡；喜貪盡者，說心解脫。」',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was staying in Śrāvastī at Jeta\'s Grove, Anāthapiṇḍika\'s Park. At that time, the Blessed One addressed the monks: \'You should contemplate form as impermanent. Contemplating thus is right contemplation. With right contemplation, one becomes disenchanted; through disenchantment, passion and desire are exhausted; with the exhaustion of passion, the mind is liberated.\'"',
-            summary: 'The foundational core of early Buddhist teachings. Grounded upon the five aggregates, twelve sense bases, eighteen elements, dependent origination, and the Four Noble Truths, it elucidates the cessation of greed, anger, and delusion to attain unconditioned Nirvāṇa.',
-            purpose: 'To dismantle the erroneous views of self and nihilism/eternalism held by disciples, establishing right view to transcend the cycle of birth and death.'
-          },
-          {
-            title: 'Vajracchedikā Prajñāpāramitā Sūtra (The Diamond Sūtra)（金剛般若波羅蜜經）',
-            volume: 'Taishō Vol. 08, No. 235 (1 Fascicle)',
-            period: 'IV. Prajñāpāramitā Period',
-            turning: 'Second Turning: Revealing Emptiness',
-            translator: 'Trans. Kumārajīva (Later Qin Dynasty)',
-            locationInText: 'Śrāvastī, Jeta\'s Grove, Anāthapiṇḍika\'s Park',
-            originQuote: '如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘眾千二百五十人俱。爾時，世尊食時，著衣持鉢，入舍衛大城乞食。於其城中，次第乞已，還至本處。飯食訖，收衣鉢，洗足已，敷座而坐。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was dwelling in Śrāvastī at Jeta\'s Grove, Anāthapiṇḍika\'s Park, together with a great assembly of 1,250 monks. At that time, when mealtime arrived, the Blessed One put on his robes, took his alms bowl, and entered the great city of Śrāvastī to beg for food. Having begged in sequence, he returned, finished his meal, put away robe and bowl, washed his feet, and sat down on his seat."',
-            summary: 'Arising from the mundane act of dressing and begging alms, Subhūti poses the fundamental question of how bodhisattvas should abide and subdue their minds. The Buddha points directly to the principle: "One should give rise to a mind that abides nowhere" (應無所住而生其心).',
-            purpose: 'To eliminate subtle attachments to Dharmas among Śrāvakas and dissolve conceptual grasping in Bodhisattvas practicing generosity and liberation.'
-          },
-          {
-            title: 'Amitābha Sūtra (Sukhāvatīvyūha Sūtra)（佛說阿彌陀經）',
-            volume: 'Taishō Vol. 12, No. 366 (1 Fascicle)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: The Middle Way (Pure Land)',
-            translator: 'Trans. Kumārajīva (Later Qin Dynasty)',
-            locationInText: 'Śrāvastī, Jeta\'s Grove, Anāthapiṇḍika\'s Park',
-            originQuote: '如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘僧千二百五十人俱，皆是大阿羅漢，眾所知識……爾時，佛告長老舍利弗：「從是西方，過十萬億佛土，有世界名曰極樂，其土有佛，號阿彌陀，今現在說法。」',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was dwelling in Śrāvastī at Jeta\'s Grove, Anāthapiṇḍika\'s Park, with a community of 1,250 great bhikṣus, all great arhats... The Buddha said to Elder Śāriputra: \'Passing westward from here beyond a hundred thousand billion Buddha-lands, there is a world named Ultimate Bliss (Sukhāvatī). In that realm is a Buddha named Amitābha, who is currently teaching the Dharma.\'"',
-            summary: 'A spontaneous teaching delivered without inquiry (anadhyeṣita). Reveals the pristine adornments of the Western Pure Land and the expedient gate of single-minded recitation of Amitābha\'s name to secure non-retrogression.',
-            purpose: 'Compassionately providing burdened beings in the degenerate age a direct passage to cross over samsara through reliance on Amitābha\'s Primal Vow.'
-          },
-          {
-            title: 'Mahāratnakūṭa Sūtra (Assembly of Mañjuśrī\'s Prajñā)（大寶積經·文殊說般若會）',
-            volume: 'Taishō Vol. 11, No. 310 (Fascicle 115)',
-            period: 'IV. Prajñāpāramitā Period',
-            turning: 'Second & Third Turning: Non-Duality',
-            translator: 'Trans. Mandrasena (Liang Dynasty)',
-            locationInText: 'Śrāvastī, Jeta\'s Grove, Anāthapiṇḍika\'s Park',
-            originQuote: '如是我聞：一時，佛在舍衛國祇樹給孤獨園，與大比丘眾一萬人俱，菩薩摩訶薩十萬人俱……爾時，文殊師利法王子白佛言：「世尊！何等名為般若波羅蜜？云何修習？」佛言：「文殊師利！法無可住，是般若波羅蜜；法無受著，是修習般若。」',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was dwelling in Śrāvastī at Jeta\'s Grove, Anāthapiṇḍika\'s Park, with 10,000 bhikṣus and 100,000 bodhisattva mahāsattvas... Mañjuśrī Dharma Prince said to the Buddha: \'World-Honored One, what is named Prajñāpāramitā? How is it practiced?\' The Buddha answered: \'Mañjuśrī, that dharmas have nowhere to abide is Prajñāpāramitā; that dharmas are free from grasping is the practice of Prajñā.\'"',
-            summary: 'Mañjuśrī expounds the "One-Practice Samādhi" (一行三昧) at Jeta\'s Grove, demonstrating that pure recitation of a single Buddha\'s name converges with the profound non-dual emptiness of prajñā wisdom.',
-            purpose: 'Guiding practitioners beyond reified concepts so that mindfulness of the Buddha and the emptiness of all dharmas are experienced as indivisible.'
-          },
-          {
-            title: 'Śūraṅgama Sūtra (Da Fo Ding Shou Leng Yan Jing)（大佛頂首楞嚴經）',
-            volume: 'Taishō Vol. 19, No. 945 (10 Fascicles)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: Ultimate Tathāgatagarbha',
-            translator: 'Trans. Pramiti (Tang Dynasty)',
-            locationInText: 'Śrāvastī, Jeta\'s Grove Monastery',
-            originQuote: '如是我聞：一時，佛在室羅筏城祇桓精舍，與大比丘眾千二百五十人俱，皆是無漏大阿羅漢……爾時，阿難因乞食次，經歷婬室，遭大梵術娑毗迦羅先梵天咒攝入婬席……世尊頂放百寶無畏光明，光中出生千里寶蓮華，有佛化身結跏趺坐，宣說神咒。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was dwelling in the city of Śrāvastī at Jeta\'s Grove Monastery, with an assembly of 1,250 great bhikṣus, all undefiled great arhats... At that time, Ānanda, while begging for alms, passed by a brothel and was ensnared by the Matanga woman\'s spell... The World-Honored One emitted a hundred-jeweled fearless radiance from the crown of his head, manifesting a lotus with an emanation Buddha who proclaimed the sacred dhāraṇī."',
-            summary: 'Prompted by Ānanda\'s peril, the Buddha investigates the mind in seven locations and reveals true seeing in ten aspects, distinguishing the illusory mind from the everlasting true mind and laying out the 25 gates to enlightenment.',
-            purpose: 'Providing practitioners in the Dharma-ending age with a discerning beacon to dissolve demonic delusions and realize the immutable Śūraṅgama Samādhi.'
-          }
-        ]
-      },
-
-      sarnath: {
-        id: 'sarnath',
-        name: 'Vārāṇasī · Sārnāth (Isipatana Deer Park)',
-        shortName: 'Sārnāth (Deer Park)',
-        subtag: 'Suburbs of Kashi · First Turning of the Wheel & Emergence of the Triple Gem',
-        desc: 'Sanskrit Sārnāth, Rṣipatana Mṛgadāva ("The Deer Park where Sages Alighted"). After attaining supreme awakening under the Bodhi Tree, the Buddha walked over a hundred miles to preach to the five ascetics. Rejecting both sensual indulgence and self-mortification, he revealed the Middle Way and the Twelve Aspects of the Four Noble Truths, establishing the Triple Gem in the human world.',
-        sutras: [
-          {
-            title: 'Dhammacakkappavattana Sutta (Saṃyuktāgama No. 379)（雜阿含經·轉法輪經）',
-            volume: 'Taishō Vol. 02, No. 99 (Fascicle 15, p. 103b)',
-            period: 'II. Deer Park Period (Āgama)',
-            turning: 'First Turning: The Four Noble Truths',
-            translator: 'Trans. Guṇabhadra (Liu Song Dynasty)',
-            locationInText: 'Vārāṇasī, Sārnāth Deer Park, Abode of Sages',
-            originQuote: '如是我聞：一時，佛住波羅奈國鹿野苑中仙人住處。爾時，世尊告五比丘：「此苦聖諦，本所未曾聞法，當正思惟，時生眼、智、明、覺；此苦集、此苦滅、此苦滅道跡聖諦，本所未曾聞法，當正思惟，時生眼、智、明、覺……」',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was staying in the country of Vārāṇasī in the Deer Park, the abode of the sages. At that time, the World-Honored One addressed the five monks: \'This is the noble truth of suffering, a teaching never heard before; by right contemplation, vision arose, knowledge arose, wisdom arose, and awakening arose...\'"',
-            summary: 'The primary Chinese Āgama transmission of the First Discourse. Proclaims the twelve aspects of the Four Noble Truths to the five monks, birthing the pristine "eye, knowledge, illumination, and vision of reality."',
-            purpose: 'Bestowing the pure Dharma-eye upon Kaundinya and companions, igniting the lamp of the True Dharma in the human realm.'
-          },
-          {
-            title: 'Dharmacakrapravartana Sūtra (Three Turnings Discourse)（佛說三轉法輪經）',
-            volume: 'Taishō Vol. 02, No. 110 (1 Fascicle)',
-            period: 'II. Deer Park Period (Āgama)',
-            turning: 'First Turning: The Four Noble Truths',
-            translator: 'Trans. Yijing (Tang Dynasty)',
-            locationInText: 'Vārāṇasī, Sārnāth Deer Park, Sage-Alighting Place',
-            originQuote: '如是我聞：一時，薄伽梵在婆羅痆斯仙人墮處施鹿林中。爾時，世尊告五苾芻曰：「有二極端，出家之人不應親近：何等為二？一者於諸欲境耽著嗜好……二者受諸自苦……捨此二邊，有中道行，如來現證，能生眼智，導向涅槃。」',
-            translationQuote: '"Thus have I heard: At one time, the Bhagavān was dwelling in Vārāṇasī at the Deer Park, the place where the sages alighted. At that time, the World-Honored One said to the five bhikṣus: \'There are two extremes that should not be pursued by one who has gone forth: devotion to sensual pleasures... and devotion to self-torment. Avoiding these two extremes, the Tathāgata has awakened to the Middle Way, which produces vision and knowledge and leads to Nirvāṇa.\'"',
-            summary: 'The Buddha\'s inaugural proclamation. By renouncing the two extremes and walking the Eightfold Path, he guides disciples through the three revolutions: "This is suffering, you should know it; this is origin, you should abandon it; this is cessation, you should realize it; this is the path, you should cultivate it."',
-            purpose: 'Opening the primordial portal of liberation for ordinary mortals and dismantling extreme asceticism and hedonism.'
-          }
-        ]
-      },
-
-      bodhgaya: {
-        id: 'bodhgaya',
-        name: 'Magadha · Bodh Gayā (The Diamond Throne & Bodhi Tree)',
-        shortName: 'Bodh Gayā (Bodhi Tree)',
-        subtag: 'Banks of Nairañjanā River · Seat of Supreme Perfect Awakening',
-        desc: 'Sanskrit Bodh Gayā. After six years of austere practices, Prince Siddhārtha crossed the Nairañjanā River, accepted milk-rice from the maiden Sujātā, and sat upon the Diamond Throne (Vajrāsana) beneath the Pippala Tree, vowing: "I shall not arise from this seat until unexcelled awakening is achieved." Seeing the morning star, he attained Buddhahood and expounded the boundless ocean of the Avataṃsaka realm.',
-        sutras: [
-          {
-            title: 'Avataṃsaka Sūtra (The Flower Ornament Scripture, 80 Fascicles)（大方廣佛華嚴經·八十華嚴）',
-            volume: 'Taishō Vol. 10, No. 279 (80 Fascicles)',
-            period: 'I. Avataṃsaka Period',
-            turning: 'Root Dharma Wheel: Non-Dual Harmony',
-            translator: 'Trans. Śikṣānanda (Tang Dynasty)',
-            locationInText: 'Magadha, Araṇya Bodhimaṇḍa',
-            originQuote: '如是我聞：一時，佛在摩竭提國阿蘭若法菩提場中，始成正覺。其地堅固，金剛所成……阿僧祇寶以為莊嚴。阿蘭若樹，高顯姝妙，枝條敷榮……佛身圓滿，放一切光明。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was in the country of Magadha, in the wilderness bodhimanda, having just realized true awakening. The ground was diamond-solid, adorned with incalculable jewels... The Bodhi Tree was lofty and sublime, its branches blossoming... The Buddha\'s body was fully perfected, radiating light everywhere."',
-            summary: 'In the Samādhi of Ocean Reflection, the Buddha appears as Vairocana, revealing the interpenetration of all phenomena (事事無礙) through seven locations and nine assemblies, culminating in Sudhana\'s pilgrimage to 53 spiritual mentors.',
-            purpose: 'To reveal the unexcelled realm of the Buddha\'s direct realization to Great Bodhisattvas; while Śrāvaka disciples with unripened faculties were left "as if deaf and blind."'
-          }
-        ]
-      },
-
-      rajgir_vulture: {
-        id: 'rajgir_vulture',
-        name: 'Rājagṛha · Vulture Peak (Gṛdhrakūṭa)',
-        shortName: 'Rājagṛha (Vulture Peak)',
-        subtag: 'Crown of Five Mountains · The One Vehicle & Profound Prajñā',
-        desc: 'Sanskrit Gṛdhrakūṭa ("Peak of Vultures"). A solitary, rugged crag shaped like a soaring vulture, where vultures frequently roosted. This sacred sanctuary is the epicenter of Mahāyāna revelation, where the Buddha emitted light from his brow, reconciled the three vehicles into the One Buddha Vehicle in the Lotus Sūtra, preached the Infinite Life Sūtra, and expounded the profound emptiness of the Heart Sūtra.',
-        sutras: [
-          {
-            title: 'Anantanirdeśa Sūtra (Prologue to the Lotus Sūtra)（無量義經）',
-            volume: 'Taishō Vol. 09, No. 276 (1 Fascicle)',
-            period: 'V. Lotus & Nirvāṇa Period',
-            turning: 'Third Turning: Ultimate Harmony',
-            translator: 'Trans. Dharmagatayaśas (Liu Song Dynasty)',
-            locationInText: 'Rājagṛha, Vulture Peak',
-            originQuote: '如是我聞：一時，佛住王舍城耆闍崛山中，與大比丘眾萬二千人俱……爾時，大莊嚴菩薩摩訶薩，與八萬菩薩摩訶薩俱，從座而起，詣世尊所，頭面禮足，繞百千匝，燒香散華，種種供養……佛言：「無量義者，從一法生；其一法者，即無相也。」',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was dwelling on Vulture Peak at Rājagṛha with an assembly of 12,000 great bhikṣus... The Buddha declared: \'The infinite meanings arise from a single Dharma; and that single Dharma is signlessness itself (animitta).\'"',
-            summary: 'The opening prelude to the Lotus Sūtra. Delivered before entering the Samādhi of Infinite Meaning, it reveals that all diverse teachings flow from the non-dual reality of signlessness.',
-            purpose: 'Guiding the assembly from divergent doctrinal branches back to the singular truth of the One Reality.'
-          },
-          {
-            title: 'Saddharmapuṇḍarīka Sūtra (The Lotus Sūtra)（妙法蓮華經）',
-            volume: 'Taishō Vol. 09, No. 262 (7 Fascicles)',
-            period: 'V. Lotus & Nirvāṇa Period',
-            turning: 'Third Turning: Unexcelled One Vehicle',
-            translator: 'Trans. Kumārajīva (Later Qin Dynasty)',
-            locationInText: 'Rājagṛha, Vulture Peak',
-            originQuote: '如是我聞：一時，佛住王舍城耆闍崛山中，與大比丘眾萬二千人俱……菩薩摩訶薩八萬人……爾時，世尊四眾圍遶，供養恭敬，尊重讚歎。為諸菩薩說大乘經，名無量義、教菩薩法、佛所護念。佛說此經已，結跏趺坐，入於無量義處三昧，身心不動。是時天雨曼陀羅華。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was staying on Vulture Peak at Rājagṛha with an assembly of 12,000 great bhikṣus and 80,000 bodhisattva mahāsattvas... Having preached the sūtra called Infinite Meaning, the Buddha sat cross-legged and entered the Samādhi of Infinite Meaning, unmoving in body and mind. At that time, heavenly Mandārava flowers rained down."',
-            summary: 'The ultimate purpose of the Buddha\'s advent. Dissolves the provisional vehicles with the declaration: "There is only the One Vehicle, neither two nor three," revealing the immeasurable lifespan and primordial awakening of the Tathāgata.',
-            purpose: 'Bestowing universal prophecies of future Buddhahood upon all Śrāvakas, fulfilling the vow that "whoever hears the Dharma shall attain awakening."'
-          },
-          {
-            title: 'Prajñāpāramitā Hṛdaya (Heart Sūtra · Extended Canonical Recension)（般若波羅蜜多心經·大藏經廣本）',
-            volume: 'Taishō Vol. 08, No. 253 / No. 252 (1 Fascicle)',
-            period: 'IV. Prajñāpāramitā Period',
-            turning: 'Second Turning: Essence of Emptiness',
-            translator: 'Trans. Prajñā and Liyan (Tang Dynasty)',
-            locationInText: 'Rājagṛha, Vulture Peak',
-            originQuote: '如是我聞：一時，佛在王舍城耆闍崛山中，與大比丘眾及諸菩薩摩訶薩俱。爾時，世尊入甚深廣明三昧。是時觀自在菩薩摩訶薩，在佛會中，行深般若波羅蜜多時，照見五蘊皆空，離諸苦厄。即從座起，承佛威神……',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was on Vulture Peak at Rājagṛha, together with a great assembly of bhikṣus and bodhisattva mahāsattvas. At that time, the World-Honored One entered the samādhi called Vast Profound Radiance. At that moment, Avalokiteśvara Bodhisattva, coursing in the deep Prajñāpāramitā, perceived that all five aggregates are empty..."',
-            summary: 'The canonical extended recension featuring complete nidāna authentication. The Buddha enters samādhi while Avalokiteśvara, empowered by the Buddha\'s spiritual force, expounds "Form is emptiness, emptiness is form" to Śāriputra.',
-            purpose: 'Dismantling delusions and attachment to conceptual labels, guiding seekers directly into the liberating wisdom of emptiness.'
-          },
-          {
-            title: 'Sukhāvatīvyūha Sūtra (The Longer Infinite Life Sūtra)（佛說無量壽經）',
-            volume: 'Taishō Vol. 12, No. 360 (2 Fascicles)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: The Pure Land Way',
-            translator: 'Trans. Saṃghavarman (Cao Wei Dynasty)',
-            locationInText: 'Rājagṛha, Vulture Peak',
-            originQuote: '如是我聞：一時，佛在王舍城耆闍崛山中，與大比丘眾萬二千人俱……爾時，世尊諸根悅豫，姿色清淨，光顏巍巍，如明鏡授照，光映徹表裏……阿難即從座起，白佛言：「今日世尊，諸根悅豫，姿色清淨……得無世尊住諸佛所住，行導師所行乎？」',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was dwelling on Vulture Peak at Rājagṛha with 12,000 monks... At that time, all the senses of the World-Honored One were joyful, his countenance radiant, magnificent like a mirror reflecting light... Ānanda arose from his seat and asked: \'Today the World-Honored One\'s senses are radiant... does the Lord dwell in the state of all Buddhas?\'"',
-            summary: 'Beholding the Buddha\'s radiant countenance, Ānanda asks a rare question. The Buddha reveals Dharmākara Bhikṣu\'s 48 Great Vows, the creation of Sukhāvatī, and the methods of rebirth for the three grades of practitioners.',
-            purpose: 'Establishing the fundamental scripture of Pure Land practice, offering Amitābha\'s vow-power as a great ship to ferry all beings across the sea of suffering.'
-          },
-          {
-            title: 'Amitāyurdhyāna Sūtra (Contemplation of Infinite Life)（佛說觀無量壽佛經）',
-            volume: 'Taishō Vol. 12, No. 365 (1 Fascicle)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: Sixteen Contemplations',
-            translator: 'Trans. Kālayaśas (Liu Song Dynasty)',
-            locationInText: 'Rājagṛha, Vulture Peak / Royal Palace Dungeon',
-            originQuote: '如是我聞：一時，佛在王舍城耆闍崛山中，與大比丘眾千二百五十人俱，菩薩三萬二千……爾時王舍大城有一太子，名阿闍世，隨順調達惡友之教，幽閉其父頻婆娑羅王……韋提希見佛世尊，悲泣雨淚，白佛言：「唯願世尊為我廣說未生怨緣，教我觀於清淨業處。」',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was staying on Vulture Peak at Rājagṛha with 1,250 bhikṣus and 32,000 bodhisattvas... Prince Ajātaśatru, influenced by Devadatta, imprisoned his father King Bimbisāra... Queen Vaidehī, weeping bitterly, implored the Buddha: \'May the World-Honored One teach me how to contemplate the realm of pure karma.\'"',
-            summary: 'Born from palace tragedy, the Buddha reveals the Sixteen Contemplations to Queen Vaidehī, declaring: "This mind creates the Buddha; this mind is the Buddha" (是心作佛，是心是佛).',
-            purpose: 'Rescuing burdened beings trapped in agony, providing both focused contemplation and single-minded recitation to guarantee rebirth in paradise.'
-          },
-          {
-            title: 'Mahāprajñāpāramitā Sūtra (Assemblies I–VI & XV)（大般若波羅蜜多經·前六會與第十五會）',
-            volume: 'Taishō Vols. 05–07, No. 220 (600 Fascicles)',
-            period: 'IV. Prajñāpāramitā Period',
-            turning: 'Second Turning: Revealing Emptiness',
-            translator: 'Trans. Xuanzang (Tang Dynasty)',
-            locationInText: 'Rājagṛha, Vulture Peak',
-            originQuote: '如是我聞：一時，薄伽梵住王舍城鷲峰山中，與大苾芻眾千二百五十人俱，發趣聲聞大德安坐，皆阿羅漢……復有菩薩摩訶薩眾，俱胝那庾多百千人……薄伽梵身放百千萬億大光明，普照十方無量佛剎。',
-            translationQuote: '"Thus have I heard: At one time, the Bhagavān was staying on Vulture Peak at Rājagṛha with an assembly of 1,250 great bhikṣus, all arhats... and hundreds of thousands of kotis of nayutas of bodhisattva mahāsattvas... The Bhagavān emitted billions of great rays of light, illuminating limitless Buddha-lands in the ten directions."',
-            summary: 'Xuanzang\'s monumental 600-fascicle translation. Seven of the sixteen assemblies were proclaimed on Vulture Peak, establishing that all dharmas are devoid of intrinsic nature, ungraspable, and fundamentally pure.',
-            purpose: 'Shattering every subtle conceptual clinging and cultivating the unhindered wisdom of bodhisattvas.'
-          }
-        ]
-      },
-
-      rajgir_bamboo: {
-        id: 'rajgir_bamboo',
-        name: 'Rājagṛha · Bamboo Grove Monastery (Veḷuvana Karaṇḍanivāpa)',
-        shortName: 'Bamboo Grove (Veḷuvana)',
-        subtag: 'Gift of Merchant Karaṇḍa & King Bimbisāra · First Buddhist Monastery',
-        desc: 'Sanskrit Veḷuvana Karaṇḍanivāpa. The very first dedicated monastery in Buddhist history, where King Bimbisāra built dwellings upon land gifted by the elder Karaṇḍa. Here the Buddha established foundational monastic disciplinary codes (prātimokṣa), converted the two chief disciples Śāriputra and Maudgalyāyana, and delivered esoteric teachings such as the Prajñānaya.',
-        sutras: [
-          {
-            title: 'Mahāprajñāpāramitā Sūtra · Assembly XVI (Prajñānaya / Adhyardhaśatikā)（大般若經·第十六會般若理趣分）',
-            volume: 'Taishō Vol. 07, No. 220 (Fascicle 578)',
-            period: 'IV. Prajñāpāramitā Period',
-            turning: 'Second & Third Turning: Esoteric Prajñā',
-            translator: 'Trans. Xuanzang (Tang Dynasty)',
-            locationInText: 'Rājagṛha, Veḷuvana Monastery, White Heron Pond',
-            originQuote: '如是我聞：一時，薄伽梵住王舍城竹林精舍迦蘭陀竹園白鷺池側，與大苾芻眾千二百五十人俱……復有大乘菩薩摩訶薩眾俱胝那庾多百千人俱。爾時，世尊告金剛手菩薩言：「大寶菩薩，諸法自性清淨，即是般若波羅蜜多清淨。」',
-            translationQuote: '"Thus have I heard: At one time, the Bhagavān was residing in Rājagṛha at the Bamboo Grove Monastery by Karaṇḍa\'s White Heron Pond with 1,250 bhikṣus and countless bodhisattvas... The World-Honored One said to Vajrapāṇi Bodhisattva: \'Great Jewel Bodhisattva, the innate purity of all dharmas is the very purity of Prajñāpāramitā.\'"',
-            summary: 'The esoteric crown of the Prajñā corpus, revered daily in Japanese Shingon and esoteric schools as the Rishu-kyō. Declares that passion, desire, and mental states are fundamentally pure in their essential nature.',
-            purpose: 'Transcending dualistic discrimination between defilement and purity, awakening advanced practitioners to the realization that afflictions are identical to Bodhi.'
-          }
-        ]
-      },
-
-      vaishali: {
-        id: 'vaishali',
-        name: 'Vaiśālī · Āmrapālī\'s Grove & Tree of Musical Resonances',
-        shortName: 'Vaiśālī (Āmrapālī\'s Grove)',
-        subtag: 'Vajjian Republic · The Non-Dual Gate of Vimalakīrti & Medicine Buddha',
-        desc: 'Sanskrit Vaiśālī (translated by Xuanzang as "City of Expansive Splendor"). An enlightened ancient republic. In Āmrapālī\'s Mango Grove, Vimalakīrti feigned illness to expound the non-dual Dharma of "abiding in the world yet transcending it"; beneath the Tree of Celestial Resonances, the Buddha revealed the healing vows of the Medicine Buddha; and in the Great Forest Gabled Hall, he foretold his Nirvāṇa.',
-        sutras: [
-          {
-            title: 'Vimalakīrti Nirdeśa Sūtra（維摩詰所說經）',
-            volume: 'Taishō Vol. 14, No. 475 (3 Fascicles)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: Non-Duality (Rebuking Dualism)',
-            translator: 'Trans. Kumārajīva (Later Qin Dynasty)',
-            locationInText: 'Vaiśālī, Āmrapālī\'s Mango Grove',
-            originQuote: '如是我聞：一時，佛在毘耶離菴羅樹園，與大比丘眾八千人俱，菩薩三萬二千，眾所知識……爾時，毘耶離大城中有長者子，名曰寶積，與五百長者子俱，持七寶蓋，來詣佛所，頭面禮足，各以其蓋供養於佛。佛之威神，令諸寶蓋合成一蓋，遍覆三千大千世界。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was staying in Vaiśālī in Āmrapālī\'s Mango Grove with 8,000 bhikṣus and 32,000 bodhisattvas... Ratnākara and 500 noble youths came offering parasols of seven gems. By the Buddha\'s power, all parasols merged into a single canopy sheltering the entire trichiliocosm."',
-            summary: 'The layman Vimalakīrti displays illness, prompting profound dialogues with Mañjuśrī. He expounds that "when the mind is pure, the Buddha-land is pure" and proclaims the Gate of Non-Duality through his famous "thunderous silence."',
-            purpose: 'Rebuking the self-complacent isolation of the Hīnayāna, inspiring householders and monastics alike to embody bodhisattva activities in the midst of worldly dust.'
-          },
-          {
-            title: 'Bhaiṣajyaguru Sūtra (Medicine Buddha Sūtra)（藥師琉璃光如來本願功德經）',
-            volume: 'Taishō Vol. 14, No. 450 (1 Fascicle)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: Present-Life Relief',
-            translator: 'Trans. Xuanzang (Tang Dynasty)',
-            locationInText: 'Vaiśālī, Beneath the Tree of Musical Resonances',
-            originQuote: '如是我聞：一時，薄伽梵遊化諸國，至廣嚴城，住樂音樹下，與大苾芻眾八千人俱，菩薩摩訶薩三萬六千……爾時，曼殊室利法王子菩薩摩訶薩，承佛威神，從座而起，偏袒一肩，右膝著地，向薄伽梵合掌曲躬而白佛言：「世尊，唯願演說如是相類諸佛名號、本昔殊勝大願，令蒙利益。」',
-            translationQuote: '"Thus have I heard: At one time, the Bhagavān was wandering through various states until he reached Vaiśālī, residing beneath the Tree of Musical Resonances with 8,000 bhikṣus and 36,000 bodhisattvas... Mañjuśrī Bodhisattva arose, bared his right shoulder, knelt on his right knee, and implored the Buddha to proclaim the names and great vows of such Buddhas for the benefit of beings."',
-            summary: 'At Mañjuśrī\'s request, the Buddha expounds the Twelve Great Vows of Bhaiṣajyaguru Buddha of the Eastern Lapis Lazuli Pure Land, emphasizing deliverance from disease, starvation, imprisonment, and physical destitution in this present life.',
-            purpose: 'Relieving mortals oppressed by poverty, suffering, and calamity, leading them toward holistic well-being and ultimate awakening.'
-          },
-          {
-            title: 'Samantabhadra Meditation Sūtra (Epilogue to the Lotus Sūtra)（佛說觀普賢菩薩行法經）',
-            volume: 'Taishō Vol. 09, No. 277 (1 Fascicle)',
-            period: 'V. Lotus & Nirvāṇa Period',
-            turning: 'Third Turning: Ultimate Repentance',
-            translator: 'Trans. Dharmamitra (Liu Song Dynasty)',
-            locationInText: 'Vaiśālī, Great Forest Gabled Hall',
-            originQuote: '如是我聞：一時，佛在毘舍離國大林精舍重閣講堂，告諸比丘：「卻後三月，我當般涅槃。」尊者阿難即從座起，整衣服，叉手合掌，遶佛三匝，為佛作禮，胡跪合掌，啼泣交流……爾時，世尊告阿難言：「諦聽諦聽，吾當為汝分別解說普賢菩薩行願。」',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was in Vaiśālī at the Great Forest Gabled Hall, addressing the monks: \'In three months, I shall enter Parinirvāṇa.\' Venerable Ānanda arose, circled the Buddha three times, knelt with tears streaming, and wept... The World-Honored One said: \'Listen attentively; I shall explain the vows and practices of Samantabhadra Bodhisattva.\'"',
-            summary: 'The closing scripture of the Lotus Sūtra. Announcing his impending Nirvāṇa, the Buddha teaches the contemplation of Samantabhadra riding a six-tusked white elephant and reveals the ultimate meditation of reality-repentance.',
-            purpose: 'Providing transgressive beings with the profound practice of repentance: "Since transgressions arise from the mind, let the mind repent; when the mind is extinguished, sins vanish as well."'
-          }
-        ]
-      },
-
-      kushinagar: {
-        id: 'kushinagar',
-        name: 'Kuśinagar · Between the Twin Sāla Trees',
-        shortName: 'Kuśinagar (Twin Sāla Trees)',
-        subtag: 'Banks of Hiraññavatī River · Final Parinirvāṇa & Birth of "Thus Have I Heard"',
-        desc: 'Sanskrit Kuśinagara. The grove of Sāla trees by the Hiraññavatī River in the Malla kingdom. At the age of eighty, the Buddha reclined on his right side facing west and entered Final Extinction. Here he proclaimed the eternal nature of the Tathāgata in the Mahāparinirvāṇa Sūtra and commanded Ānanda to place "Thus Have I Heard" at the head of all scriptures.',
-        sutras: [
-          {
-            title: 'Mahāparinirvāṇa Sūtra (Northern 40-Fascicle Recension)（大般涅槃經·北本四十卷）',
-            volume: 'Taishō Vol. 12, No. 374 (40 Fascicles)',
-            period: 'V. Lotus & Nirvāṇa Period',
-            turning: 'Third Turning: Eternal Buddha-Nature',
-            translator: 'Trans. Dharmakṣema (Northern Liang Dynasty)',
-            locationInText: 'Kuśinagar, Between the Twin Sāla Trees',
-            originQuote: '如是我聞：一時，佛在拘尸那城娑羅雙樹間，爾時春秋二月十五日，臨般涅槃。以佛神力，出大音聲，其聲遍滿三千大千世界……爾時，世尊與諸比丘，右脇而臥，頭枕北方，足指指南，面仰向西，背向東方，將入涅槃。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was in Kuśinagar between the twin Sāla trees. On the fifteenth day of the second month, as he approached Parinirvāṇa, by his spiritual power he emitted a great sound that resounded throughout the trichiliocosm... Reclining on his right side with his head to the north and facing west, he was about to enter Nirvāṇa."',
-            summary: 'The Buddha\'s final testament. Refuting the nihilistic view of the Tathāgata\'s extinction, he proclaims the permanence, bliss, true self, and purity (常樂我淨) of the Dharmakāya, declaring that all sentient beings possess Buddha-nature.',
-            purpose: 'Rescuing grieving disciples from despair and establishing unshakeable faith in the intrinsic, imperishable Buddha-nature within all life.'
-          }
-        ]
-      },
-
-      lanka: {
-        id: 'lanka',
-        name: 'Southern Ocean · Mount Laṅkā Summit (Sri Lanka)',
-        shortName: 'Mount Laṅkā (Sri Lanka)',
-        subtag: 'Isolated Ocean Peak · Mind-Only and Bodhidharma\'s Heart-Seal',
-        desc: 'Sanskrit Mount Laṅkā. An inaccessible maritime peak rising from the ocean island of modern Sri Lanka. Ascending via spiritual power with Mahāmati Bodhisattva and the Rākṣasa King Rāvaṇa, the Buddha illuminated the five dharmas, three natures, eight consciousnesses, and two forms of selflessness, declaring: "The ocean of storehouse consciousness is ever still, stirred only by the winds of external objects."',
-        sutras: [
-          {
-            title: 'Laṅkāvatāra Sūtra (Lankavatara Ratna Sutra)（楞伽阿跋多羅寶經）',
-            volume: 'Taishō Vol. 16, No. 670 (4 Fascicles)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: Mind-Only & Tathāgatagarbha',
-            translator: 'Trans. Guṇabhadra (Liu Song Dynasty)',
-            locationInText: 'Summit of Mount Laṅkā on the Southern Sea',
-            originQuote: '如是我聞：一時，佛住南海濱楞伽山頂種種寶華莊嚴處，與大比丘僧及大菩薩眾俱……大慧菩薩摩訶薩，承佛威神，從座而起，偏袒右肩，右膝著地，合掌恭敬，以偈讚佛。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was staying on the summit of Mount Laṅkā on the southern seashore, a place adorned with various jeweled flowers, together with a great assembly of bhikṣus and bodhisattvas... Mahāmati Bodhisattva arose, bared his right shoulder, knelt on his right knee, and praised the Buddha with verses."',
-            summary: 'The fundamental four-fascicle text transmitted by Bodhidharma to Huike as the seal of the Chan lineage. Reconciles the Tathāgatagarbha with the Ālayavijñāna, shattering worldly dualisms through inner self-realization.',
-            purpose: 'Severing the conceptual wanderings of the discriminating mind, guiding practitioners to verify direct personal awakening beyond words and signs.'
-          }
-        ]
-      },
-
-      celestial: {
-        id: 'celestial',
-        name: 'Transcendental Dharmadhātu & Celestial Realms',
-        shortName: 'Transcendental Realms',
-        subtag: 'Non-Physical Coordinates · The Saṃbhogakāya and Palace of Reality',
-        desc: 'Transcending terrestrial geography, these are the celestial abodes and pure Sambhogakāya palaces of the Tathāgata. In Trāyastriṃśa Heaven, the Buddha taught the Kṣitigarbha Sūtra out of filial piety for his mother Queen Māyā; in Tuṣita Heaven, he expounded the dedication of merits; in the Palace of Reality, he delivered the Saṃdhinirmocana Sūtra; and in Unhindered Samādhi, he proclaimed the Perfect Enlightenment Sūtra.',
-        sutras: [
-          {
-            title: 'Avataṃsaka Sūtra · Tuṣita Heaven Assembly（大方廣佛華嚴經·兜率天宮會）',
-            volume: 'Taishō Vol. 10, No. 279 (Fascicle 23)',
-            period: 'I. Avataṃsaka Period',
-            turning: 'Root Dharma Wheel: Non-Dual Harmony',
-            translator: 'Trans. Śikṣānanda (Tang Dynasty)',
-            locationInText: 'Tuṣita Palace of Universal Jeweled Adornments',
-            originQuote: '如是我聞：一時，佛在兜率天宮一切寶莊嚴殿，與菩薩摩訶薩俱……爾時，世尊不離菩提樹下而上升兜率天宮，一切天子見佛世尊光明赫奕，歎未曾有。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was in the Palace of All-Jeweled Adornments in Tuṣita Heaven with bodhisattva mahāsattvas... At that time, without leaving the foot of the Bodhi Tree, the World-Honored One ascended to Tuṣita Palace, and all the devas marveled at his brilliant radiance."',
-            summary: 'One of the nine assemblies of the Flower Ornament Scripture. Without departing from the Bodhi Tree, the Tathāgata manifests in heaven to expound the ten dedications of merit and the unhindered activity of bodhisattvas.',
-            purpose: 'Revealing the infinite vastness of the Dharmadhātu, inspiring practitioners to dedicate all roots of virtue toward universal Buddhahood.'
-          },
-          {
-            title: 'Kṣitigarbha Bodhisattva Pūrvapraṇidhāna Sūtra (Earth Store Sūtra)（地藏菩薩本願經）',
-            volume: 'Taishō Vol. 13, No. 412 (2 Fascicles)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: Filial Rescue',
-            translator: 'Trans. Śikṣānanda (Tang Dynasty)',
-            locationInText: 'Trāyastriṃśa Heaven (Summit of Mount Meru)',
-            originQuote: '如是我聞：一時，佛在忉利天，為母說法。爾時，十方無量世界，不可說不可說一切諸佛，及大菩薩摩訶薩，皆來集會，讚歎釋迦牟尼佛，能於五濁惡世，現不可思議大智慧神通之力，調伏剛強眾生。',
-            translationQuote: '"Thus have I heard: At one time, the Buddha was in Trāyastriṃśa Heaven preaching the Dharma for his mother. At that time, ineffable numbers of Buddhas and bodhisattva mahāsattvas from immeasurable worlds of the ten directions gathered in assembly, praising Śākyamuni Buddha for taming obstinate beings in the five defilements."',
-            summary: 'Ascending to heaven to repay the maternal kindness of Queen Māyā, the Buddha entrusts suffering sentient beings to Kṣitigarbha Bodhisattva until the advent of Maitreya, illuminating the laws of cause and effect and hell realms.',
-            purpose: 'Demonstrating supreme filial reverence and laying down the bedrock of karmic retribution as an anchor for living beings.'
-          },
-          {
-            title: 'Saṃdhinirmocana Sūtra (Unraveling the Intent)（解深密經）',
-            volume: 'Taishō Vol. 16, No. 676 (5 Fascicles)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: Ultimate Yogācāra',
-            translator: 'Trans. Xuanzang (Tang Dynasty)',
-            locationInText: 'Most Victorious Radiant Jeweled Palace of Reality',
-            originQuote: '如是我聞：一時，薄伽梵住最勝光曜七寶莊嚴，放大光明，普照一切無邊世界，皆悉芬馥，周匝遍滿無量無數妙吉祥處，大無喪無虧，是無等者之所行處……',
-            translationQuote: '"Thus have I heard: At one time, the Bhagavān was dwelling in the Most Victorious Radiant Seven-Jeweled Adornment, radiating immense light that illuminated limitless worlds... a wondrously auspicious abode devoid of deficiency, the realm traversed only by the Peerless Ones..."',
-            summary: 'The primary founding text of the Yogācāra school. The Buddha explicitly divides his teaching into the "Three Turnings of the Wheel": the provisional Four Truths, the provisional Emptiness of Prajñā, and the ultimate, definitive Middle Way of the Three Natures.',
-            purpose: 'Settling debates over existence and emptiness, delivering seekers from nihilism by establishing the ineffable nature of ultimate truth.'
-          },
-          {
-            title: 'Mahāvaipulya Pūrṇabuddhasūtra (Sūtra of Complete Enlightenment)（大方廣圓覺修多羅了義經）',
-            volume: 'Taishō Vol. 17, No. 842 (1 Fascicle)',
-            period: 'III. Vaipulya (Expansive) Period',
-            turning: 'Third Turning: Ultimate Awakening',
-            translator: 'Trans. Buddhatrāta (Tang Dynasty)',
-            locationInText: 'Sanctuary of Radiant Samādhi and Unhindered Reality',
-            originQuote: '如是我聞：一時，婆伽婆入於神通大光明藏三昧正受，一切如來光嚴住持，是諸眾生清淨覺地，身心寂滅，平等本際，圓滿十方，不二隨順，於不二境現諸淨土。與大菩薩摩訶薩十萬人俱……',
-            translationQuote: '"Thus have I heard: At one time, the Bhagavān entered the samādhi of the Great Treasury of Spiritual Radiance, the pure awakening ground of all beings where body and mind are extinguished and equal in original nature... together with 100,000 bodhisattva mahāsattvas..."',
-            summary: 'Entering the radiant treasury samādhi, the Buddha engages in sequential inquiries with twelve great bodhisattvas, expounding the pristine innate awakening, transcendence of illusion, and stages of meditation.',
-            purpose: 'Guiding contemplative meditators directly into their intrinsic nature of perfect enlightenment, free from illusion and spiritual bypass.'
-          }
-        ]
-      }
-    };
-
-    /* ==================== UI State & Navigation Controls ==================== */
-    let currentPlaceId = 'shravasti';
-    let currentScaleIndex = 0;
-    const scaleFactors = [1.0, 1.12, 1.25, 1.38];
-    const scaleLabels = ['Normal', 'Large', 'Extra', 'Max'];
-
-    function switchView(viewName) {
-      const introView = document.getElementById('view-intro');
-      const appView = document.getElementById('view-app');
-      const btnIntro = document.getElementById('nav-btn-intro');
-      const btnApp = document.getElementById('nav-btn-app');
-
-      if (viewName === 'intro') {
-        introView.classList.remove('hidden');
-        appView.classList.add('hidden');
-        btnIntro.classList.add('active');
-        btnApp.classList.remove('active');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        introView.classList.add('hidden');
-        appView.classList.remove('hidden');
-        btnApp.classList.add('active');
-        btnIntro.classList.remove('active');
-        renderPlace(currentPlaceId);
-      }
-    }
-
-    function jumpToLocation(placeId) {
-      switchView('app');
-      renderPlace(placeId);
-      const target = document.getElementById('sticky-tab-bar');
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function adjustFontSize(delta) {
-      if (delta === 0) {
-        currentScaleIndex = 0;
-      } else {
-        currentScaleIndex += delta;
-        if (currentScaleIndex < 0) currentScaleIndex = 0;
-        if (currentScaleIndex >= scaleFactors.length) currentScaleIndex = scaleFactors.length - 1;
-      }
-
-      const factor = scaleFactors[currentScaleIndex];
-      document.documentElement.style.fontSize = `${factor * 16}px`;
-
-      const indicator = document.getElementById('font-size-indicator');
-      if (indicator) {
-        indicator.textContent = scaleLabels[currentScaleIndex];
-        indicator.className = currentScaleIndex > 0 
-          ? "px-2 h-7 flex items-center justify-center font-bold cursor-pointer text-vermilion text-[11px] bg-vermilion/5 rounded font-sans"
-          : "px-2 h-7 flex items-center justify-center font-medium cursor-pointer text-charcoal text-[11px] font-sans";
-      }
-    }
-
-    function initLocationTabs() {
-      const container = document.getElementById('location-tabs');
-      if (!container) return;
-
-      container.innerHTML = Object.keys(SACRED_PLACES_EN).map(key => {
-        const place = SACRED_PLACES_EN[key];
-        const isSpecial = key === 'celestial';
-        return `
-          <button 
-            id="tab-btn-${key}" 
-            onclick="renderPlace('${key}')"
-            class="location-tab-btn px-4 py-2 rounded-xl shrink-0 text-sm flex items-center gap-1.5 font-sans">
-            ${isSpecial ? '✨' : ''}
-            <span>${place.shortName}</span>
-            <span class="text-[11px] opacity-75">(${place.sutras.length})</span>
-          </button>
-        `;
-      }).join('');
-    }
-
-    function renderPlace(placeId) {
-      currentPlaceId = placeId;
-      const place = SACRED_PLACES_EN[placeId];
-      if (!place) return;
-
-      Object.keys(SACRED_PLACES_EN).forEach(key => {
-        const tabBtn = document.getElementById(`tab-btn-${key}`);
-        if (tabBtn) {
-          if (key === placeId) {
-            tabBtn.classList.add('active');
-          } else {
-            tabBtn.classList.remove('active');
-          }
-        }
-      });
-
-      document.querySelectorAll('.map-node').forEach(node => {
-        node.classList.remove('active');
-      });
-      const activeSvgNode = document.getElementById(`map-node-${placeId}`);
-      if (activeSvgNode) {
-        activeSvgNode.classList.add('active');
-      }
-
-      const subtagEl = document.getElementById('place-subtag');
-      const titleEl = document.getElementById('place-title');
-      const countEl = document.getElementById('place-sutra-count');
-      const descEl = document.getElementById('place-desc');
-
-      if (subtagEl) subtagEl.textContent = place.subtag;
-      if (titleEl) titleEl.textContent = place.name;
-      if (countEl) countEl.textContent = `${place.sutras.length} Canonical Sūtras Recorded`;
-      if (descEl) descEl.textContent = place.desc;
-
-      const listContainer = document.getElementById('sutra-list');
-      if (!listContainer) return;
-
-      listContainer.innerHTML = place.sutras.map((sutra, index) => {
-        return `
-          <article class="bg-white rounded-2xl border border-bordercolor p-6 md:p-8 shadow-xs hover:shadow-md transition-shadow">
-            
-            <!-- Sūtra Top Meta: Period & Turning Chips -->
-            <div class="flex flex-wrap items-center justify-between gap-2 border-b border-bordercolor/70 pb-3 mb-4 font-sans">
-              <div class="flex items-center space-x-2">
-                <span class="text-xs font-bold text-vermilion bg-vermilion/10 px-2.5 py-1 rounded-md">
-                  ${sutra.period}
-                </span>
-                <span class="text-xs font-medium text-gold bg-gold/10 px-2.5 py-1 rounded-md">
-                  ${sutra.turning}
-                </span>
-              </div>
-              <div class="text-xs text-charcoal/70">
-                ${sutra.volume}
-              </div>
-            </div>
-
-            <!-- Title & Translation Lineage -->
-            <div class="mb-5">
-              <h3 class="text-xl sm:text-2xl font-bold text-ink mb-1.5 font-title">
-                ${index + 1}. ${sutra.title}
-              </h3>
-              <div class="text-xs sm:text-sm text-charcoal/80 flex flex-wrap gap-x-4 gap-y-1 font-sans">
-                <span><strong>Lineage:</strong> ${sutra.translator}</span>
-                <span><strong>Setting:</strong> ${sutra.locationInText}</span>
-              </div>
-            </div>
-
-            <!-- KEY PRIORITY: Verbatim Authentication Card (Thus Have I Heard) -->
-            <div class="bg-mutedbg/60 border-l-4 border-gold p-4 sm:p-5 rounded-r-xl mb-6">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold tracking-widest text-gold uppercase flex items-center gap-1.5 font-sans">
-                  <span>📜</span> Primary Canonical Authentication (Thus Have I Heard)
-                </span>
-                <button onclick="copyQuote('${sutra.title}', this)" class="text-xs text-charcoal/60 hover:text-vermilion underline transition-colors font-sans">
-                  Copy Quote
-                </button>
-              </div>
-              
-              <!-- Authoritative English Translation -->
-              <p class="text-base sm:text-lg text-ink font-serif font-medium leading-[1.8] tracking-wide select-all mb-3 italic">
-                ${sutra.translationQuote}
-              </p>
-              
-              <!-- Original Chinese Taishō Tripiṭaka Text -->
-              <div class="pt-3 border-t border-dashed border-[#ded9cf] text-xs sm:text-sm text-charcoal/85 leading-relaxed font-cjk">
-                <strong>Taishō Original (大正藏原文)：</strong>${sutra.originQuote}
-              </div>
-            </div>
-
-            <!-- Core Doctrine & Purpose Analysis -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 text-xs sm:text-sm text-charcoal">
-              <div class="p-4 bg-mutedbg/40 rounded-xl border border-bordercolor/60">
-                <div class="font-bold text-ink mb-1 flex items-center gap-1 text-sm font-title">
-                  <span>✦</span> Core Doctrinal Summary
-                </div>
-                <p class="leading-relaxed">
-                  ${sutra.summary}
-                </p>
-              </div>
-
-              <div class="p-4 bg-mutedbg/40 rounded-xl border border-bordercolor/60">
-                <div class="font-bold text-ink mb-1 flex items-center gap-1 text-sm font-title">
-                  <span>✦</span> Purpose & Spiritual Remedy
-                </div>
-                <p class="leading-relaxed">
-                  ${sutra.purpose}
-                </p>
-              </div>
-            </div>
-
-          </article>
-        `;
-      }).join('');
-    }
-
-    function copyQuote(title, btnElement) {
-      const quoteEl = btnElement.closest('.bg-mutedbg\\/60').querySelector('p');
-      if (!quoteEl) return;
-
-      const text = quoteEl.textContent.trim();
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = btnElement.textContent;
-        btnElement.textContent = 'Copied!';
-        btnElement.classList.add('text-vermilion', 'font-bold');
-        setTimeout(() => {
-          btnElement.textContent = originalText;
-          btnElement.classList.remove('text-vermilion', 'font-bold');
-        }, 1800);
-      }).catch(err => {
-        console.error('Copy failed', err);
-      });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      initLocationTabs();
-      renderPlace('shravasti');
-    });
-  </script>
+  <script src="./lang-switcher.js"></script>
 </body>
 </html>
-```
