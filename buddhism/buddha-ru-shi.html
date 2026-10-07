@@ -145,40 +145,43 @@
 
   <!-- ==================== 頂部主導航列 (吸頂 Header) ==================== -->
   <header id="main-header" class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-bordercolor shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-wrap items-center justify-between gap-y-3">
       
-      <!-- 標題與法源 -->
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('intro')">
-        <div class="w-9 h-9 rounded-full bg-vermilion text-white flex items-center justify-center font-bold text-base shadow-inner">
+      <!-- 標題與法源 (經典「聞」字硃砂徽標與大氣宋體標題) -->
+      <div class="flex items-center space-x-3.5 cursor-pointer" onclick="switchView('intro')">
+        <div class="w-10 h-10 rounded-full bg-vermilion text-white flex items-center justify-center font-bold text-lg shadow-sm font-serif select-none ring-2 ring-gold/40 shrink-0">
           聞
         </div>
         <div>
-          <h1 class="text-lg md:text-xl font-bold tracking-wider text-ink flex items-center gap-2">
-            如是我聞
-            <span class="text-xs font-normal text-gold border border-gold/40 px-1.5 py-0.5 rounded tracking-normal">說法處所圖典</span>
+          <h1 class="text-xl sm:text-2xl md:text-[26px] font-black tracking-wider text-ink flex items-center gap-2 font-serif">
+            如是我聞 · 佛陀說法處所與經藏圖典
           </h1>
-          <p class="text-xs text-charcoal/70 hidden sm:block">二千五百年佛陀行腳足跡與經藏證信考證</p>
+          <p class="text-xs sm:text-sm text-charcoal/80 tracking-wide font-normal mt-0.5 font-serif">
+            天台五時時序 · 解深密經三轉法輪 · 說法處所「如是我聞」證信序原典考據
+          </p>
         </div>
       </div>
 
       <!-- 視角切換器與字級調整 -->
-      <div class="flex items-center space-x-2 md:space-x-4">
+      <div class="flex items-center space-x-2 md:space-x-3">
         
-        <!-- 視角切換：大眾入門 / 經藏圖典 -->
-        <nav class="flex bg-mutedbg p-1 rounded-lg border border-bordercolor text-xs md:text-sm font-medium">
-          <button id="nav-btn-intro" onclick="switchView('intro')" class="nav-toggle-btn active px-3 py-1.5 rounded-md">
-            📖 故事入門
+        <!-- 視角切換：故事入門 / 經藏圖典 -->
+        <nav class="flex bg-mutedbg p-1 rounded-lg border border-bordercolor text-xs md:text-sm font-serif">
+          <button id="nav-btn-intro" onclick="switchView('intro')" class="nav-toggle-btn active px-3.5 py-1.5 rounded-md flex items-center gap-1.5">
+            <span>📖</span>
+            <span>故事入門</span>
           </button>
-          <button id="nav-btn-app" onclick="switchView('app')" class="nav-toggle-btn px-3 py-1.5 rounded-md">
-            🗺️ 經藏圖典
+          <button id="nav-btn-app" onclick="switchView('app')" class="nav-toggle-btn px-3.5 py-1.5 rounded-md flex items-center gap-1.5">
+            <span>🗺️</span>
+            <span>經藏圖典</span>
           </button>
         </nav>
 
-        <!-- 字級縮放群組 -->
-        <div class="flex items-center bg-mutedbg rounded-lg border border-bordercolor p-0.5 text-xs">
+        <!-- 字級縮放群組 (專為長輩與法師設計) -->
+        <div class="flex items-center bg-mutedbg rounded-lg border border-bordercolor p-0.5 text-xs font-serif">
           <button id="font-decrease" onclick="adjustFontSize(-1)" class="w-8 h-7 flex items-center justify-center hover:bg-white rounded text-charcoal" title="縮小字體">A-</button>
-          <span id="font-size-indicator" onclick="adjustFontSize(0)" class="px-2 h-7 flex items-center justify-center font-medium cursor-pointer text-charcoal text-[11px]" title="重設字級">標準</span>
-          <button id="font-increase" onclick="adjustFontSize(1)" class="w-8 h-7 flex items-center justify-center hover:bg-white rounded font-bold text-ink" title="放大字體">A+</button>
+          <span id="font-size-indicator" onclick="adjustFontSize(0)" class="px-2.5 h-7 flex items-center justify-center font-medium cursor-pointer text-charcoal text-[12px]" title="重設字級">標準</span>
+          <button id="font-increase" onclick="adjustFontSize(1)" class="px-2.5 h-7 flex items-center justify-center hover:bg-white rounded font-bold text-ink" title="放大字體">A+ 大字</button>
         </div>
 
       </div>
@@ -186,23 +189,34 @@
   </header>
 
   <!-- ==================== 頁面一：大眾故事入門頁 (View: Intro) ==================== -->
-  <section id="view-intro" class="flex-1 w-full max-w-5xl mx-auto px-4 py-8 md:py-14">
+  <section id="view-intro" class="flex-1 w-full max-w-5xl mx-auto px-4 py-10 md:py-16">
     
-    <!-- 破題標題區 -->
-    <div class="text-center max-w-3xl mx-auto space-y-4 mb-12">
-      <span class="inline-block text-xs font-bold tracking-widest text-vermilion border border-vermilion/30 px-3.5 py-1 rounded-full bg-vermilion/5">
-        正法流布 · 歷劫證信 · 二千五百年跨時空約定
-      </span>
-      <h2 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-wide text-ink leading-tight">
-        這不是傳說神話，是走過人間的真實足跡
-      </h2>
-      <p class="text-base sm:text-lg text-charcoal leading-relaxed font-normal pt-2">
-        凡翻開任何一本漢傳佛經，開頭第一句必定是：<strong class="text-ink font-bold">「如是我聞」</strong>。<br class="hidden sm:inline">
-        這不是一句形式上的套話，而是釋迦牟尼佛滅度之際，侍者阿難向世間所有人許下的莊嚴誓言：<br class="hidden sm:inline">
-        <span class="inline-block mt-2 text-vermilion font-bold text-lg sm:text-xl border-b-2 border-gold/40 pb-0.5">
-          「這是我親耳在佛陀座下聽聞的，不增不減，字字有據。」
+    <!-- 破題標題區 (經典大氣的莊嚴提問與阿難保證) -->
+    <div class="text-center max-w-4xl mx-auto space-y-5 mb-14">
+      
+      <!-- 頂部膠囊徽標 -->
+      <div>
+        <span class="inline-block text-xs sm:text-sm font-medium tracking-widest text-[#8a6828] border border-[#e8dfcf] px-4 py-1.5 rounded-full bg-[#fcfbf9] shadow-2xs font-serif">
+          二千五百年前的承諾與印記
         </span>
-      </p>
+      </div>
+
+      <!-- 核心大標題 -->
+      <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-black tracking-wide text-ink leading-[1.25] font-serif pt-1">
+        為什麼每一部佛經的開頭，<br>
+        都是「如是我聞」？
+      </h2>
+
+      <!-- 核心副標與阿難承諾 -->
+      <div class="pt-2 space-y-1.5 font-serif text-charcoal">
+        <p class="text-base sm:text-lg md:text-xl font-normal">
+          那是多聞第一的阿難尊者向後世的保證：
+        </p>
+        <p class="text-lg sm:text-xl md:text-2xl font-bold text-vermilion tracking-wide">
+          「那一天，我就坐在台下，親耳聽見佛陀這樣說…」
+        </p>
+      </div>
+
     </div>
 
     <!-- ==================== 第一核心：解密經首密碼《佛地經論》四義與三大作用 (置頂優先) ==================== -->
@@ -212,10 +226,10 @@
           💡 為何不是寫「佛陀說」，而是「我親耳聽聞」？
         </span>
         <h3 class="text-2xl sm:text-3xl font-bold text-ink mt-3">
-          經首四字「如是我聞」的四重保證與定心力量
+          經首四字的四重保證與定心力量
         </h3>
         <p class="text-sm text-charcoal/80 mt-2 leading-relaxed">
-          唐代玄奘大師所譯《佛地經論》卷一指出：經首安立「如是我聞」，具備四重嚴謹見證，更能化解後世讀經者的一切狐疑，令正法長久住世。
+          唐代玄奘大師所譯《佛地經論》卷一深刻指出：經首安立「如是我聞」，具備四重嚴謹見證，更能化解後世讀經者的一切狐疑，令正法長久住世。
         </p>
       </div>
 
@@ -242,7 +256,7 @@
             </li>
             <li class="flex items-start">
               <span class="font-bold text-vermilion mr-2 shrink-0">· 依問答（字字有據）：</span>
-              <span>面對眾人審問「這是你自己想的？還是聽來的？」，阿難回答：「此我親從佛聞，非自造。」</span>
+              <span>面對眾人審問「這是你自己想的？還是聽來的？」，阿難坦蕩回答：「此我親從佛聞，非自私造。」</span>
             </li>
             <li class="flex items-start">
               <span class="font-bold text-vermilion mr-2 shrink-0">· 依許可（如您所託）：</span>
@@ -263,15 +277,15 @@
           <ul class="space-y-4 text-sm sm:text-base text-charcoal leading-relaxed">
             <li class="flex items-start">
               <span class="font-bold text-gold mr-2 shrink-0">1. 防偽求真（破除疑慮）：</span>
-              <span>每一部經皆源自佛陀世尊的宣說，杜絕外道或後世編造杜撰的訛傳。</span>
+              <span>確立每一部經皆源自大覺世尊的金口宣說，徹底杜絕外道杜撰或後世私意編造的訛傳。</span>
             </li>
             <li class="flex items-start">
               <span class="font-bold text-gold mr-2 shrink-0">2. 起信奉行（安心受持）：</span>
-              <span>讓所有聽聞與研學者心中生起堅定信仰，確知法源清淨真實，淨心信受奉行。</span>
+              <span>讓所有聽聞與研學者心中生起堅定信仰，確知法源清淨真實，能夠心無旁騖地「信受奉行」。</span>
             </li>
             <li class="flex items-start">
               <span class="font-bold text-gold mr-2 shrink-0">3. 傳承責任（師資無諍）：</span>
-              <span>結集者謙遜退讓、述而不作，體現佛法代代如實相承的弘法責任。</span>
+              <span>結集者謙遜退讓、述而不作，體現佛法「代代如實相承」的無諍之道與神聖責任。</span>
             </li>
           </ul>
           <div class="mt-4 pt-3.5 border-t border-bordercolor text-xs text-charcoal/80 italic bg-mutedbg/40 p-2.5 rounded-lg">
@@ -376,7 +390,7 @@
         <span>進入佛陀說法處所 · 開啟全地圖探索</span>
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
       </button>
-      <p class="text-xs text-charcoal/60 mt-3">收錄 8 個印度說法處所 與 1 出世間道場 · 支援字級放大與證信序原文比對</p>
+      <p class="text-xs text-charcoal/60 mt-3">收錄 8 個在印度說法處所 與 超越娑婆的處所 · 支援字級放大與證信序原文比對</p>
     </div>
 
   </section>
@@ -390,7 +404,7 @@
         <span class="text-xs font-bold tracking-widest text-charcoal/70 uppercase">
           說法地區分頁切換
         </span>
-        <span class="text-xs text-gold">共 8 個在印度說法處所 與 1 出世間道場</span>
+        <span class="text-xs text-gold">共 8 個佛法在古印度說法處所與超越娑婆的說法道場</span>
       </div>
 
       <!-- 頁籤滾動軌道 -->
@@ -407,8 +421,8 @@
         
         <div class="flex items-center justify-between mb-3 px-1">
           <div>
-            <h3 class="text-base font-bold text-ink">佛陀說法地理示意</h3>
-            <p class="text-[11px] text-charcoal/70">點擊圖中端點，即時切換至該說法處所宣說的經藏</p>
+            <h3 class="text-base font-bold text-ink">佛陀在印度說法地理示意</h3>
+            <p class="text-[11px] text-charcoal/70">點擊圖中端點，即時切換至該處所宣說的經藏</p>
           </div>
           <span class="text-[10px] bg-mutedbg text-charcoal border border-bordercolor px-2 py-0.5 rounded">
             恆河中下游 · 德干半島
@@ -578,8 +592,8 @@
   <footer class="bg-white border-t border-bordercolor mt-16 py-8 text-center text-xs text-charcoal/70 font-sans">
     <div class="max-w-7xl mx-auto px-4 space-y-2">
       <p class="font-serif text-sm text-ink font-bold">「願解如來真實義，流通正法利群生」</p>
-      <p>文獻依據：《大正新脩大藏經》、唐 玄奘譯《佛地經論》、天台智者大師五時八教分齊、唐 窺基大師三轉法輪疏</p>
-      <p class="text-charcoal/50 pt-2">© 2026 佛陀說法地理圖典 · 開放學術與教育弘法使用 (GitHub Pages 適用版本)</p>
+      <p>文獻依據：《大正新脩大藏經》、唐 玄奘譯《佛地經論》、天台智者大師五時八教、唐 窺基大師《大乘法苑義林章》</p>
+      <p class="text-charcoal/50 pt-2">製作者：Cathy©2026 如是我聞，佛陀說法地理圖典 · 開放學術與教育弘法使用 (GitHub Pages 適用版本)</p>
     </div>
   </footer>
 
@@ -848,7 +862,7 @@
         name: '出世間法界 · 天宮與報土道場',
         shortName: '出世間 天宮報土',
         subtag: '非物質時空座標 · 報身如來與法界真如宣說之境',
-        desc: '超越地球物質地理的清淨天界與如來法界宮殿。釋迦牟尼佛以大神通感應，於忉利天宮（須彌山頂帝釋所居）為報生母摩耶夫人大恩宣說《地藏經》，廣顯大孝救拔之本懷；並於超越凡夫心量的「最勝光曜七寶莊嚴如來法界宮」宣說《解深密經》，親自決擇空、有二邊，開顯三自性與唯識甚深義理，為大乘菩薩依報真如、起大行願的圓滿法界道場。',
+        desc: '超越我們這個娑婆的清淨天界與如來法界宮殿。釋迦牟尼佛以大神通感應，於忉利天宮（須彌山頂帝釋所居）為報生母摩耶夫人大恩宣說《地藏經》，廣顯大孝救拔之本懷；並於超越凡夫心量的「最勝光曜七寶莊嚴如來法界宮」宣說《解深密經》，親自決擇空、有二邊，開顯三自性與唯識甚深義理，為大乘菩薩依報真如、起大行願的圓滿法界道場。',
         sutras: [
           {
             title: '地藏菩薩本願經',
@@ -912,7 +926,7 @@
       }
     }
 
-    /* ==================== 3. 字級調整系統 ==================== */
+    /* ==================== 3. 字級調整系統 (支援長輩與法師閱讀) ==================== */
     function adjustFontSize(delta) {
       if (delta === 0) {
         currentScaleIndex = 0;
