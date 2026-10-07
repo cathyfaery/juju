@@ -152,7 +152,7 @@
         為什麼每一部佛經的開頭，<br>都是「如是我聞」？
       </h2>
       <div class="pt-2 space-y-1.5 font-serif text-charcoal">
-        <p class="text-base sm:text-lg md:text-xl font-normal">那是 多聞第一 的 阿難尊者 向後世的保證：</p>
+        <p class="text-base sm:text-lg md:text-xl font-normal">那是多聞第一的阿難尊者向後世的保證：</p>
         <p class="text-lg sm:text-xl md:text-2xl font-bold text-vermilion tracking-wide">
           「那一天，我就坐在台下，親耳聽見佛陀這樣說…」
         </p>
@@ -177,13 +177,13 @@
             <span class="w-8 h-8 rounded-full bg-vermilion/10 text-vermilion flex items-center justify-center font-bold text-sm shrink-0">四</span>
             <div>
               <h4 class="text-lg font-bold text-ink">四重嚴謹見證（四義詮釋）</h4>
-              <p class="text-xs text-charcoal/60">結集經典時，結集者面對大眾與歷史的交代</p>
+              <p class="text-xs text-charcoal/60">結集經典時，結集者面對大眾與歷史的直白交代</p>
             </div>
           </div>
           <ul class="space-y-4 text-sm sm:text-base text-charcoal leading-relaxed">
             <li class="flex items-start"><span class="font-bold text-vermilion mr-2 shrink-0">· 依譬喻（如佛所說）：</span><span>「我所陳述之法義，與佛陀親自開示的完全如一，如同水倒入水、印章蓋入印泥，毫釐不爽。」</span></li>
             <li class="flex items-start"><span class="font-bold text-vermilion mr-2 shrink-0">· 依教誨（應如是聽）：</span><span>「傳法者誠敬囑咐大眾：當初我如何從佛陀座前恭敬聽聞，大家現在也應當如實諦聽修習。」</span></li>
-            <li class="flex items-start"><span class="font-bold text-vermilion mr-2 shrink-0">· 依問答（字字有據）：</span><span>面對眾人問「這是你自己想的？還是聽來的？」，阿難回答：「此我親從佛聞，非自私造。」</span></li>
+            <li class="flex items-start"><span class="font-bold text-vermilion mr-2 shrink-0">· 依問答（字字有據）：</span><span>面對眾人審問「這是你自己想的？還是聽來的？」，阿難坦蕩回答：「此我親從佛聞，非自私造。」</span></li>
             <li class="flex items-start"><span class="font-bold text-vermilion mr-2 shrink-0">· 依許可（如您所託）：</span><span>承蒙僧團大德敦請代宣法音，結集者應諾：「我當如實把當年所親聞的一切，完整宣說。」</span></li>
           </ul>
         </div>
@@ -368,7 +368,7 @@
     <div class="max-w-7xl mx-auto px-4 space-y-2">
       <p class="font-serif text-sm text-ink font-bold">「願解如來真實義，流通正法利群生」</p>
       <p>文獻依據：《大正新脩大藏經》、唐 玄奘譯《佛地經論》、天台智者大師五時八教分齊、嚴格經首證信序原典考據 (全 24 部)</p>
-      <p class="text-charcoal/50 pt-2">© CATHY:2026 佛陀說法地理圖典 · 開放學術與教育弘法使用 (GitHub Pages 適用版本)</p>
+      <p class="text-charcoal/50 pt-2">© 2026 佛陀說法地理圖典 · 開放學術與教育弘法使用 (GitHub Pages 適用版本)</p>
     </div>
   </footer>
 
@@ -877,8 +877,7 @@
 
     function switchLanguage(e, targetUrl) {
       e.preventDefault();
-      const currentView = document.getElementById('view-intro').classList.contains('hidden') ? 'app' : 'intro';
-      window.location.href = `${targetUrl}?view=${currentView}#${currentPlaceId}`;
+      window.location.href = `${targetUrl}?view=intro`;
     }
 
     document.addEventListener('DOMContentLoaded', () => {
@@ -887,7 +886,8 @@
       const params = new URLSearchParams(window.location.search);
       const hash = window.location.hash.replace('#', '');
       if (params.get('view') === 'app') switchView('app');
-      if (hash && SACRED_PLACES[hash]) jumpToLocation(hash);
+      else switchView('intro');
+      if (hash && SACRED_PLACES[hash]) renderPlace(hash);
       else renderPlace('shravasti');
     });
   </script>
