@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>走入佛陀的說法現場：雜阿含經導讀與地理足跡圖典</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: 適合長輩閱讀的思源宋體與無襯線體 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['"Noto Serif TC"', 'Songti TC', 'serif'],
+            sans: ['"Noto Sans TC"', 'sans-serif'],
+          },
+          colors: {
+            vermilion: '#8c2d19',    // 硃砂赭紅
+            gold: '#9a7018',         // 泥金沉黃
+            amberlight: '#8a6828',   // 典雅茶金
+            ink: '#1c1b1a',          // 徽墨深黑
+            charcoal: '#383431',     // 沉香濃灰
+            softbg: '#fcfbf8',       // 宣紙暖白
+            cardbg: '#ffffff',       // 淨白卡片
+            borderlight: '#e7e2d9',  // 溫潤邊界
+            tagbg: '#f6f3ed',        // 淡雅米灰
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Noto Serif TC', serif;
+      background-color: #fbf9f5;
+      color: #1c1b1a;
+      -webkit-font-smoothing: antialiased;
+    }
+    .font-sans-tc { font-family: 'Noto Sans TC', sans-serif; }
+    
+    /* 捲軸美化 */
+    ::-webkit-scrollbar { width: 7px; height: 7px; }
+    ::-webkit-scrollbar-track { background: #f1f1f1; }
+    ::-webkit-scrollbar-thumb { background: #d0c8b9; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #9a7018; }
+
+    /* 地圖點位互動動態：徹底使用原生 r 與 stroke，絕不用 transform 避免坐標漂移 */
+    .map-node { cursor: pointer; }
+    .map-node circle.core {
+      transition: r 0.2s ease, fill 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease;
+    }
+    .map-node circle.halo {
+      transition: r 0.2s ease, opacity 0.2s ease, stroke 0.2s ease, stroke-width 0.2s ease, fill 0.2s ease;
+    }
+    .map-node text {
+      transition: fill 0.2s ease, font-weight 0.2s ease;
+    }
+
+    .map-node:hover circle.core {
+      fill: #8c2d19;
+      r: 8px;
+    }
+    .map-node:hover circle.halo {
+      opacity: 0.75;
+      stroke: #8c2d19;
+    }
+    .map-node:hover text {
+      fill: #8c2d19;
+    }
+
+    .map-node.active circle.core {
+      fill: #8c2d19 !important;
+      r: 8.5px !important;
+      stroke: #fcd34d !important;
+      stroke-width: 3.5px !important;
+      filter: drop-shadow(0 0 8px rgba(212,163,56,0.95));
+    }
+    .map-node.active circle.halo {
+      stroke: #9a7018 !important;
+      stroke-width: 2.2px !important;
+      opacity: 0.95 !important;
+      fill: rgba(212,163,56,0.22) !important;
+      r: 18px !important;
+    }
+    .map-node.active text {
+      fill: #8c2d19 !important;
+      font-weight: 900 !important;
+    }
+
+    /* 法義分類按鈕樣式 */
+    .theme-tab-btn {
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .theme-tab-btn.active {
+      background-color: #8c2d19 !important;
+      color: #ffffff !important;
+      border-color: #8c2d19 !important;
+      box-shadow: 0 4px 12px rgba(140, 45, 25, 0.25);
+    }
+    .theme-tab-btn.active .tab-icon { filter: brightness(2); }
+    .theme-tab-btn.active .tab-sub { color: #fde8e4 !important; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-softbg text-ink">
+
+  <!-- ==================== 頂部導覽列與無障礙字級切換 ==================== -->
+  <header class="sticky top-0 z-50 bg-[#fbf9f5]/95 backdrop-blur-md border-b border-borderlight shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-y-3">
+      <!-- 品牌與副標 -->
+      <div class="flex items-center space-x-3.5 cursor-pointer" onclick="resetToOverview()">
+        <div class="w-11 h-11 rounded-full bg-vermilion text-white flex items-center justify-center font-bold text-xl shadow-sm select-none ring-2 ring-gold/40 shrink-0">
+          阿
+        </div>
+        <div>
+          <h1 class="text-xl sm:text-2xl md:text-[25px] font-black tracking-wide text-ink flex items-center gap-2">
+            走入佛陀的說法現場
+            <span class="text-xs font-semibold text-amberlight border border-gold/40 px-2 py-0.5 rounded tracking-widest hidden md:inline font-sans-tc uppercase">
+              雜阿含經導讀與地理足跡
+            </span>
+          </h1>
+          <p class="text-xs sm:text-sm text-charcoal/80 tracking-wide font-normal mt-0.5 font-sans-tc">
+            以法義為綱 · 空間為境 · 時間為引 ｜ 體會 2,500 年前人間佛陀的對話智慧
+          </p>
+        </div>
+      </div>
+
+      <!-- 右側：字級調整與快捷跳轉 -->
+      <div class="flex items-center space-x-3 font-sans-tc">
+        <!-- 閱讀字級縮放 (為長輩貼心設計) -->
+        <div class="flex items-center bg-tagbg rounded-xl border border-borderlight p-1 text-xs">
+          <span class="text-charcoal/60 px-2 text-[11px] font-medium hidden sm:inline">字體大小：</span>
+          <button onclick="changeFontSize(-1)" class="w-8 h-8 flex items-center justify-center hover:bg-white rounded-lg text-charcoal font-medium" title="縮小字體">A-</button>
+          <span id="font-level-text" onclick="changeFontSize(0)" class="px-2.5 h-8 flex items-center justify-center font-bold cursor-pointer text-vermilion text-xs bg-white rounded-lg shadow-2xs">大字 (推薦)</span>
+          <button onclick="changeFontSize(1)" class="w-8 h-8 flex items-center justify-center hover:bg-white rounded-lg text-ink font-bold" title="放大字體">A+</button>
+        </div>
+
+        <button onclick="scrollToSutraList()" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-vermilion/10 text-vermilion hover:bg-vermilion hover:text-white transition-all text-xs font-bold border border-vermilion/20">
+          <span>📜</span><span>快速閱覽經文</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 頁首導引：走進《雜阿含經》核心理念 ==================== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
+    <div class="bg-cardbg rounded-3xl border border-borderlight p-6 sm:p-8 md:p-10 shadow-xs relative overflow-hidden">
+      <div class="max-w-4xl space-y-6">
+        <div class="inline-flex items-center gap-2 text-xs font-bold text-amberlight border border-[#e4dccf] px-3.5 py-1.5 rounded-full bg-[#fdfcf9]">
+          <span>🌿</span><span>給現代大眾與長者的溫和入門指南</span>
+        </div>
+        
+        <div>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-black text-ink leading-[1.3] tracking-wide mb-6">
+            走進《雜阿含經》
+          </h2>
+          
+          <!-- 人類創作者手寫溫度導讀 -->
+          <div class="space-y-4 text-base sm:text-lg text-charcoal/90 leading-[1.85] font-normal border-l-2 border-gold/40 pl-5 sm:pl-6 my-6 bg-softbg/60 py-3 rounded-r-2xl">
+            <p>
+              很多人初次接觸《雜阿含經》，常被經名裡的「雜」字勸退，以為只是一些零碎雜亂的傳說小品。其實「雜」是古代的翻譯習慣，原名意為「相應」，指的是把同一類身心課題的對話與引導，條理清晰地整理在一起。它是現存文獻中最接近佛陀原本話語的一部經典。若說後世發展出的各宗各派是龐大深邃的思想體系，那麼這部經所保留的，就是這一切最原初的起點，讓我們看清佛法最初到底在面對什麼、解決什麼。
+            </p>
+            <p>
+              全經收錄的一千三百多篇短篇記錄，讀起來就是一部穿梭在古印度泥土路上的生活紀實。佛陀弘法四十五年，每天都在真實的聚落與林間走動。有人因親人驟逝悲痛欲絕，有人因身體衰老多病而惶恐，有農夫質疑出家人為何不親自耕作，也有平民在人際是非中身心俱疲。面對這些具體的困惑與不安，佛陀總是善巧運用智慧，一步步帶著對方回到當下的呼吸與感受，看清念頭的起伏變化，讓人自然鬆解那些卡在心底的重擔。
+            </p>
+            <p>
+              這部經每篇約只有短短兩三百字，樸素而直截。整理這個圖典的初衷，也是希望能把這些文字從厚重的藏經閣裡請出來，還原到當年的微風、樹蔭與河畔邊。在步調倉促、容易心力交瘁的日常裡，哪怕只是隨機讀上一小段，也能感受到那份清涼安頓的沉靜力量。
+            </p>
+          </div>
+        </div>
+
+        <p class="text-sm sm:text-base text-charcoal/80 font-sans-tc pt-1">
+          為了讓大家能輕鬆走進這段真實的生活紀實，我們整理出三大探索線索：
+        </p>
+
+        <!-- 三維引導特色標籤 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5 pt-1 font-sans-tc text-xs sm:text-sm">
+          <div class="p-3.5 rounded-2xl bg-tagbg/80 border border-borderlight flex items-start gap-2.5">
+            <span class="text-xl">💡</span>
+            <div>
+              <strong class="text-ink font-bold block mb-0.5">以法義為綱</strong>
+              <span class="text-charcoal/70 text-xs leading-normal">整理五陰、六入處、因緣、道品等實用修行核心。</span>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-tagbg/80 border border-borderlight flex items-start gap-2.5">
+            <span class="text-xl">🗺️</span>
+            <div>
+              <strong class="text-ink font-bold block mb-0.5">以空間為境</strong>
+              <span class="text-charcoal/70 text-xs leading-normal">祇園精舍、竹林精舍與恆河村落，重現歷史座標。</span>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-tagbg/80 border border-borderlight flex items-start gap-2.5">
+            <span class="text-xl">⏳</span>
+            <div>
+              <strong class="text-ink font-bold block mb-0.5">以時間為引</strong>
+              <span class="text-charcoal/70 text-xs leading-normal">標記成道未久、初轉法輪至最後入滅的里程印記。</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 主系統架構：法義分類 ＋ 互動地圖 ＋ 精選經文 ==================== -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex-1 w-full space-y-8">
+    
+    <!-- 1. 法義分類選擇器（綱領） -->
+    <section>
+      <div class="flex items-center justify-between mb-3 px-1">
+        <h3 class="text-base sm:text-lg font-bold text-ink flex items-center gap-2">
+          <span>第一步：選擇您想瞭解的人生法門</span>
+          <span class="text-xs font-normal text-charcoal/60 hidden sm:inline">（點擊切換分類）</span>
+        </h3>
+        <span class="text-xs text-amberlight font-sans-tc">共 5 大修行綱領 · 12 部精選示範經篇</span>
+      </div>
+
+      <div id="theme-tabs" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+        <!-- 由 JavaScript 動態生成法義分類卡 -->
+      </div>
+    </section>
+
+    <!-- 2. 地理空間與經文展現區域 -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      
+      <!-- 左欄：水墨地理地圖（空間為境） -->
+      <div class="lg:col-span-5 bg-cardbg rounded-3xl border border-borderlight p-5 shadow-xs lg:sticky lg:top-24 space-y-4">
+        <div class="flex items-center justify-between px-1">
+          <div>
+            <h3 class="text-base font-bold text-ink">古代印度說法地理現場</h3>
+            <p class="text-xs text-charcoal/70 font-sans-tc mt-0.5">點擊圖中紅點，探索佛陀在此駐足說法的足跡</p>
+          </div>
+          <span id="current-location-pill" class="text-xs bg-tagbg text-vermilion border border-borderlight px-2.5 py-1 rounded-full font-bold font-sans-tc">
+            舍衛國 · 祇園
+          </span>
+        </div>
+
+        <!-- 恆河與北印度地圖 SVG -->
+        <div class="relative w-full aspect-[4/5] bg-[#faf8f4] rounded-2xl overflow-hidden border border-borderlight/90 p-2 flex items-center justify-center">
+          <svg viewBox="0 0 500 620" class="w-full h-full select-none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="riverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4a7c87" stop-opacity="0.85"/>
+                <stop offset="60%" stop-color="#2c5d63" stop-opacity="0.95"/>
+                <stop offset="100%" stop-color="#1f4b52" stop-opacity="0.9"/>
+              </linearGradient>
+            </defs>
+
+            <!-- 喜馬拉雅山脈象徵弧線 -->
+            <path d="M 80,100 Q 160,125 240,110 T 380,135 T 460,160" fill="none" stroke="#d8d2c7" stroke-width="14" stroke-linecap="round" opacity="0.6"/>
+            <text x="200" y="103" fill="#8c857b" font-size="11" letter-spacing="3" font-family="'Noto Serif TC', serif">喜 馬 拉 雅 山 脈</text>
+
+            <!-- 國界概略虛線 -->
+            <path d="M 60,150 C 100,170 120,230 125,300 C 130,360 160,430 220,520 C 235,540 245,545 255,520 C 310,420 360,330 375,270 C 390,220 420,210 440,200" 
+                  fill="none" stroke="#8a847a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="3,2"/>
+            <text x="80" y="145" fill="#a49e95" font-size="9" font-family="sans-serif">巴基斯坦方向</text>
+            <text x="255" y="140" fill="#a49e95" font-size="9" font-family="sans-serif">尼泊爾 (迦毘羅衛)</text>
+
+            <!-- 恆河主幹流 (Ganges River) -->
+            <path d="M 140,165 C 170,180 200,210 240,225 C 280,240 310,235 340,255 C 370,270 380,290 385,320" 
+                  fill="none" stroke="url(#riverGradient)" stroke-width="5" stroke-linecap="round"/>
+            <text x="215" y="215" fill="#2c5d63" font-size="11" font-weight="bold" font-family="'Noto Serif TC', serif">恆 河 (Ganges)</text>
+
+            <!-- 印度洋與斯里蘭卡 -->
+            <path d="M 265,530 C 285,530 295,555 285,575 C 275,590 255,580 255,560 C 255,540 260,530 265,530 Z" fill="#f2efe9" stroke="#7c766c" stroke-width="1.5"/>
+            <text x="245" y="595" fill="#524d45" font-size="10" font-weight="bold" font-family="sans-serif">印度洋</text>
+
+            <!-- 地圖端點容器 (由 JS 動態生成) -->
+            <g id="map-nodes-layer"></g>
+          </svg>
+        </div>
+
+        <!-- 地理場域說明小卡 -->
+        <div id="location-summary-card" class="bg-tagbg/70 border border-borderlight rounded-2xl p-4 text-xs sm:text-sm space-y-1.5">
+          <div class="flex items-center justify-between font-bold text-ink">
+            <span id="loc-name-display">舍衛國 · 祇樹給孤獨園</span>
+            <span id="loc-tag-display" class="text-[11px] bg-white text-gold border border-gold/30 px-2 py-0.5 rounded font-normal font-sans-tc">最長弘法中心</span>
+          </div>
+          <p id="loc-desc-display" class="text-charcoal/80 leading-relaxed font-sans-tc">
+            佛陀駐錫時間最長的聖地，度過 25 次雨季安居。此處僧眾雲集，佛陀在此系統性地開示五陰無常、感官防護與三十七道品。
+          </p>
+          <div class="pt-2 flex items-center justify-between border-t border-borderlight/60">
+            <span id="loc-sutra-hint" class="text-[11px] text-vermilion font-bold font-sans-tc">點擊此點已連動右側經文 ↓</span>
+            <button onclick="showAllSutras()" class="text-[11px] text-charcoal/60 hover:text-vermilion underline font-sans-tc">檢視全部經典</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右欄：經文卡片清單（法義 × 時間 × 實踐） -->
+      <div id="sutra-display-column" class="lg:col-span-7 space-y-6">
+        
+        <!-- 當前法義主題介紹卡 -->
+        <div class="bg-cardbg rounded-3xl border border-borderlight p-6 sm:p-7 shadow-xs">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-borderlight pb-3.5 mb-3.5">
+            <div>
+              <span id="theme-badge" class="text-xs font-bold tracking-widest text-vermilion uppercase font-sans-tc">法義之綱 · 修行引導</span>
+              <h2 id="theme-title" class="text-2xl sm:text-3xl font-black text-ink mt-0.5">五陰相應 · 認識身心真相</h2>
+            </div>
+            <div id="theme-sutra-count" class="text-xs bg-tagbg text-charcoal px-3 py-1.5 rounded-full border border-borderlight font-sans-tc font-medium">
+              收錄 1 部典範經篇
+            </div>
+          </div>
+          <p id="theme-description" class="text-sm sm:text-base text-charcoal leading-relaxed font-normal">
+            五陰（色、受、想、行、識）是構成我們「自我」的五個身心要素。佛陀教導我們：只要如實觀察它們隨時在變化、無法永久抓取，執著與恐懼就會自然止息。
+          </p>
+        </div>
+
+        <!-- 經文卡片列表容器 -->
+        <div id="sutra-card-list" class="space-y-6">
+          <!-- 由 JavaScript 動態注入 -->
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ==================== 頁尾：經典來源與致謝 ==================== -->
+  <footer class="bg-cardbg border-t border-borderlight mt-20 py-10 text-center text-xs text-charcoal/70 font-sans-tc">
+    <div class="max-w-7xl mx-auto px-4 space-y-3">
+      <div class="w-8 h-8 mx-auto rounded-full bg-tagbg flex items-center justify-center text-vermilion font-bold font-serif text-sm border border-borderlight">
+        聞
+      </div>
+      <p class="font-serif text-sm sm:text-base text-ink font-bold">
+        「此有故彼有，此生故彼生；此無故彼無，此滅故彼滅。」
+      </p>
+      <p class="text-xs text-charcoal/80 max-w-2xl mx-auto leading-relaxed">
+        典據來源：CBETA 中華電子佛典協會 · 大正新脩大藏經第 02 冊 No. 99《雜阿含經》（劉宋 求那跋陀羅 譯）<br>
+      </p>
+      <p class="text-charcoal/50 pt-2">© CATHY:2026 雜阿含經互動導讀圖典 · 免費弘法與學術研究開放專案</p>
+    </div>
+  </footer>
+
+  <script>
+    /* ==================== 1. 地圖坐標資料庫（嚴謹排版防重疊，圓心文字齊全） ==================== */
+    const MAP_LOCATIONS = {
+      shravasti: {
+        id: 'shravasti',
+        cx: 175, cy: 175, tx: 90, ty: 180,
+        name: '舍衛國 · 祇園',
+        fullName: '舍衛國 · 祇樹給孤獨園',
+        tag: '常住弘法重鎮',
+        desc: '佛陀駐錫最長（25雨安居）之處。僧伽規模龐大，佛陀在此有系統地教授五陰無常、六入處防護與三十七道品。'
+      },
+      kuru: {
+        id: 'kuru',
+        cx: 135, cy: 150, tx: 55, ty: 145,
+        name: '拘樓國 · 劍磨瑟曇',
+        fullName: '拘樓國 · 劍磨瑟曇聚落',
+        tag: '甚深大因緣法處',
+        desc: '民風質樸深思之地。佛陀在此向阿難告誡：「緣起甚深，不可輕言已知」，宣演大因緣法。'
+      },
+      kaushambi: {
+        id: 'kaushambi',
+        cx: 200, cy: 230, tx: 110, ty: 235,
+        name: '拘睒彌 · 瞿師羅園',
+        fullName: '拘睒彌國 · 瞿師羅園 (美音精舍)',
+        tag: '弟子論道與見法處',
+        desc: '美音長者所建精舍。尊者闡陀向阿難請益「斷見與常見」，阿難轉述佛陀「離於二邊說中道」之無我妙法。'
+      },
+      sarnath: {
+        id: 'sarnath',
+        cx: 235, cy: 250, tx: 150, ty: 255,
+        name: '波羅奈 · 鹿野苑',
+        fullName: '波羅奈 · 鹿野苑仙人住處',
+        tag: '初轉法輪聖域',
+        desc: '釋迦牟尼佛成道後行腳百里，為五比丘宣說四聖諦三轉十二行相之處，世間自此初具佛法僧三寶。'
+      },
+      kushinagar: {
+        id: 'kushinagar',
+        cx: 275, cy: 175, tx: 298, ty: 179,
+        name: '拘尸那羅 · 雙樹間',
+        fullName: '拘尸那竭國 · 巾幡林娑羅雙樹間',
+        tag: '最後教誡示寂處',
+        desc: '佛陀八十歲遊化至此，於雙樹間平靜示寂，留下「自依止、法依止、莫異依止」的永恆遺贈。'
+      },
+      vaishali: {
+        id: 'vaishali',
+        cx: 285, cy: 220, tx: 308, ty: 224,
+        name: '毘舍離 · 獼猴池側',
+        fullName: '毘舍離 · 獼猴池側重閣講堂',
+        tag: '禪定三摩提指導處',
+        desc: '跋耆共和之邦，佛陀常住重閣講堂，指導修行禪定三摩提正受，並與各方居士隨機對話。'
+      },
+      uruvela: {
+        id: 'uruvela',
+        cx: 285, cy: 265, tx: 180, ty: 270,
+        name: '優樓頻螺 · 菩提樹',
+        fullName: '摩竭提國 · 優樓頻螺聚落尼連禪河側菩提樹下',
+        tag: '成佛未久初證處',
+        desc: '尼連禪河畔，佛陀夜睹明星徹底悟得生命的緣起實相，成無上正覺。成道未久於此獨靜思惟逆順因緣。'
+      },
+      rajgir_bamboo: {
+        id: 'rajgir_bamboo',
+        cx: 315, cy: 295, tx: 225, ty: 305,
+        name: '王舍城 · 竹林精舍',
+        fullName: '王舍城 · 迦蘭陀竹園 (竹林精舍)',
+        tag: '因緣相應根本道場',
+        desc: '頻婆娑羅王供養之首座正式寺院。佛陀在此向舍利弗等大弟子宣說「因緣法與緣生法」，開示緣起甚深大意。'
+      }
+    };
+
+    /* ==================== 2. 全域經文典籍庫 ==================== */
+    const ALL_SUTRAS = [
+      {
+        id: 'sutra-1',
+        themeId: 'khandha',
+        number: '雜阿含經 卷一 第 1 經',
+        cbeta: 'T02n0099_p0001a04',
+        theme: '五陰相應 · 開經總綱',
+        timeTag: '常規結夏安居',
+        locId: 'shravasti',
+        locName: '舍衛國 · 祇樹給孤獨園',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">舍衛國祇樹給孤獨園</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，世尊告諸比丘：「當觀色無常。如是觀者，則為正觀；正觀者，則生厭離；厭離者，喜貪盡；喜貪盡者，說心解脫。如是觀受、想、行、識無常。如是觀者，則為正觀；正觀者，則生厭離；厭離者，喜貪盡；喜貪盡者，說心解脫。」`,
+        meaning: '「色身」就像潮水一般瞬息萬變，我們的快樂悲傷（受）、念頭（想、行）與意識也同樣在剎那變化。當我們承認這一切都在流動，不再緊抓不放時，牽掛自然止息，這就是「心解脫」。',
+        dailyTakeaway: '🌱 【日常法味】：當身體老化、心情浮躁時，提醒自己：「這只是五陰的變化，並非永久的我」，心就會重獲平靜。'
+      },
+      {
+        id: 'sutra-1069',
+        themeId: 'nidana',
+        number: '雜阿含經 卷三十八 第 1069 經',
+        cbeta: 'T02n0099_p0278a10',
+        theme: '因緣相應 · 菩提樹下初成道',
+        timeTag: '成道未久 · 逆順思惟緣起',
+        locId: 'uruvela',
+        locName: '摩竭提國 · 優樓頻螺聚落尼連禪河側菩提樹下',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">摩竭提國優樓頻螺聚落尼連禪河側菩提樹下</strong>，成佛未久。<br><br><span class="font-bold text-vermilion">爾時</span>，世尊獨靜思惟，作是念：「我審思惟：世間眾生，極為困苦。生老病死，受無量苦，而不知出離。云何有此生老病死？緣何而有？即審思惟：有『生』故有老病死；緣『生』故有老病死。如是乃至緣『無明』故有行……齊識而還，不能過彼。」`,
+        meaning: '佛陀成佛之後，在菩提樹下靜坐，重溫他破除生死迷霧的關鍵思考：眾生受苦不是命中註定，而是像連鎖骨牌一樣，因為無明盲目而採取行動，才一路引發老病死。只要逆向解開這條鏈條，痛苦就徹底斷滅。',
+        dailyTakeaway: '🌱 【日常法味】：在遇到人生困境時，學佛陀靜下心來抽絲剝繭：「這個煩惱是由什麼引發的？」找到關鍵環節，問題自然有解。'
+      },
+      {
+        id: 'sutra-211',
+        themeId: 'ayatana',
+        number: '雜阿含經 卷八 第 211 經',
+        cbeta: 'T02n0099_p0053a15',
+        theme: '六入處相應 · 守護六根',
+        timeTag: '雨安居教誡',
+        locId: 'shravasti',
+        locName: '舍衛國 · 祇樹給孤獨園',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">舍衛國祇樹給孤獨園</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，世尊告諸比丘：「善護其身，守護根門。眼見色已，莫取其相，莫取隨形。若於眼根不修律儀者，則生貪憂惡不善法。耳聞聲、鼻嗅香、舌嘗味、身知觸、意識法，亦當如是守護。」`,
+        meaning: '眼睛看見美麗或醜陋的事物時，單純地看就好，不要在心裡緊接著編造貪愛或厭惡的情結。守護好感官大門，外界的紛紛擾擾就不會演變成內心的煩惱風暴。',
+        dailyTakeaway: '🌱 【日常法味】：在資訊爆炸、滑手機的時代，看見刺激消息時保持「單純知曉，不隨之起舞」，就是守護根門。'
+      },
+      {
+        id: 'sutra-250',
+        themeId: 'ayatana',
+        number: '雜阿含經 卷九 第 250 經',
+        cbeta: 'T02n0099_p0059b12',
+        theme: '六入處相應 · 兩頭黑白牛之結',
+        timeTag: '尊者論法',
+        locId: 'shravasti',
+        locName: '舍衛國 · 祇樹給孤獨園',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，尊者舍利弗、尊者摩訶拘絺羅在<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">舍衛國祇樹給孤獨園</strong>。<br><br><span class="font-bold text-vermilion">時</span>，摩訶拘絺羅問舍利弗言：「為眼繫色？為色繫眼？」舍利弗答言：「非眼繫色，非色繫眼，中間欲貪，是其繫也。譬如黑牛與白牛共軛，非黑牛繫白牛，非白牛繫黑牛，軛與牽繩，是其繫也。」`,
+        meaning: '外面的世界（色）和我們的眼睛（眼）本身都沒有過錯，真正的枷鎖是繫在兩者中間的「貪念」。好比黑牛與白牛套在一起犁田，並非黑牛抓著白牛，而是中間那條繩軛在牽扯。',
+        dailyTakeaway: '🌱 【日常法味】：不需逃避美好的生活環境，只要解開心中那條「非得到不可」的牽繩，當下即得自在。'
+      },
+      {
+        id: 'sutra-296',
+        themeId: 'nidana',
+        number: '雜阿含經 卷十二 第 296 經',
+        cbeta: 'T02n0099_p0084b13',
+        theme: '因緣相應 · 因緣法與緣生法',
+        timeTag: '僧團初建時期',
+        locId: 'rajgir_bamboo',
+        locName: '王舍城 · 迦蘭陀竹園 (竹林精舍)',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">王舍城迦蘭陀竹園</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，世尊告諸比丘：「我今當說因緣法及緣生法。云何為因緣法？謂此有故彼有，謂緣無明行，緣行識，乃至如是如是純大苦聚集。云何為緣生法？謂無明、行、識、名色、六入處、觸、受、愛、取、有、生、老病死，若佛出世、若未出世，此法常住、法住法界。」`,
+        meaning: '佛陀在竹林精舍奠定佛教哲學的基石：無論佛陀是否出世，宇宙的因果法則永恆如是——「因為具備了這個條件，才引發那個結果」。煩惱是條件生的，因此只要消除其條件，痛苦必然止息。',
+        dailyTakeaway: '🌱 【日常法味】：想改變結果，就去調整因緣條件。懂得緣起，面對生活中的不如意便有了清晰的解決方案。'
+      },
+      {
+        id: 'sutra-293',
+        themeId: 'nidana',
+        number: '雜阿含經 卷十二 第 293 經',
+        cbeta: 'T02n0099_p0083c07',
+        theme: '因緣相應 · 深奧的大因緣法',
+        timeTag: '北方遊化',
+        locId: 'kuru',
+        locName: '拘樓國 · 劍磨瑟曇聚落',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">拘樓國劍磨瑟曇聚落</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，阿難白佛言：「世尊！奇哉！世尊！此甚深緣起，極難通達，而我今日觀察，如合手掌，極為易了。」佛告阿難：「莫作是說！緣起法極為甚深！以不能如實通達此法故，眾生如縷結錯繆，覆障輪迴，不離惡趣。」`,
+        meaning: '阿難尊者曾天真地以為緣起法很容易明白，佛陀慈悲糾正他：「千萬不要這麼想！緣起法則無比奧妙，正是因為眾生未能真正悟透它，心靈才會像糾纏不清的絲線般團團轉，深陷苦惱。」',
+        dailyTakeaway: '🌱 【日常法味】：保持謙虛與探索心，不要輕易為人事因緣下過於武斷的結論，深刻理解背後的千絲萬縷。'
+      },
+      {
+        id: 'sutra-379',
+        themeId: 'magga',
+        number: '雜阿含經 卷十五 第 379 經',
+        cbeta: 'T02n0099_p0103c22',
+        theme: '道品相應 · 鹿野苑初轉法輪',
+        timeTag: '初轉法輪 · 聖教開端',
+        locId: 'sarnath',
+        locName: '波羅奈 · 鹿野苑仙人住處',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">波羅奈鹿野苑中仙人住處</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，世尊告五比丘：「此苦聖諦，於所聞法如理作意，能生眼、智、明、覺。諸比丘！我於此苦聖諦，未生眼、智、明、覺者，未得成阿耨多羅三藐三菩提。乃至復審思惟苦集聖諦、苦滅聖諦、苦滅道跡聖諦，於所聞法如理作意，能生眼、智、明、覺。說此法時，尊者憍陳如及八萬諸天，遠塵離垢，得法眼淨。」`,
+        meaning: '佛陀成道後最初說法：世間有苦（苦），苦有起因（集），苦能徹底消除（滅），並且有一條通往清涼的道路（道·八正道）。認清真相，智慧與眼界自然豁然開朗。',
+        dailyTakeaway: '🌱 【日常法味】：四聖諦是解決一切困境的正道：面對問題 ➔ 找出原因 ➔ 確信能解決 ➔ 採取正確有效的方法行動。'
+      },
+      {
+        id: 'sutra-627',
+        themeId: 'magga',
+        number: '雜阿含經 卷二十四 第 627 經',
+        cbeta: 'T02n0099_p0175b05',
+        theme: '道品相應 · 雙樹間之自依止法',
+        timeTag: '最後遊化 · 入般涅槃',
+        locId: 'kushinagar',
+        locName: '拘尸那竭國 · 巾幡林娑羅雙樹間',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛在<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">拘尸那竭國巾幡林娑羅雙樹間</strong>，臨般涅槃。<br><br><span class="font-bold text-vermilion">爾時</span>，世尊告阿難：「當自歸依，莫他歸依；當法歸依，莫他歸依。云何比丘自歸依、法歸依？謂比丘內身身觀念住，精勤方便，正智正念，調伏世間貪憂；外身、內外身，受、心、法觀念住，亦如是說。是名比丘自歸依、法歸依。」`,
+        meaning: '在最後的入滅時刻，佛陀囑咐悲傷的弟子們：「以自己為依靠，以真理正法為依靠，不要外求於他人。」而這份依止的具體實踐，就是時刻安住在自己的身心呼吸引導中（四念處）。',
+        dailyTakeaway: '🌱 【日常法味】：外界紛擾不可靠時，回到當下的呼吸與身心感知，心靈便有了一座永不傾頹的避風港。'
+      },
+      {
+        id: 'sutra-110',
+        themeId: 'magga',
+        number: '雜阿含經 卷五 第 110 經',
+        cbeta: 'T02n0099_p0035a09',
+        theme: '道品相應 · 獼猴池側勸修三摩提',
+        timeTag: '跋耆國常規遊化',
+        locId: 'vaishali',
+        locName: '毘舍離 · 獼猴池側重閣講堂',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">毘舍離獼猴池側重閣講堂</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，世尊告諸比丘：「汝等當修三摩提！得三摩提者，能如實知。云何如實知？謂如實知色、色集、色滅、色味、色患、色離；如實知受、想、行、識……是故比丘，當勤方便，修三摩提。」`,
+        meaning: '佛陀在充滿生機的獼猴池畔，叮囑弟子們一定要練習靜心專注（三摩提/正定）。唯有心靈平靜澄澈如無波池水，才能如實看清事物的真相與變化。',
+        dailyTakeaway: '🌱 【日常法味】：每天給自己十分鐘靜坐或深呼吸，心沉靜下來，智慧與明晰的判斷力便會自然浮現。'
+      },
+      {
+        id: 'sutra-107',
+        themeId: 'nidana',
+        number: '雜阿含經 卷五 第 107 經',
+        cbeta: 'T02n0099_p0032b13',
+        theme: '因緣相應 · 闡陀請益阿難見法',
+        timeTag: '弟子對話 · 僧團弘傳',
+        locId: 'kaushambi',
+        locName: '拘睒彌國 · 瞿師羅園',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">拘睒彌國瞿師羅園</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，長老闡陀住婆羅奈鹿野苑仙人住處，心懷疑惑，往詣尊者阿難所。阿難告闡陀言：「我親從佛聞，佛告迦旃延：『世人顛倒，依於二邊，若有、若無。世人取諸境界，心便計著。迦旃延！如實正觀世間集者，則不生世間無想；如實正觀世間滅者，則不生世間有想。離於二邊，說於中道。』」闡陀聞已，歡喜得法眼淨。`,
+        meaning: '闡陀長者困惑於常見與斷見，阿難轉述佛陀最核心的教示：世人常執著「世間一切是永遠存在的」或「人死如燈滅什麼都沒有」。如實觀察因緣生滅的人，遠離這兩種極端，安住於清涼的中道。',
+        dailyTakeaway: '🌱 【日常法味】：不要落入「非黑即白」或「要麼完美要麼毀滅」的極端思維，生命是在因緣變化中流動前進的。'
+      },
+      {
+        id: 'sutra-98',
+        themeId: 'people',
+        number: '雜阿含經 卷四 第 98 經',
+        cbeta: 'T02n0099_p0027a05',
+        theme: '八眾相應 · 耕田婆羅門喻',
+        timeTag: '農村托缽遊行',
+        locId: 'rajgir_bamboo',
+        locName: '摩竭提國 · 南山婆羅門聚落 (王舍城郊)',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">摩竭提國南山婆羅門聚落</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，耕田婆羅門見佛乞食，白佛言：「沙門！我自耕自種，以充飲食；汝今沙門，何不自耕自種而求食耶？」佛告婆羅門：「我亦耕亦種，以充飲食。信心為種子，苦行即時雨，智慧為軛犁，慚愧為牽繩，正念自守護，精進為載車，得不退轉處，如是耕種者，能脫一切苦。」`,
+        meaning: '農夫譏諷佛陀不從事農作只會乞食，佛陀笑著回答：「我也天天在耕種：信心是種子，智慧是犁耙，精進是耕牛。這樣的耕耘，收穫的是超越一切生死悲傷的解脫之果。」農夫聽後深受震撼，欣然皈依。',
+        dailyTakeaway: '🌱 【日常法味】：每個人都在心靈的田地裡耕作。今天我們播下善念與理解的種子，未來就會結出祥和喜悅的果實。'
+      },
+      {
+        id: 'sutra-855',
+        themeId: 'people',
+        number: '雜阿含經 卷三十 第 855 經',
+        cbeta: 'T02n0099_p0217c09',
+        theme: '八眾相應 · 釋摩訶男之死生之問',
+        timeTag: '返鄉探親',
+        locId: 'shravasti',
+        locName: '迦毘羅衛國 · 尼拘律園',
+        oq: `<span class="font-bold text-amber-900 bg-amber-50/70 px-1 py-0.5 rounded">如是我聞</span>：一時，佛住<strong class="text-ink font-bold border-b border-vermilion/40 pb-0.5">迦毘羅衛國尼拘律園中</strong>。<br><br><span class="font-bold text-vermilion">爾時</span>，釋摩訶男來詣佛所，稽首佛足，白佛言：「世尊！此迦毘羅衛國，人民熾盛，車馬填塞。我每入城，恐卒遇狂象狂馬衝觸，若我爾時命終，當生何處？」佛告摩訶男：「莫恐！莫怖！汝命終時，必無惡趣。譬如大樹，常向東傾，若被截斷，當墮何處？」摩訶男答言：「隨傾處墮。」佛言：「汝亦如是，長夜修習信心、持戒、多聞、布施、智慧，命終之時，自然昇進善處。」`,
+        meaning: '親族長者摩訶男擔憂自己在街頭因意外暴卒，慌亂中會墮入惡道。佛陀安慰他：就像一棵大樹平時就往東邊傾斜生長，樹倒時自然會倒向東方。平時內心充滿善念慈悲的人，臨終心識自然會順應善業向上提升，無須無謂恐慌。',
+        dailyTakeaway: '🌱 【日常法味】：臨終的安心來自於日常的修養。只要平時心存善意、寬容待人，生死關頭自然坦然無懼。'
+      }
+    ];
+
+    /* ==================== 3. 法義綱領定義 ==================== */
+    const DHARMA_THEMES = {
+      khandha: {
+        id: 'khandha',
+        title: '五陰相應 · 認識身心真相',
+        shortTitle: '五陰相應',
+        icon: '🪷',
+        subtitle: '不執著身心，心就解脫',
+        desc: '五陰（色身、感受、想法、意念行為、意識）是構成我們的要素。佛陀教導我們：它們時刻在變化（無常），抓不住也非永恆的自己（無我）。如實看清這點，心就能徹底放鬆解脫。',
+        defaultLoc: 'shravasti'
+      },
+      ayatana: {
+        id: 'ayatana',
+        title: '六入處相應 · 感官大門的守護',
+        shortTitle: '六入處相應',
+        icon: '👁️',
+        subtitle: '守好眼耳鼻舌身意六扇門',
+        desc: '我們的眼、耳、鼻、舌、身、意，如同六扇通往外界的大門。若任由貪戀與嫌惡隨意出入，煩惱便源源不絕。佛陀教導我們如何做感官的「守門人」，平靜享受生活而不被欲望役使。',
+        defaultLoc: 'shravasti'
+      },
+      nidana: {
+        id: 'nidana',
+        title: '因緣相應 · 萬事萬物的緣起法則',
+        shortTitle: '因緣相應',
+        icon: '☸️',
+        subtitle: '此有故彼有，解開生命之結',
+        desc: '世間沒有孤立存在的事物，一切都是「條件聚合而生，條件散盡而滅」。明白了十二因緣，我們就不會為失敗怨天尤人，也不會為順境傲慢自滿，因為萬法皆是因緣。',
+        defaultLoc: 'rajgir_bamboo'
+      },
+      magga: {
+        id: 'magga',
+        title: '道品相應 · 步步踏實的實修次第',
+        shortTitle: '道品相應',
+        icon: '🚶',
+        subtitle: '四念處與八正道，腳踏實地的安祥',
+        desc: '佛陀不尚空談哲學，而是提供了一套步步可行的修心方法：四念處（專注身受心法）、七覺支與八正道。只要每天呼吸行止間帶有一分覺知，煩惱便在此處落定。',
+        defaultLoc: 'sarnath'
+      },
+      people: {
+        id: 'people',
+        title: '八眾相應 · 人間隨機的慈悲對話',
+        shortTitle: '八眾相應',
+        icon: '🤝',
+        subtitle: '國王、農夫、外道與平民的解惑對談',
+        desc: '佛陀從不端坐在神壇之上。他與耕作的農夫談耕田，與統治者談仁政，安慰哭泣的喪子母親，解答外道學者的困惑。這是一部活生生的古代生活智慧錄。',
+        defaultLoc: 'rajgir_bamboo'
+      }
+    };
+
+    /* ==================== 4. 系統狀態管理與雙向連動 ==================== */
+    let currentFilterMode = 'theme'; // 'theme' | 'location' | 'all'
+    let currentThemeKey = 'khandha';
+    let currentActiveLoc = 'shravasti';
+    let currentFontSizeIdx = 1;
+    const fontScales = [1.0, 1.15, 1.30];
+    const fontLabels = ['標準', '大字 (推薦)', '特大字'];
+
+    function changeFontSize(delta) {
+      if (delta === 0) currentFontSizeIdx = 1;
+      else currentFontSizeIdx = Math.max(0, Math.min(fontScales.length - 1, currentFontSizeIdx + delta));
+      
+      document.documentElement.style.fontSize = `${fontScales[currentFontSizeIdx] * 16}px`;
+      const badge = document.getElementById('font-level-text');
+      if (badge) {
+        badge.textContent = fontLabels[currentFontSizeIdx];
+        badge.className = currentFontSizeIdx > 0 
+          ? "px-2.5 h-8 flex items-center justify-center font-bold cursor-pointer text-vermilion text-xs bg-white rounded-lg shadow-2xs border border-vermilion/30"
+          : "px-2.5 h-8 flex items-center justify-center font-medium cursor-pointer text-charcoal text-xs bg-white rounded-lg shadow-2xs";
+      }
+    }
+
+    function initMapNodes() {
+      const layer = document.getElementById('map-nodes-layer');
+      if (!layer) return;
+      layer.innerHTML = Object.keys(MAP_LOCATIONS).map(k => {
+        const item = MAP_LOCATIONS[k];
+        return `
+          <g id="map-point-${item.id}" class="map-node" onclick="selectLocationNode('${item.id}', true)">
+            <circle cx="${item.cx}" cy="${item.cy}" r="16" fill="none" stroke="#9a7018" stroke-width="1.2" class="halo" opacity="0.35"/>
+            <circle cx="${item.cx}" cy="${item.cy}" r="6.5" fill="#383431" stroke="#ffffff" stroke-width="2" class="core"/>
+            <text x="${item.tx}" y="${item.ty}" font-size="11" font-weight="bold" fill="#1c1b1a" font-family="'Noto Serif TC', serif">${item.name}</text>
+          </g>
+        `;
+      }).join('');
+    }
+
+    function initThemeTabs() {
+      const container = document.getElementById('theme-tabs');
+      if (!container) return;
+      container.innerHTML = Object.keys(DHARMA_THEMES).map(k => {
+        const item = DHARMA_THEMES[k];
+        const count = ALL_SUTRAS.filter(s => s.themeId === k).length;
+        return `
+          <button id="theme-btn-${k}" onclick="switchDharmaTheme('${k}')"
+            class="theme-tab-btn p-3.5 rounded-2xl border border-borderlight bg-cardbg text-left hover:border-gold hover:shadow-xs flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1.5">
+                <span class="text-xl tab-icon">${item.icon}</span>
+                <span class="text-[10px] bg-tagbg text-charcoal/70 px-2 py-0.5 rounded-full font-sans-tc font-medium">
+                  ${count} 篇示範
+                </span>
+              </div>
+              <h4 class="text-sm sm:text-base font-bold text-ink leading-snug">${item.shortTitle}</h4>
+            </div>
+            <p class="tab-sub text-xs text-charcoal/70 mt-1.5 line-clamp-1 font-sans-tc">${item.subtitle}</p>
+          </button>
+        `;
+      }).join('');
+    }
+
+    /* 切換法義主題模式 */
+    function switchDharmaTheme(themeKey) {
+      currentFilterMode = 'theme';
+      currentThemeKey = themeKey;
+      const theme = DHARMA_THEMES[themeKey];
+      if (!theme) return;
+
+      Object.keys(DHARMA_THEMES).forEach(k => {
+        const btn = document.getElementById(`theme-btn-${k}`);
+        if (btn) btn.classList.toggle('active', k === themeKey);
+      });
+
+      const matchedSutras = ALL_SUTRAS.filter(s => s.themeId === themeKey);
+
+      document.getElementById('theme-badge').textContent = '法義之綱 · 修行引導';
+      document.getElementById('theme-title').textContent = theme.title;
+      document.getElementById('theme-description').textContent = theme.desc;
+      document.getElementById('theme-sutra-count').textContent = `收錄 ${matchedSutras.length} 部典範經篇`;
+
+      renderSutraCards(matchedSutras);
+      updateMapHighlightOnly(theme.defaultLoc);
+    }
+
+    /* 點選地圖端點或經文處所：右側經文與地圖雙向連動 */
+    function selectLocationNode(locId, autoScroll = true) {
+      currentFilterMode = 'location';
+      currentActiveLoc = locId;
+      const loc = MAP_LOCATIONS[locId];
+      if (!loc) return;
+
+      // 清除法義按鈕高亮，凸顯目前是以「說法處所」為聚焦
+      Object.keys(DHARMA_THEMES).forEach(k => {
+        const btn = document.getElementById(`theme-btn-${k}`);
+        if (btn) btn.classList.remove('active');
+      });
+
+      // 更新地圖點位視覺狀態
+      updateMapHighlightOnly(locId);
+
+      // 篩選出所有在該地點說法的經篇
+      const matchedSutras = ALL_SUTRAS.filter(s => s.locId === locId);
+
+      // 同步更新右側經文刊頭資訊
+      document.getElementById('theme-badge').textContent = '說法現場連動聚焦';
+      document.getElementById('theme-title').textContent = `${loc.name} · 說法經篇實錄`;
+      document.getElementById('theme-description').textContent = `${loc.desc}（右側為佛陀在此聖地宣說的經典紀錄）`;
+      document.getElementById('theme-sutra-count').textContent = matchedSutras.length > 0 
+        ? `在此現場收錄 ${matchedSutras.length} 部經篇` 
+        : '此現場記載於阿含巡歷';
+
+      // 渲染對應地點的經篇
+      if (matchedSutras.length > 0) {
+        renderSutraCards(matchedSutras);
+      } else {
+        const container = document.getElementById('sutra-card-list');
+        if (container) {
+          container.innerHTML = `
+            <div class="p-8 bg-cardbg rounded-3xl border border-dashed border-borderlight text-center space-y-3 font-sans-tc">
+              <span class="text-3xl">🌿</span>
+              <h4 class="text-base font-bold text-ink">${loc.fullName}</h4>
+              <p class="text-xs text-charcoal/80 max-w-md mx-auto leading-relaxed">
+                佛陀遊化巡經此處。此處所之經篇暫未列入示範精選，您可以點擊上方其他法義分類，或點選鄰近的「舍衛國祇園」、「王舍城竹林」、「鹿野苑」、「優樓頻螺」查看經文原典。
+              </p>
+              <button onclick="showAllSutras()" class="px-4 py-2 bg-vermilion/10 text-vermilion rounded-xl text-xs font-bold hover:bg-vermilion hover:text-white transition-colors">
+                檢視全部 12 部示範經篇
+              </button>
+            </div>
+          `;
+        }
+      }
+
+      // 自動平滑滾動至經文檢視區（手機與平板上最貼心）
+      if (autoScroll) {
+        const target = document.getElementById('sutra-display-column');
+        if (target && window.innerWidth < 1024) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    }
+
+    /* 僅更新地圖亮點與左欄卡片，不干擾外部篩選 */
+    function updateMapHighlightOnly(locId) {
+      const loc = MAP_LOCATIONS[locId];
+      if (!loc) return;
+
+      document.querySelectorAll('.map-node').forEach(node => node.classList.remove('active'));
+      const activeNode = document.getElementById(`map-point-${locId}`);
+      if (activeNode) activeNode.classList.add('active');
+
+      const pill = document.getElementById('current-location-pill');
+      if (pill) pill.textContent = loc.name;
+
+      document.getElementById('loc-name-display').textContent = loc.fullName;
+      document.getElementById('loc-tag-display').textContent = loc.tag;
+      document.getElementById('loc-desc-display').textContent = loc.desc;
+    }
+
+    /* 顯示全數收錄的示範經篇 */
+    function showAllSutras() {
+      currentFilterMode = 'all';
+      Object.keys(DHARMA_THEMES).forEach(k => {
+        const btn = document.getElementById(`theme-btn-${k}`);
+        if (btn) btn.classList.remove('active');
+      });
+
+      document.getElementById('theme-badge').textContent = '全景閱覽 · 雜阿含經典彙整';
+      document.getElementById('theme-title').textContent = '走入佛陀說法現場 · 精選經藏全覽';
+      document.getElementById('theme-description').textContent = '以下收錄本圖典整理之全部 12 部具代表性《雜阿含經》。點擊每部經文的「說法處所」，地圖將即時為您定位其歷史位置。';
+      document.getElementById('theme-sutra-count').textContent = `共 ${ALL_SUTRAS.length} 部典範經篇`;
+
+      renderSutraCards(ALL_SUTRAS);
+    }
+
+    /* 渲染經文卡片清單 */
+    function renderSutraCards(sutras) {
+      const container = document.getElementById('sutra-card-list');
+      if (!container) return;
+
+      container.innerHTML = sutras.map((s, idx) => `
+        <article class="bg-cardbg rounded-3xl border border-borderlight p-6 sm:p-8 shadow-xs hover:shadow-md transition-shadow">
+          <!-- 頂部資訊標籤列 -->
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-borderlight pb-3 mb-4 font-sans-tc text-xs">
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-vermilion bg-vermilion/10 px-2.5 py-1 rounded-md border border-vermilion/20">${s.theme}</span>
+              <span class="text-amberlight bg-amber-50 px-2.5 py-1 rounded-md border border-gold/30">⏳ ${s.timeTag}</span>
+            </div>
+            <span class="text-charcoal/60 font-mono text-[11px]">${s.cbeta}</span>
+          </div>
+
+          <!-- 標題與地點徽章 (點擊地點可反向連動地圖) -->
+          <div class="mb-4">
+            <h3 class="text-xl sm:text-2xl font-bold text-ink mb-1 flex items-center gap-2">
+              <span>${idx + 1}.</span> <span>${s.number}</span>
+            </h3>
+            <div class="flex items-center gap-2 text-xs sm:text-sm text-charcoal/80 font-sans-tc mt-1.5">
+              <span>📍 說法處所：</span>
+              <span onclick="selectLocationNode('${s.locId}', false)" class="font-bold text-vermilion hover:underline cursor-pointer bg-tagbg px-2 py-0.5 rounded border border-borderlight flex items-center gap-1" title="點擊在左側地圖高亮此處">
+                <span>${s.locName}</span> <span class="text-xs">↗</span>
+              </span>
+            </div>
+          </div>
+
+          <!-- 原典精粹：證信序加強排版框 -->
+          <div class="bg-tagbg/70 border-l-4 border-gold p-5 rounded-r-2xl mb-5 space-y-2.5">
+            <div class="flex items-center justify-between text-xs text-gold font-bold font-sans-tc">
+              <span class="flex items-center gap-1.5 uppercase tracking-wider">
+                <span>📜</span> 佛陀說法原典（如是我聞）
+              </span>
+              <button onclick="copyQuoteText(this)" class="text-charcoal/60 hover:text-vermilion underline font-normal transition-colors">複製原句</button>
+            </div>
+            <p class="text-base sm:text-lg text-ink font-serif leading-[1.9] select-all tracking-wide">
+              ${s.oq}
+            </p>
+          </div>
+
+          <!-- 白話解義與現代實踐啟發 -->
+          <div class="space-y-3 font-sans-tc text-xs sm:text-sm text-charcoal leading-relaxed pt-1">
+            <div class="p-4 bg-softbg rounded-2xl border border-borderlight">
+              <strong class="font-bold text-ink block mb-1 font-serif text-sm">【經意心靈指引】：</strong>
+              <p class="text-charcoal/90">${s.meaning}</p>
+            </div>
+            <div class="p-3.5 bg-amber-50/50 rounded-xl border border-gold/20 text-ink/90 font-medium">
+              ${s.dailyTakeaway}
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    /* 複製經文原句功能 */
+    function copyQuoteText(btn) {
+      const quoteEl = btn.closest('.bg-tagbg\\/70').querySelector('p');
+      if (!quoteEl) return;
+      const text = quoteEl.innerText.trim();
+      navigator.clipboard.writeText(text).then(() => {
+        const orig = btn.textContent;
+        btn.textContent = '已複製！';
+        btn.classList.add('text-vermilion', 'font-bold');
+        setTimeout(() => {
+          btn.textContent = orig;
+          btn.classList.remove('text-vermilion', 'font-bold');
+        }, 1800);
+      });
+    }
+
+    function resetToOverview() {
+      switchDharmaTheme('khandha');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function scrollToSutraList() {
+      const el = document.getElementById('sutra-display-column');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initMapNodes();
+      initThemeTabs();
+      changeFontSize(0);
+      switchDharmaTheme('khandha');
+    });
+  </script>
+</body>
+</html>
